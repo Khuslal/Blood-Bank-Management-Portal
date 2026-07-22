@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeControllerApi {
 	
 	
-	@GetMapping("/api")
+	@GetMapping({"/api","/api/"})
 	public String getApiHome() {
 		return "Home Page";
 	}

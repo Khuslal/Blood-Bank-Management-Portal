@@ -8,16 +8,11 @@
 
     <title>LifeLine Blood Bank Dashboard</title>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap (local) -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+    <!-- Bootstrap Icons (local) -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap-icons.min.css}">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" th:href="@{/css/dashboard.css}">
@@ -134,7 +129,8 @@
 
                 </button>
 
-                <img src="https://ui-avatars.com/api/?background=dc3545&color=fff&name=User"
+                <img th:src="@{/img/default-avatar.png}"
+                     alt="User avatar"
                      class="profile">
 
             </div>
@@ -199,7 +195,8 @@
 
                     <h5>Lives Saved</h5>
 
-                    <h2 th:text="${donationCount*3}">15</h2>
+                    <h2>15</h2>
+					<!--<h2 th:text="${donationCount*3}">15</h2>-->
 
                 </div>
 
@@ -465,9 +462,7 @@ Open
 </div>
 
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script th:src="@{/js/chart.min.js}"></script>
 <script th:src="@{/js/dashboard.js}"></script>
 
 </body>
