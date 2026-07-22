@@ -1,165 +1,474 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: header-assets('LifeLine Portal')}"></head>
+<head>
 
-<body class="bg-body-tertiary">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<header class="navbar navbar-expand-lg bg-white border-bottom shadow-sm px-4 py-3 sticky-top">
-		<div class="container-fluid d-flex justify-content-between align-items-center">
-			<div>
-				<h1 class="fs-4 fw-bold m-0 text-dark" th:text="'Welcome back, ' + ${currentUserName} + ' 👋'">Welcome
-					back, User 👋</h1>
-				<small class="text-secondary font-monospace" id="dashboardNstClock">Nepal Standard Time (NST):
-					Syncing...</small>
-			</div>
-			<div class="d-flex gap-2">
-				<button type="button" class="btn btn-danger font-semibold px-4" data-bs-toggle="modal"
-					data-bs-target="#donationModal">🩸 Quick Donate</button>
-				<a th:href="@{/logout}" class="btn btn-outline-dark font-semibold px-3">Sign Out</a>
-			</div>
-		</div>
-	</header>
+    <title>LifeLine Blood Bank Dashboard</title>
 
-	<main class="container-fluid px-4 py-4">
-		<!-- System Eligibility Alert Message banner processing logic -->
-		<div class="row mb-4">
-			<div class="col-12">
-				<div th:if="${lastDonationDate == null || T(java.time.temporal.ChronoUnit).DAYS.between(lastDonationDate, T(java.time.LocalDate).now()) >= 56}"
-					class="alert alert-success border-success-subtle bg-success bg-opacity-10 d-flex align-items-center gap-3 p-3 m-0 rounded-3 text-success-emphasis">
-					<span class="fs-4">✅</span>
-					<div><strong>You are currently eligible to donate blood units safely!</strong><br><small>No standard
-							recovery timeline restrictions are blocking contribution streams today.</small></div>
-				</div>
-				<div th:unless="${lastDonationDate == null || T(java.time.temporal.ChronoUnit).DAYS.between(lastDonationDate, T(java.time.LocalDate).now()) >= 56}"
-					class="alert alert-warning border-warning-subtle bg-warning bg-opacity-10 d-flex align-items-center gap-3 p-3 m-0 rounded-3 text-warning-emphasis">
-					<span class="fs-4">⏳</span>
-					<div><strong>Donation Safety Interval Window Active</strong><br><small
-							th:text="'Safety guidelines mandate 56 days between logs. Days remaining: ' + ${56 - T(java.time.temporal.ChronoUnit).DAYS.between(lastDonationDate, T(java.time.LocalDate).now())} + ' days.'">Deferred
-							interval countdown tracking status active.</small></div>
-				</div>
-			</div>
-		</div>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 
-		<div class="row g-4">
-			<!-- Left Workspace Grid Container -->
-			<div class="col-12 col-xl-8">
-				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 mb-4">
-					<div class="col">
-						<div class="metric-card p-4 position-relative overflow-hidden h-100">
-							<div class="position-absolute top-0 start-0 h-100 bg-info" style="width: 4px;"></div>
-							<small class="text-uppercase font-monospace tracking-wide text-muted small d-block">Blood
-								Type</small>
-							<h3 class="fw-bold my-1 text-dark" th:text="${currentUserBloodGroup}">O+</h3>
-							<small class="text-secondary small">Your blood group match</small>
-						</div>
-					</div>
-					<div class="col">
-						<div class="metric-card p-4 position-relative overflow-hidden h-100">
-							<div class="position-absolute top-0 start-0 h-100 bg-success" style="width: 4px;"></div>
-							<small class="text-uppercase font-monospace tracking-wide text-muted small d-block">Lives
-								Saved</small>
-							<h3 class="fw-bold my-1 text-dark" th:text="${donationCount * 3}">0</h3>
-							<small class="text-secondary small" th:text="${donationCount} + ' system donations'">0
-								logs</small>
-						</div>
-					</div>
-					<div class="col">
-						<div class="metric-card p-4 position-relative overflow-hidden h-100">
-							<div class="position-absolute top-0 start-0 h-100 bg-warning" style="width: 4px;"></div>
-							<small class="text-uppercase font-monospace tracking-wide text-muted small d-block">Impact
-								Points</small>
-							<h3 class="fw-bold my-1 text-dark" th:text="${userPoints}">0</h3>
-							<small class="text-secondary small">Total system score</small>
-						</div>
-					</div>
-					<div class="col">
-						<div class="metric-card p-4 position-relative overflow-hidden h-100">
-							<div class="position-absolute top-0 start-0 h-100 bg-danger" style="width: 4px;"></div>
-							<small class="text-uppercase font-monospace tracking-wide text-muted small d-block">Account
-								Badge Rank</small>
-							<h5 class="fw-bold my-1 text-danger-emphasis text-truncate"
-								th:text="${userPoints >= 1000 ? '💎 Diamond' : (userPoints >= 500 ? '🥇 Gold' : (userPoints >= 100 ? '🥈 Silver' : '🩸 Donor'))}">
-								Donor</h5>
-							<small class="text-secondary small d-block"
-								th:text="${userPoints >= 1000 ? 'Diamond Tier' : (userPoints >= 500 ? 'Gold Tier' : (userPoints >= 100 ? 'Silver Tier' : 'Rising Hero'))}">Rising
-								Hero</small>
-						</div>
-					</div>
-				</div>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-				<!-- Transaction Log Table Component Container -->
-				<div class="table-custom-wrap shadow-sm bg-white p-4">
-					<h5 class="fw-bold mb-3 text-dark">Recent Contribution Log</h5>
-					<div class="table-responsive">
-						<table class="table align-middle m-0 table-hover">
-							<thead class="table-light text-uppercase font-monospace small">
-								<tr>
-									<th>Log Transaction Code</th>
-									<th>Operational City Center</th>
-									<th>Timestamp Recorded</th>
-									<th>Processing State</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="fw-medium text-dark" th:text="'#DON-LN' + ${userId}">#DON-LN00</td>
-									<td th:text="${userCity}">Unknown</td>
-									<td th:text="${lastDonationDate != null ? lastDonationDate : 'No record linked'}">No
-										Entry</td>
-									<td><span
-											class="badge bg-success-subtle text-success px-2.5 py-1.5 border border-success-subtle">Verified
-											/ Active</span></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
-			<!-- Right Segment Sidebar alerts panel block -->
-			<div class="col-12 col-xl-4">
-				<div class="card border border-light-subtle rounded-3 p-4 h-100 bg-white shadow-sm">
-					<h5 class="fw-bold text-dark mb-4">Portal Feed Notifications</h5>
-					<div class="d-flex flex-column gap-3">
-						<div class="p-3 bg-light rounded-3 border-start border-3 border-danger">
-							<h6 class="fw-bold text-dark m-0">Urgent Request Call: O- Needed</h6>
-							<small class="text-secondary d-block mt-1">Hospitals inside your current city node region
-								are signaling high depletion variables today.</small>
-						</div>
-						<div class="p-3 bg-light rounded-3 border-start border-3 border-info">
-							<h6 class="fw-bold text-dark m-0">Rewards Ledger Syncing</h6>
-							<small class="text-secondary d-block mt-1">Donation logging automatically commits credit
-								points variables onto your system account model mapping layout directly.</small>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
 
-	<!-- Dynamic Modal Dialogue Window Form Mapped from your DonationForm Class -->
-	<div class="modal fade" id="donationModal" tabindex="-1">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content rounded-4 overflow-hidden border-0 shadow-lg">
-				<div class="modal-header bg-danger text-white border-0 px-4 py-3">
-					<h5 class="modal-title fw-bold">Register Donation Transaction</h5>
-					<button type="button" class="btn-close btn-close-white shadow-none" data-bs-toggle="modal"
-						data-bs-target="#donationModal"></button>
-				</div>
-				<form th:action="@{/dashboard/donate/submit}" method="POST">
-					<div class="modal-body p-4 bg-white">
-						<div class="mb-3">
-							<label class="form-label font-monospace small fw-bold text-muted">Verified Contributor
-								Name</label>
-							<input type="text" class="form-control bg-light border-light-subtle text-muted"
-								th:value="${currentUserName}" readonly>
-						</div>
-						<div class="mb-3">
-							<label class="form-label font-monospace small fw-bold text-muted">Identified Blood Type
-								Group</label>
-							<select name="bloodGroup" class="form-select border-light-subtle" required>
-								<option th:each="grp : ${ {'A+','A-','B+','B-','O+','O-','AB+','AB-'} }"
-									th:value="${grp}" th:text="${grp}" th:selected="${grp == currentUserBloodGroup}">
-								</option>
-							</select>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <i class="bi bi-droplet-half text-danger"></i>
+
+            <span>LifeLine</span>
+
+        </div>
+
+        <ul>
+
+            <li class="active">
+                <a href="#">
+                    <i class="bi bi-grid-fill"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/donation/history}">
+                    <i class="bi bi-heart-pulse-fill"></i>
+                    Donations
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/request/list}">
+                    <i class="bi bi-droplet-fill"></i>
+                    Blood Requests
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/appointments}">
+                    <i class="bi bi-calendar-check"></i>
+                    Appointments
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/profile}">
+                    <i class="bi bi-person-circle"></i>
+                    My Profile
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/settings}">
+                    <i class="bi bi-gear-fill"></i>
+                    Settings
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/logout}">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- NAVBAR -->
+
+        <nav class="topbar">
+
+            <div>
+
+                <button id="menuBtn" class="menu-btn">
+
+                    <i class="bi bi-list"></i>
+
+                </button>
+
+                <h2>
+
+                    Welcome,
+                    <span th:text="${currentUserName}">Khuslal</span>
+
+                    👋
+
+                </h2>
+
+            </div>
+
+            <div class="top-right">
+
+                <div id="clock"></div>
+
+                <button class="btn btn-danger">
+
+                    <i class="bi bi-heart-fill"></i>
+
+                    Donate
+
+                </button>
+
+                <img src="https://ui-avatars.com/api/?background=dc3545&color=fff&name=User"
+                     class="profile">
+
+            </div>
+
+        </nav>
+
+        <!-- ELIGIBILITY -->
+
+        <div class="eligibility-card">
+
+            <div>
+
+                <h3>
+
+                    <i class="bi bi-check-circle-fill text-success"></i>
+
+                    Eligible to Donate
+
+                </h3>
+
+                <p>
+
+                    Thank you for saving lives.
+
+                    Your next donation is available.
+
+                </p>
+
+            </div>
+
+            <button class="btn btn-success">
+
+                Donate Now
+
+            </button>
+
+        </div>
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+
+            <div class="card-box">
+
+                <i class="bi bi-droplet-fill"></i>
+
+                <div>
+
+                    <h5>Blood Group</h5>
+
+                    <h2 th:text="${currentUserBloodGroup}">O+</h2>
+
+                </div>
+
+            </div>
+
+            <div class="card-box">
+
+                <i class="bi bi-heart-fill"></i>
+
+                <div>
+
+                    <h5>Lives Saved</h5>
+
+                    <h2 th:text="${donationCount*3}">15</h2>
+
+                </div>
+
+            </div>
+
+            <div class="card-box">
+
+                <i class="bi bi-star-fill"></i>
+
+                <div>
+
+                    <h5>Reward Points</h5>
+
+                    <h2 th:text="${userPoints}">580</h2>
+
+                </div>
+
+            </div>
+
+            <div class="card-box">
+
+                <i class="bi bi-award-fill"></i>
+
+                <div>
+
+                    <h5>Badge</h5>
+
+                    <h4>Gold Donor</h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CONTENT -->
+
+        <div class="content-grid">
+
+            <!-- LEFT -->
+
+            <div class="left-column">
+
+                <!-- RECENT DONATIONS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h4>
+
+                            Recent Donations
+
+                        </h4>
+
+                    </div>
+
+                    <table class="table">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Hospital</th>
+
+                            <th>Date</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        <tr>
+
+                            <td>#1001</td>
+
+                            <td>City Hospital</td>
+
+                            <td>15 Jul 2026</td>
+
+                            <td>
+
+<span class="badge bg-success">
+
+Completed
+
+</span>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>#1002</td>
+
+                            <td>Red Cross</td>
+
+                            <td>12 May 2026</td>
+
+                            <td>
+
+<span class="badge bg-success">
+
+Completed
+
+</span>
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <!-- CHART PLACEHOLDER -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h4>
+
+                            Monthly Donations
+
+                        </h4>
+
+                    </div>
+
+                    <canvas id="donationChart"></canvas>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="right-column">
+
+                <!-- EMERGENCY -->
+
+                <div class="dashboard-card">
+
+                    <h4>
+
+                        🚨 Emergency Requests
+
+                    </h4>
+
+                    <ul class="request-list">
+
+                        <li>
+
+                            <span>O- Blood</span>
+
+                            <span class="badge bg-danger">
+
+Critical
+
+</span>
+
+                        </li>
+
+                        <li>
+
+                            <span>A+</span>
+
+                            <span class="badge bg-warning">
+
+Urgent
+
+</span>
+
+                        </li>
+
+                        <li>
+
+                            <span>B+</span>
+
+                            <span class="badge bg-success">
+
+Open
+
+</span>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <!-- NOTIFICATIONS -->
+
+                <div class="dashboard-card">
+
+                    <h4>
+
+                        Notifications
+
+                    </h4>
+
+                    <div class="notification">
+
+                        Blood donation camp tomorrow.
+
+                    </div>
+
+                    <div class="notification">
+
+                        You earned 50 points.
+
+                    </div>
+
+                    <div class="notification">
+
+                        Your profile is 95% complete.
+
+                    </div>
+
+                </div>
+
+                <!-- PROGRESS -->
+
+                <div class="dashboard-card">
+
+                    <h4>
+
+                        Next Badge Progress
+
+                    </h4>
+
+                    <div class="progress">
+
+                        <div class="progress-bar bg-danger"
+                             style="width:70%">
+
+                        </div>
+
+                    </div>
+
+                    <small>
+
+                        700 / 1000 Points
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script th:src="@{/js/dashboard.js}"></script>
+
+</body>
+</html>

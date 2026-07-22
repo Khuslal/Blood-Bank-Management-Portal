@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: header-assets('Join LifeLine Platform')}"></head>
+<head th:replace="~{fragments/layout :: header-assets('Join LifeLine Platform')}">
+	<!-- Local Bootstrap CSS (No internet needed) -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
 
 <body>
 	<main class="container-fluid p-0 my-auto flex-grow-1 d-flex">
@@ -110,7 +113,7 @@
 			const v = e.target.value;
 			const bar = document.getElementById('strengthBar');
 			const lbl = document.getElementById('strengthLabel');
-            int score = 0;
+			let score = 0;
 
 			if (v.length >= 6) score += 25;
 			if (/[A-Z]/.test(v)) score += 25;
@@ -123,7 +126,8 @@
 			else {bar.className = "progress-bar bg-success"; lbl.innerText = "Strength: Excellent/Robust";}
 		});
 	</script>
-	<script src="https://jsdelivr.net"></script>
+	<!-- Local Bootstrap JS Bundle (No internet needed) -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 </html>

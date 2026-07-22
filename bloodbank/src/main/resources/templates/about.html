@@ -1,66 +1,107 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head th:replace="~{fragments/layout :: header-assets('Our Mission | LifeLine')}"></head>
+
+<head th:replace="~{fragments/layout :: header-assets('Our Mission | LifeLine')}">
+	<!-- Local Bootstrap CSS (No internet needed) -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
 <body>
-    <div th:replace="~{fragments/layout :: navbar('about')}"></div>
+	<div th:replace="~{fragments/layout :: navbar('about')}"></div>
 
-    <main class="container py-5 my-auto">
-        <div class="text-center bg-light p-4 p-sm-5 rounded-4 mb-5 border border-light-subtle">
-            <h1 class="display-4 fw-extrabold text-dark">Every drop tells a story of <span class="text-danger">Hope.</span></h1>
-            <p class="lead text-secondary mt-3">We are building the bridge between compassion and crisis management systems.</p>
-        </div>
+	<main class="container py-5 my-auto">
+		<div class="text-center bg-light p-4 p-sm-5 rounded-4 mb-5 border border-light-subtle">
+			<h1 class="display-4 fw-extrabold text-dark">Every drop tells a story of <span
+					class="text-danger">Hope.</span></h1>
+			<p class="lead text-secondary mt-3">We are building the bridge between compassion and crisis management
+				systems.</p>
+		</div>
 
-        <div class="row mb-5 justify-content-center">
-            <div class="col-12 col-md-10 text-secondary lh-lg fs-5 text-center">
-                LifeLine was established to modernize the blood donation framework infrastructure in Nepal. By integrating real-time software automation pipelines with community healthcare, we guarantee that critical packages dispatch rapidly to destinations without encountering administrative barriers.
-            </div>
-        </div>
+		<div class="row mb-5 justify-content-center">
+			<div class="col-12 col-md-10 text-secondary lh-lg fs-5 text-center">
+				LifeLine was established to modernize the blood donation framework infrastructure in Nepal. By
+				integrating real-time software automation pipelines with community healthcare, we guarantee that
+				critical packages dispatch rapidly to destinations without encountering administrative barriers.
+			</div>
+		</div>
 
-        <div class="row g-4 row-cols-1 row-cols-md-3 mb-5">
-            <div class="col">
-                <div class="metric-card p-4 h-100">
-                    <h3 class="text-danger fw-bold display-6">1 Donation</h3>
-                    <h5 class="text-dark fw-bold my-2">Saves 3 Lives</h5>
-                    <p class="text-muted small m-0">Separated into processing components: Red Blood cells, Blood Plasma, and Platelets segments.</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="metric-card p-4 h-100">
-                    <h3 class="text-danger fw-bold display-6">Every 2 Sec</h3>
-                    <h5 class="text-dark fw-bold my-2">A New Patient</h5>
-                    <p class="text-muted small m-0">The logistical demand metrics across public emergency medical centers are constant and hyper-urgent.</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="metric-card p-4 h-100">
-                    <h3 class="text-danger fw-bold display-6">100% Gift</h3>
-                    <h5 class="text-dark fw-bold my-2">Human Sourced</h5>
-                    <p class="text-muted small m-0">Blood cannot be manufactured synthetically; it depends entirely upon volunteer human support networks.</p>
-                </div>
-            </div>
-        </div>
+		<div class="row g-4 row-cols-1 row-cols-md-3 mb-5">
+			<div class="col">
+				<div class="metric-card p-4 h-100">
+					<h3 class="text-danger fw-bold display-6">1 Donation</h3>
+					<h5 class="text-dark fw-bold my-2">Saves 3 Lives</h5>
+					<p class="text-muted small m-0">Separated into processing components: Red Blood cells, Blood Plasma,
+						and Platelets segments.</p>
+				</div>
+			</div>
+			<div class="col">
+				<div class="metric-card p-4 h-100">
+					<h3 class="text-danger fw-bold display-6">Every 2 Sec</h3>
+					<h5 class="text-dark fw-bold my-2">A New Patient</h5>
+					<p class="text-muted small m-0">The logistical demand metrics across public emergency medical
+						centers are constant and hyper-urgent.</p>
+				</div>
+			</div>
+			<div class="col">
+				<div class="metric-card p-4 h-100">
+					<h3 class="text-danger fw-bold display-6">100% Gift</h3>
+					<h5 class="text-dark fw-bold my-2">Human Sourced</h5>
+					<p class="text-muted small m-0">Blood cannot be manufactured synthetically; it depends entirely upon
+						volunteer human support networks.</p>
+				</div>
+			</div>
+		</div>
 
-        <!-- Matching Table Design Parameters from your AboutUsPage Class -->
-        <div class="table-custom-wrap shadow-sm mb-5">
-            <div class="bg-light p-3 border-bottom"><h4 class="m-0 fw-bold fs-5">Blood Matching Compatibility Blueprint Reference</h4></div>
-            <div class="table-responsive">
-                <table class="table align-middle m-0 table-hover">
-                    <thead class="table-light text-uppercase font-monospace small">
-                        <tr><th>Group Type</th><th>Give To (Recipient Distribution)</th><th>Receive From (Compatible Donors)</th></tr>
-                    </thead>
-                    <tbody class="text-dark">
-                        <tr><td><strong>O-</strong></td><td><span class="badge bg-danger">Universal Donor</span> (All Patient Groups)</td><td>O- Only</td></tr>
-                        <tr><td><strong>O+</strong></td><td>O+, A+, B+, AB+</td><td>O+, O-</td></tr>
-                        <tr><td><strong>AB+</strong></td><td>AB+ Only</td><td><span class="badge bg-success">Universal Recipient</span> (All Types)</td></tr>
-                        <tr><td><strong>A+</strong></td><td>A+, AB+</td><td>A+, A-, O+, O-</td></tr>
-                        <tr><td><strong>B+</strong></td><td>B+, AB+</td><td>B+, B-, O+, O-</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+		<!-- Matching Table Design Parameters from your AboutUsPage Class -->
+		<div class="table-custom-wrap shadow-sm mb-5">
+			<div class="bg-light p-3 border-bottom">
+				<h4 class="m-0 fw-bold fs-5">Blood Matching Compatibility Blueprint Reference</h4>
+			</div>
+			<div class="table-responsive">
+				<table class="table align-middle m-0 table-hover">
+					<thead class="table-light text-uppercase font-monospace small">
+						<tr>
+							<th>Group Type</th>
+							<th>Give To (Recipient Distribution)</th>
+							<th>Receive From (Compatible Donors)</th>
+						</tr>
+					</thead>
+					<tbody class="text-dark">
+						<tr>
+							<td><strong>O-</strong></td>
+							<td><span class="badge bg-danger">Universal Donor</span> (All Patient Groups)</td>
+							<td>O- Only</td>
+						</tr>
+						<tr>
+							<td><strong>O+</strong></td>
+							<td>O+, A+, B+, AB+</td>
+							<td>O+, O-</td>
+						</tr>
+						<tr>
+							<td><strong>AB+</strong></td>
+							<td>AB+ Only</td>
+							<td><span class="badge bg-success">Universal Recipient</span> (All Types)</td>
+						</tr>
+						<tr>
+							<td><strong>A+</strong></td>
+							<td>A+, AB+</td>
+							<td>A+, A-, O+, O-</td>
+						</tr>
+						<tr>
+							<td><strong>B+</strong></td>
+							<td>B+, AB+</td>
+							<td>B+, B-, O+, O-</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 
-        <div class="text-center py-3"><a th:href="@{/}" class="btn btn-dark btn-lg px-5 py-3 fs-6 rounded-3 shadow">Return to Home Layout</a></div>
-    </main>
-    <script src="https://jsdelivr.net"></script>
+		<div class="text-center py-3"><a th:href="@{/}"
+				class="btn btn-dark btn-lg px-5 py-3 fs-6 rounded-3 shadow">Return to Home Layout</a></div>
+	</main>
+	<!-- Local Bootstrap JS Bundle (No internet needed) -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
+
 </html>

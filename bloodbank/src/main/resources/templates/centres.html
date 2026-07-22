@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: header-assets('Authorized Facilities | LifeLine')}"></head>
+<head th:replace="~{fragments/layout :: header-assets('Authorized Facilities | LifeLine')}">
+	<!-- Local Bootstrap CSS (No internet needed) -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
 
 <body>
-	<div class="bg-dark text-white py-3 px-4 d-flex justify-content-between align-items-center border-bottom border-secondary border-opacity-25">
+	<div
+		class="bg-dark text-white py-3 px-4 d-flex justify-content-between align-items-center border-bottom border-secondary border-opacity-25">
 		<span class="font-monospace tracking-wide small">AM&nbsp; LIFELINE AUTHORIZED MATRIX</span>
-		<a th:href="@{/}" class="btn btn-sm btn-secondary font-monospace tracking-wide text-uppercase">← Back to Base</a>
+		<a th:href="@{/}" class="btn btn-sm btn-secondary font-monospace tracking-wide text-uppercase">← Back to
+			Base</a>
 	</div>
 
 	<main class="container py-5 my-auto">
 		<div class="text-center mb-5">
 			<h1 class="fw-extrabold display-5 text-dark tracking-tight">Authorized Blood Facilities</h1>
-			<p class="text-secondary lead mt-2">Verified community medical storage depots and distribution points operating across Nepal.</p>
+			<p class="text-secondary lead mt-2">Verified community medical storage depots and distribution points
+				operating across Nepal.</p>
 		</div>
 
 		<div class="row justify-content-center mb-5">
 			<div class="col-12 col-md-8 col-lg-6">
-				<input type="text" id="facilitySearch" class="form-control form-control-lg shadow-sm fs-6 px-4 py-3 border-light-subtle" placeholder="Filter facilities dynamically by city, name, tag...">
+				<input type="text" id="facilitySearch"
+					class="form-control form-control-lg shadow-sm fs-6 px-4 py-3 border-light-subtle"
+					placeholder="Filter facilities dynamically by city, name, tag...">
 			</div>
 		</div>
 
@@ -28,12 +36,14 @@
 					<div>
 						<div class="d-flex justify-content-between align-items-start gap-2 mb-3">
 							<h5 class="fw-bold text-dark m-0">Central NRCS Bureau</h5>
-							<span class="badge bg-danger bg-opacity-10 text-danger font-monospace px-2.5 py-1.5">National</span>
+							<span
+								class="badge bg-danger bg-opacity-10 text-danger font-monospace px-2.5 py-1.5">National</span>
 						</div>
 						<p class="text-secondary small mb-2">📍 Soalteemode, Kathmandu</p>
 						<p class="text-secondary small mb-2">📞 01-4288485</p>
 					</div>
-					<div class="border-top pt-3 mt-3 d-flex justify-content-between align-items-center text-muted small">
+					<div
+						class="border-top pt-3 mt-3 d-flex justify-content-between align-items-center text-muted small">
 						<span>Window: <strong>24/7 Hours</strong></span>
 						<span class="text-success fw-bold">● Active</span>
 					</div>
@@ -46,12 +56,14 @@
 					<div>
 						<div class="d-flex justify-content-between align-items-start gap-2 mb-3">
 							<h5 class="fw-bold text-dark m-0">Patan Hospital Bank</h5>
-							<span class="badge bg-primary bg-opacity-10 text-primary font-monospace px-2.5 py-1.5">Public</span>
+							<span
+								class="badge bg-primary bg-opacity-10 text-primary font-monospace px-2.5 py-1.5">Public</span>
 						</div>
 						<p class="text-secondary small mb-2">📍 Lagankhel, Lalitpur</p>
 						<p class="text-secondary small mb-2">📞 01-5522265</p>
 					</div>
-					<div class="border-top pt-3 mt-3 d-flex justify-content-between align-items-center text-muted small">
+					<div
+						class="border-top pt-3 mt-3 d-flex justify-content-between align-items-center text-muted small">
 						<span>Window: <strong>24/7 Hours</strong></span>
 						<span class="text-success fw-bold">● Active</span>
 					</div>
@@ -64,12 +76,14 @@
 					<div>
 						<div class="d-flex justify-content-between align-items-start gap-2 mb-3">
 							<h5 class="fw-bold text-dark m-0">NRCS Regional Dharan</h5>
-							<span class="badge bg-warning bg-opacity-10 text-warning-emphasis font-monospace px-2.5 py-1.5">Regional</span>
-                        </div>
+							<span
+								class="badge bg-warning bg-opacity-10 text-warning-emphasis font-monospace px-2.5 py-1.5">Regional</span>
+						</div>
 						<p class="text-secondary small mb-2">📍 BPKIHS Campus, Dharan</p>
 						<p class="text-secondary small mb-2">📞 025-525555</p>
 					</div>
-					<div class="border-top pt-3 mt-3 d-flex justify-content-between align-items-center text-muted small">
+					<div
+						class="border-top pt-3 mt-3 d-flex justify-content-between align-items-center text-muted small">
 						<span>Window: <strong>24/7 Hours</strong></span>
 						<span class="text-success fw-bold">● Active</span>
 					</div>
@@ -77,12 +91,15 @@
 			</div>
 		</div>
 
-		<div id="noResults" class="text-center py-5 text-muted font-monospace d-none">No authorized institutions matched your filter query string parameters.</div>
+		<div id="noResults" class="text-center py-5 text-muted font-monospace d-none">No authorized institutions matched
+			your filter query string parameters.</div>
 	</main>
 
 	<footer class="bg-white border-top py-4 mt-auto">
-		<div class="container text-center text-muted small d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2">
-			<strong>📞 Emergency Central NRCS Hotline: 01-4288485</strong><span class="d-none d-sm-inline">|</span><span>Ambulance Network: 102</span>
+		<div
+			class="container text-center text-muted small d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2">
+			<strong>📞 Emergency Central NRCS Hotline: 01-4288485</strong><span
+				class="d-none d-sm-inline">|</span><span>Ambulance Network: 102</span>
 		</div>
 	</footer>
 
@@ -107,9 +124,8 @@
 			if (visibleCount === 0) noResBlock.classList.remove('d-none');
 			else noResBlock.classList.add('d-none');
 		});
-	</script>
-	<!-- Fixed CDN source path injection links -->
-	<script src="https://jsdelivr.net"></script>
+		<!-- Local Bootstrap JS Bundle (No internet needed) -->
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 </html>

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: header-assets('Blood Request Portal')}"></head>
+<head th:replace="~{fragments/layout :: header-assets('Blood Request Portal')}">
+	<!-- Local Bootstrap CSS (No internet needed) -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
 
 <body>
 	<div th:replace="~{fragments/layout :: navbar('request')}"></div>
@@ -84,7 +87,8 @@
 			</div>
 		</div>
 	</main>
-	<script src="https://jsdelivr.net"></script>
+	<!-- Local Bootstrap JS Bundle (No internet needed) -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 </html>

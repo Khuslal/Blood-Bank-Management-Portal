@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: header-assets('Inventory Stock Status')}"></head>
+<head th:replace="~{fragments/layout :: header-assets('Inventory Stock Status')}">
+	<!-- Local Bootstrap CSS (No internet needed) -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
 
 <body>
 	<div th:replace="~{fragments/layout :: navbar('stock')}"></div>
@@ -67,7 +70,8 @@
 			</div>
 		</div>
 	</main>
-	<script src="https://jsdelivr.net"></script>
+	<!-- Local Bootstrap JS Bundle (No internet needed) -->
+	    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 </html>
