@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="~{fragments/layout :: header-assets('Contact Us | LifeLine')}"></head>
+<body>
+    <div th:replace="~{fragments/layout :: navbar('contact')}"></div>
+
+    <main class="container py-5 my-auto">
+        <div class="text-center mb-5 py-2">
+            <h1 class="fw-extrabold display-5 text-dark">How can we help you?</h1>
+            <p class="lead text-secondary mt-2">Our centralized operational medical units usually respond within 2 hours.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-lg-7">
+                <div class="card shadow-sm border border-light-subtle rounded-4 p-4 p-sm-5 bg-white">
+                    <h4 class="fw-bold mb-4 text-dark text-center text-sm-start">Send Secure Message</h4>
+                    <form th:action="@{/contact/send}" method="POST">
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold tracking-wide text-secondary text-uppercase">Full Contact Name</label>
+                            <input type="text" name="name" class="form-control form-control-lg fs-6" required placeholder="Enter complete full name...">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold tracking-wide text-secondary text-uppercase">Email Address Link</label>
+                            <input type="email" name="email" class="form-control form-control-lg fs-6" required placeholder="Enter destination email address...">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold tracking-wide text-secondary text-uppercase">Message Body</label>
+                            <textarea name="message" rows="5" class="form-control" required placeholder="Type the structural description of your clinical enquiry parameters..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger-custom btn-lg w-100 py-3 font-semibold shadow">Dispatch System Ticket</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Sidebar Info Module block mirroring original object configurations -->
+            <div class="col-12 col-lg-4 d-flex flex-column gap-3">
+                <div class="bg-body-secondary bg-opacity-70 p-4 rounded-4 border border-light-subtle h-100">
+                    <h5 class="fw-bold mb-4 text-dark text-uppercase tracking-wider font-monospace small">Operational Desk Data</h5>
+                    
+                    <div class="mb-4">
+                        <small class="text-danger fw-bold d-block font-monospace mb-1">📍 SYSTEM HEADQUARTERS</small>
+                        <span class="text-dark fw-medium">Butwal, Rupandehi, Nepal</span>
+                    </div>
+                    <div class="mb-4">
+                        <small class="text-danger fw-bold d-block font-monospace mb-1">📞 CENTRAL SUPPORT LINE</small>
+                        <span class="text-dark fw-medium">+977 9867142822</span>
+                    </div>
+                    <div>
+                        <small class="text-danger fw-bold d-block font-monospace mb-1">✉️ SYSTEM DIGITAL MAILBOX</small>
+                        <span class="text-dark fw-medium">help@lifeline.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://jsdelivr.net"></script>
+</body>
+</html>

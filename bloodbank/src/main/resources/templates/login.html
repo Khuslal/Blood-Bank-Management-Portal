@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: header-assets('Access Portal Login')}"></head>
+
+<body>
+	<main class="container-fluid p-0 my-auto flex-grow-1 d-flex">
+		<div class="row g-0 w-100 flex-grow-1">
+
+			<!-- Branding Visual Split Component Column (Responsive visibility match) -->
+			<div
+				class="col-lg-6 split-hero-side d-none d-lg-flex flex-column justify-content-center align-items-center p-5 text-center position-relative overflow-hidden">
+				<div class="position-absolute top-0 start-0 translate-middle bg-white bg-opacity-10 rounded-circle"
+					style="width: 300px; height: 300px;"></div>
+				<div class="position-absolute bottom-0 end-0 translate-middle bg-white bg-opacity-10 rounded-circle"
+					style="width: 350px; height: 350px;"></div>
+
+				<div class="position-relative z-1 max-w-md">
+					<span class="display-1 d-block mb-3">🩸</span>
+					<h1 class="fw-extrabold display-4 mb-3 tracking-tight">Welcome Back!</h1>
+					<p class="lead text-white-50 m-0">Your donation saves lives inside emergency hospitals. Log in to
+						track your performance points metrics.</p>
+				</div>
+			</div>
+
+			<!-- Interactive Form Column Component Block -->
+			<div
+				class="col-12 col-lg-6 bg-white d-flex flex-column justify-content-center p-4 p-sm-5 position-relative">
+				<div class="position-absolute top-0 end-0 p-4">
+					<a th:href="@{/}" class="text-decoration-none text-muted fw-bold small hover-text-danger">← Back to
+						Base</a>
+				</div>
+
+				<div class="w-100 max-w-md mx-auto py-5">
+					<h2 class="fw-bold tracking-tight text-dark display-6 mb-2">Donor Login</h2>
+					<p class="text-secondary mb-5">Enter authorization configurations to open clinical metrics.</p>
+
+					<form th:action="@{/login/submit}" method="POST">
+						<div th:if="${param.error}"
+							class="alert alert-danger border border-danger-subtle p-3 rounded-3 mb-4 small">
+							Security Credentials Error: Access Denied. Check matching records.
+						</div>
+
+						<div class="mb-4">
+							<label class="form-label small fw-bold tracking-wide text-dark text-uppercase">Username
+								Account Identifier</label>
+							<input type="text" name="username"
+								class="form-control form-control-lg fs-6 px-3 py-2.5 border-light-subtle bg-light bg-opacity-50"
+								required placeholder="Enter username profile pointer...">
+						</div>
+						<div class="mb-5">
+							<label class="form-label small fw-bold tracking-wide text-dark text-uppercase">Password
+								Credential Token</label>
+							<input type="password" name="password"
+								class="form-control form-control-lg fs-6 px-3 py-2.5 border-light-subtle bg-light bg-opacity-50"
+								required placeholder="Enter entry string key...">
+						</div>
+
+						<button type="submit"
+							class="btn btn-danger-custom btn-lg w-100 py-3 font-semibold shadow mb-4">Login to
+							Dashboard</button>
+					</form>
+
+					<div class="text-center font-monospace small text-muted">
+						New volunteer contributor? <a th:href="@{/register}"
+							class="text-danger fw-bold text-decoration-none">Create an account profile</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</main>
+	<script src="https://jsdelivr.net"></script>
+</body>
+
+</html>

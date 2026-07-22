@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: header-assets('Inventory Stock Status')}"></head>
+
+<body>
+	<div th:replace="~{fragments/layout :: navbar('stock')}"></div>
+
+	<!-- Upper Panel Stats Dashboard Component Block -->
+	<div class="bg-dark text-white py-5 shadow-inner">
+		<div class="container">
+			<div class="row g-4 text-center">
+				<div class="col-12 col-md-6 border-end border-secondary border-opacity-25">
+					<span class="text-uppercase tracking-wider text-secondary small d-block mb-1">Total Stock
+						Units</span>
+					<h2 class="display-4 fw-bold m-0" th:text="${totalStockUnits}">0</h2>
+				</div>
+				<div class="col-12 col-md-6">
+					<span class="text-uppercase tracking-wider text-secondary small d-block mb-1">Urgent
+						Shortages</span>
+					<h2 class="display-4 fw-bold text-danger m-0" th:text="${urgentShortagesCount}">0</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Filtering Area Infrastructure -->
+	<main class="container py-5 my-auto">
+		<div class="d-flex flex-col flex-md-row justify-content-between align-items-center gap-3 mb-4 flex-wrap">
+			<form th:action="@{/stock}" method="GET" class="w-100 w-md-50 max-w-sm">
+				<input type="text" name="query" th:value="${param.query}" class="form-control form-control-lg fs-6"
+					placeholder="Search Blood Group (e.g. A+, O-)..." onkeyup="this.form.submit()">
+			</form>
+			<div class="d-flex gap-2 w-100 w-md-auto justify-content-md-end">
+				<a th:href="@{/stock}" class="btn btn-light border px-4 py-2.5 font-semibold">Refresh</a>
+				<a th:href="@{/}" class="btn btn-danger-custom px-4 py-2.5">Back to Home</a>
+			</div>
+		</div>
+
+		<div class="table-custom-wrap shadow-sm">
+			<div class="table-responsive">
+				<table class="table align-middle m-0 table-hover">
+					<thead class="table-light text-uppercase font-monospace small">
+						<tr>
+							<th>Blood Group Type</th>
+							<th>Units Remaining</th>
+							<th>Inventory Status</th>
+							<th>Compatibility Mappings</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item : ${stockSummary}">
+							<td class="fw-bold fs-5 text-dark" th:text="${item.bloodGroup}">O-</td>
+							<td class="text-secondary fw-medium" th:text="${item.totalUnits} + ' Units'">0 Units</td>
+							<td>
+								<span th:if="${item.totalUnits > 15}"
+									class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">OPTIMAL</span>
+								<span th:if="${item.totalUnits <= 15 and item.totalUnits > 5}"
+									class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2">LOW</span>
+								<span th:if="${item.totalUnits <= 5}"
+									class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">CRITICAL</span>
+							</td>
+							<td class="text-muted small" th:text="${item.compatibilityInfo}">Universal Donor</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+	<script src="https://jsdelivr.net"></script>
+</body>
+
+</html>

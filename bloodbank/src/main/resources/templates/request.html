@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: header-assets('Blood Request Portal')}"></head>
+
+<body>
+	<div th:replace="~{fragments/layout :: navbar('request')}"></div>
+
+	<div class="bg-danger text-white py-5 text-center shadow-sm">
+		<div class="container px-3">
+			<h1 class="fw-extrabold tracking-tight display-5">Emergency Request Form</h1>
+			<p class="lead m-0 text-white-50 mt-2">रगत चाहियो। (Emergency Medical Assistance Routing Hub)</p>
+		</div>
+	</div>
+
+	<main class="container py-5 my-auto">
+		<div class="row justify-content-center">
+			<div class="col-12 col-lg-9">
+				<!-- Context Session Notification Ribbon Indicator -->
+				<div th:if="${loggedInUser != null}"
+					class="alert alert-secondary border border-light-subtle d-flex justify-content-between align-items-center mb-4 p-3 rounded-3 bg-white">
+					<span class="text-dark small"><strong th:text="'👤 Profile Context: ' + ${loggedInUser}">John
+							Doe</strong> | Blood Badge: <span class="text-danger fw-bold"
+							th:text="${loggedInBloodGroup}">A+</span></span>
+					<span class="badge bg-dark">Verified Account Session</span>
+				</div>
+
+				<div class="card shadow-sm border border-light-subtle rounded-4 overflow-hidden">
+					<div class="card-body p-4 p-sm-5 bg-white">
+						<form th:action="@{/request-blood/submit}" method="POST" enctype="multipart/form-data">
+							<div class="row g-4 mb-4">
+								<div class="col-12 col-sm-6">
+									<label class="form-label font-monospace small fw-bold text-secondary">👤 PATIENT
+										NAME *</label>
+									<input type="text" name="patientName" class="form-control form-control-lg fs-6"
+										required placeholder="Enter full legal profile name">
+								</div>
+								<div class="col-12 col-sm-6">
+									<label class="form-label font-monospace small fw-bold text-secondary">📞 PHONE
+										NUMBER *</label>
+									<input type="tel" name="phone" class="form-control form-control-lg fs-6" required
+										placeholder="Enter mobile phone number link">
+								</div>
+							</div>
+
+							<div class="row g-4 mb-4">
+								<div class="col-12 col-sm-6">
+									<label class="form-label font-monospace small fw-bold text-secondary">🩸 REQUIRED
+										BLOOD GROUP *</label>
+									<select name="bloodGroup" class="form-select form-select-lg fs-6" required>
+										<option value="">-- Choose Blood Type --</option>
+										<option th:each="grp : ${ {'A+','A-','B+','B-','O+','O-','AB+','AB-'} }"
+											th:value="${grp}" th:text="${grp}"
+											th:selected="${grp == loggedInBloodGroup}"></option>
+									</select>
+								</div>
+								<div class="col-12 col-sm-6">
+									<label class="form-label font-monospace small fw-bold text-secondary">📄 REQUISITION
+										FILE ATTACHMENT</label>
+									<input type="file" name="requisitionFile" class="form-control form-control-lg fs-6">
+								</div>
+							</div>
+
+							<div class="mb-4">
+								<label class="form-label font-monospace small fw-bold text-secondary">💬 URGENCY NOTE /
+									CLINICAL DETAILS</label>
+								<textarea name="note" rows="4" class="form-control"
+									placeholder="Specify clinical location, hospital room identifiers, timing constraints, and required counts..."></textarea>
+							</div>
+
+							<div th:if="${loggedInUser == null}"
+								class="alert alert-info border border-info-subtle p-3 rounded-3 mb-4 bg-info-subtle bg-opacity-25 d-flex gap-2 align-items-center">
+								<span class="fs-5">ℹ️</span><small class="text-info-emphasis">You are dispatching this
+									emergency order form securely as a <strong>Guest account</strong> proxy indicator
+									link.</small>
+							</div>
+
+							<button type="submit"
+								class="btn btn-danger-custom btn-lg w-100 py-3 font-semibold shadow">Dispatch Emergency
+								Application</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="https://jsdelivr.net"></script>
+</body>
+
+</html>

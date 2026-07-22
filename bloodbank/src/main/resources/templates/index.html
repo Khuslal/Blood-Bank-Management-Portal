@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="~{fragments/layout :: header-assets('Blood Bank Management System')}"></head>
+<body>
+    <div th:replace="~{fragments/layout :: navbar('home')}"></div>
+    <div th:replace="~{fragments/layout :: low-stock-alert}"></div>
+
+    <main class="container my-auto py-5 px-4 px-md-5">
+        <div class="row align-items-center g-5 py-3">
+            <div class="col-12 col-lg-6 text-center text-lg-start">
+                <h1 class="hero-title text-dark mb-4">Donate Blood,<br><span class="text-danger">Save Lives</span></h1>
+                <p class="hero-subtitle mb-5 max-w-lg mx-auto mx-lg-0">A digital platform securely and rapidly connecting volunteer donors, healthcare institutions, and urgent patient clinical requests across Nepal efficiently.</p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
+                    <a th:href="@{/request-blood}" class="btn btn-danger-custom px-5 py-3 fs-6">Request Blood</a>
+                    <a th:href="@{/register}" class="btn btn-outline-danger-custom px-5 py-3 fs-6">Become a Donor</a>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 d-flex justify-content-center">
+                <!-- Clean Modern Geometric Node Graph Vector placeholder mapping to layout configurations -->
+                <svg class="w-100 h-auto" style="max-height: 380px;" viewBox="0 0 500 400" fill="none" xmlns="http://w3.org">
+                    <path d="M60 320 H440" stroke="#e2e8f0" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="130" cy="230" r="35" fill="#f1f5f9"/>
+                    <path d="M130 160 V320" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4"/>
+                    <rect x="235" y="140" width="30" height="150" rx="15" fill="#0ea5e9" opacity="0.8"/>
+                    <circle cx="250" cy="105" r="20" fill="#0284c7"/>
+                    <circle cx="370" cy="230" r="35" fill="#f1f5f9"/>
+                    <path d="M370 160 V320" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4"/>
+                    <rect x="238" y="25" width="24" height="38" rx="6" fill="#dc3545"/>
+                    <circle cx="250" cy="44" r="5" fill="#ffffff"/>
+                </svg>
+            </div>
+        </div>
+    </main>
+    <script src="https://jsdelivr.net"></script>
+</body>
+</html>

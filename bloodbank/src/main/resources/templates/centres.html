@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: header-assets('Authorized Facilities | LifeLine')}"></head>
+
+<body>
+	<div class="bg-dark text-white py-3 px-4 d-flex justify-content-between align-items-center border-bottom border-secondary border-opacity-25">
+		<span class="font-monospace tracking-wide small">AM&nbsp; LIFELINE AUTHORIZED MATRIX</span>
+		<a th:href="@{/}" class="btn btn-sm btn-secondary font-monospace tracking-wide text-uppercase">← Back to Base</a>
+	</div>
+
+	<main class="container py-5 my-auto">
+		<div class="text-center mb-5">
+			<h1 class="fw-extrabold display-5 text-dark tracking-tight">Authorized Blood Facilities</h1>
+			<p class="text-secondary lead mt-2">Verified community medical storage depots and distribution points operating across Nepal.</p>
+		</div>
+
+		<div class="row justify-content-center mb-5">
+			<div class="col-12 col-md-8 col-lg-6">
+				<input type="text" id="facilitySearch" class="form-control form-control-lg shadow-sm fs-6 px-4 py-3 border-light-subtle" placeholder="Filter facilities dynamically by city, name, tag...">
+			</div>
+		</div>
+
+		<div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3" id="facilitiesGrid">
+			<!-- Facility Item 1 -->
+			<div class="col facility-item" data-search="central nrcs bureau soalteemode kathmandu national centre">
+				<div class="metric-card p-4 h-100 d-flex flex-column justify-content-between">
+					<div>
+						<div class="d-flex justify-content-between align-items-start gap-2 mb-3">
+							<h5 class="fw-bold text-dark m-0">Central NRCS Bureau</h5>
+							<span class="badge bg-danger bg-opacity-10 text-danger font-monospace px-2.5 py-1.5">National</span>
+						</div>
+						<p class="text-secondary small mb-2">📍 Soalteemode, Kathmandu</p>
+						<p class="text-secondary small mb-2">📞 01-4288485</p>
+					</div>
+					<div class="border-top pt-3 mt-3 d-flex justify-content-between align-items-center text-muted small">
+						<span>Window: <strong>24/7 Hours</strong></span>
+						<span class="text-success fw-bold">● Active</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Facility Item 2 -->
+			<div class="col facility-item" data-search="patan hospital bank lagankhel lalitpur public hospital">
+				<div class="metric-card p-4 h-100 d-flex flex-column justify-content-between">
+					<div>
+						<div class="d-flex justify-content-between align-items-start gap-2 mb-3">
+							<h5 class="fw-bold text-dark m-0">Patan Hospital Bank</h5>
+							<span class="badge bg-primary bg-opacity-10 text-primary font-monospace px-2.5 py-1.5">Public</span>
+						</div>
+						<p class="text-secondary small mb-2">📍 Lagankhel, Lalitpur</p>
+						<p class="text-secondary small mb-2">📞 01-5522265</p>
+					</div>
+					<div class="border-top pt-3 mt-3 d-flex justify-content-between align-items-center text-muted small">
+						<span>Window: <strong>24/7 Hours</strong></span>
+						<span class="text-success fw-bold">● Active</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Facility Item 3 -->
+			<div class="col facility-item" data-search="nrcs regional dharan bpkihs campus regional bureau">
+				<div class="metric-card p-4 h-100 d-flex flex-column justify-content-between">
+					<div>
+						<div class="d-flex justify-content-between align-items-start gap-2 mb-3">
+							<h5 class="fw-bold text-dark m-0">NRCS Regional Dharan</h5>
+							<span class="badge bg-warning bg-opacity-10 text-warning-emphasis font-monospace px-2.5 py-1.5">Regional</span>
+                        </div>
+						<p class="text-secondary small mb-2">📍 BPKIHS Campus, Dharan</p>
+						<p class="text-secondary small mb-2">📞 025-525555</p>
+					</div>
+					<div class="border-top pt-3 mt-3 d-flex justify-content-between align-items-center text-muted small">
+						<span>Window: <strong>24/7 Hours</strong></span>
+						<span class="text-success fw-bold">● Active</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="noResults" class="text-center py-5 text-muted font-monospace d-none">No authorized institutions matched your filter query string parameters.</div>
+	</main>
+
+	<footer class="bg-white border-top py-4 mt-auto">
+		<div class="container text-center text-muted small d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2">
+			<strong>📞 Emergency Central NRCS Hotline: 01-4288485</strong><span class="d-none d-sm-inline">|</span><span>Ambulance Network: 102</span>
+		</div>
+	</footer>
+
+	<!-- Instantaneous Client Side Searching Filter Logic Pipeline -->
+	<script>
+		document.getElementById('facilitySearch').addEventListener('input', function (e) {
+			const q = e.target.value.toLowerCase().trim();
+			const items = document.querySelectorAll('.facility-item');
+			let visibleCount = 0; // Fixed: altered from 'int' to 'let'
+
+			items.forEach(item => {
+				const searchSpace = item.getAttribute('data-search');
+				if (searchSpace.includes(q)) {
+					item.classList.remove('d-none');
+					visibleCount++;
+				} else {
+					item.classList.add('d-none');
+				}
+			});
+
+			const noResBlock = document.getElementById('noResults');
+			if (visibleCount === 0) noResBlock.classList.remove('d-none');
+			else noResBlock.classList.add('d-none');
+		});
+	</script>
+	<!-- Fixed CDN source path injection links -->
+	<script src="https://jsdelivr.net"></script>
+</body>
+
+</html>
