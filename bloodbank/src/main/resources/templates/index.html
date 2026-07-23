@@ -5,35 +5,228 @@
 
 	<!-- Local Bootstrap CSS (No internet needed) -->
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+	<style>
+		:root {
+			--bb-red: #dc2626;
+			--bb-red-dark: #991b1b;
+			--bb-ink: #111827;
+			--bb-slate: #64748b;
+			--bb-sky: #0ea5e9;
+			--bb-sky-dark: #0284c7;
+		}
+
+		/* ---------- Hero shell + depth blobs ---------- */
+		.hero-section {
+			position: relative;
+			overflow: hidden;
+			isolation: isolate;
+		}
+
+		.hero-blob {
+			position: absolute;
+			border-radius: 50%;
+			filter: blur(60px);
+			z-index: -1;
+			opacity: 0.35;
+			pointer-events: none;
+		}
+
+		.hero-blob-1 {
+			width: clamp(200px, 30vw, 420px);
+			height: clamp(200px, 30vw, 420px);
+			background: var(--bb-red);
+			top: -10%;
+			right: -8%;
+		}
+
+		.hero-blob-2 {
+			width: clamp(160px, 22vw, 320px);
+			height: clamp(160px, 22vw, 320px);
+			background: var(--bb-sky);
+			bottom: -12%;
+			left: -6%;
+		}
+
+		/* ---------- Fluid type ---------- */
+		.hero-title {
+			font-weight: 800;
+			letter-spacing: -0.02em;
+			line-height: 1.08;
+			font-size: clamp(2rem, 5vw + 0.5rem, 3.75rem);
+		}
+
+		.hero-subtitle {
+			font-size: clamp(1rem, 1.5vw + 0.6rem, 1.2rem);
+			color: var(--bb-slate);
+			line-height: 1.6;
+		}
+
+		.max-w-lg {
+			max-width: 34rem;
+		}
+
+		/* ---------- Buttons ---------- */
+		.btn-danger-custom,
+		.btn-outline-danger-custom {
+			border-radius: 0.75rem;
+			font-weight: 600;
+			transition: transform 0.15s ease, box-shadow 0.15s ease;
+			white-space: nowrap;
+		}
+
+		.btn-danger-custom {
+			background: var(--bb-red);
+			border: 1px solid var(--bb-red);
+			color: #fff;
+		}
+
+		.btn-danger-custom:hover,
+		.btn-danger-custom:focus-visible {
+			background: var(--bb-red-dark);
+			border-color: var(--bb-red-dark);
+			transform: translateY(-2px);
+			box-shadow: 0 10px 24px -8px rgba(220, 38, 38, 0.5);
+			color: #fff;
+		}
+
+		.btn-outline-danger-custom {
+			background: transparent;
+			border: 1.5px solid var(--bb-red);
+			color: var(--bb-red);
+		}
+
+		.btn-outline-danger-custom:hover,
+		.btn-outline-danger-custom:focus-visible {
+			background: rgba(220, 38, 38, 0.06);
+			transform: translateY(-2px);
+			color: var(--bb-red-dark);
+		}
+
+		.btn-danger-custom:focus-visible,
+		.btn-outline-danger-custom:focus-visible {
+			outline: 3px solid rgba(14, 165, 233, 0.45);
+			outline-offset: 2px;
+		}
+
+		/* ---------- Trust chips ---------- */
+		.trust-strip {
+			font-size: 0.85rem;
+			color: var(--bb-slate);
+		}
+
+		.trust-chip {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.4rem;
+			white-space: nowrap;
+		}
+
+		.trust-chip::before {
+			content: "";
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: var(--bb-red);
+			flex: 0 0 auto;
+		}
+
+		/* ---------- SVG hero visual ---------- */
+		.hero-visual {
+			max-height: 380px;
+			width: 100%;
+			height: auto;
+		}
+
+		.iv-drip {
+			stroke-dasharray: 4 6;
+			animation: bb-flow 1.6s linear infinite;
+		}
+
+		.iv-pulse {
+			transform-origin: 250px 44px;
+			animation: bb-pulse 2.4s ease-in-out infinite;
+		}
+
+		@keyframes bb-flow {
+			to {
+				stroke-dashoffset: -20;
+			}
+		}
+
+		@keyframes bb-pulse {
+
+			0%,
+			100% {
+				transform: scale(1);
+				opacity: 1;
+			}
+
+			50% {
+				transform: scale(1.12);
+				opacity: 0.85;
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+
+			.iv-drip,
+			.iv-pulse {
+				animation: none;
+			}
+		}
+
+		/* ---------- Responsive spacing tightening on small phones ---------- */
+		@media (max-width: 400px) {
+			.hero-title {
+				font-size: 1.85rem;
+			}
+
+			.btn-danger-custom,
+			.btn-outline-danger-custom {
+				width: 100%;
+			}
+		}
+	</style>
 </head>
 
 <body>
 	<div th:replace="~{fragments/layout :: navbar('home')}"></div>
 	<div th:replace="~{fragments/layout :: low-stock-alert}"></div>
 
-	<main class="container my-auto py-5 px-4 px-md-5">
+	<main class="hero-section container my-auto py-5 px-4 px-md-5">
+		<div class="hero-blob hero-blob-1"></div>
+		<div class="hero-blob hero-blob-2"></div>
+
 		<div class="row align-items-center g-5 py-3">
-			<div class="col-12 col-lg-6 text-center text-lg-start">
+			<div class="col-12 col-md-10 col-lg-6 mx-auto mx-lg-0 text-center text-lg-start">
 				<h1 class="hero-title text-dark mb-4">Donate Blood,<br><span class="text-danger">Save Lives</span></h1>
-				<p class="hero-subtitle mb-5 max-w-lg mx-auto mx-lg-0">A digital platform securely and rapidly
+				<p class="hero-subtitle mb-4 max-w-lg mx-auto mx-lg-0">A digital platform securely and rapidly
 					connecting volunteer donors, healthcare institutions, and urgent patient clinical requests across
 					Nepal efficiently.</p>
-				<div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
+
+				<div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3 mb-4">
 					<a th:href="@{/request-blood}" class="btn btn-danger-custom px-5 py-3 fs-6">Request Blood</a>
 					<a th:href="@{/register}" class="btn btn-outline-danger-custom px-5 py-3 fs-6">Become a Donor</a>
 				</div>
+
+				<div class="trust-strip d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+					<span class="trust-chip">Verified donors</span>
+					<span class="trust-chip">Nationwide network</span>
+					<span class="trust-chip">Free to use</span>
+				</div>
 			</div>
+
 			<div class="col-12 col-lg-6 d-flex justify-content-center">
-				<!-- Clean Modern Geometric Node Graph Vector placeholder mapping to layout configurations -->
-				<svg class="w-100 h-auto" style="max-height: 380px;" viewBox="0 0 500 400" fill="none"
-					xmlns="http://w3.org">
+				<svg class="hero-visual" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img"
+					aria-label="Illustration of a blood donation IV connecting two donor nodes">
 					<path d="M60 320 H440" stroke="#e2e8f0" stroke-width="4" stroke-linecap="round" />
 					<circle cx="130" cy="230" r="35" fill="#f1f5f9" />
-					<path d="M130 160 V320" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4" />
+					<path class="iv-drip" d="M130 160 V320" stroke="#94a3b8" stroke-width="2" />
 					<rect x="235" y="140" width="30" height="150" rx="15" fill="#0ea5e9" opacity="0.8" />
-					<circle cx="250" cy="105" r="20" fill="#0284c7" />
+					<circle class="iv-pulse" cx="250" cy="105" r="20" fill="#0284c7" />
 					<circle cx="370" cy="230" r="35" fill="#f1f5f9" />
-					<path d="M370 160 V320" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4" />
+					<path class="iv-drip" d="M370 160 V320" stroke="#94a3b8" stroke-width="2" />
 					<rect x="238" y="25" width="24" height="38" rx="6" fill="#dc3545" />
 					<circle cx="250" cy="44" r="5" fill="#ffffff" />
 				</svg>
@@ -41,8 +234,6 @@
 		</div>
 	</main>
 
-	<!-- Local Bootstrap JS Bundle (No internet needed) -->
-	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 </html>

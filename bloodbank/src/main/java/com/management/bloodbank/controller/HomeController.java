@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
 	
+	@GetMapping("/dashboard")
+	public String getDashboard() {
+		return "dashboard";
+	}
+	
 	@GetMapping("/")
 	public String getHome() {
-		return "dashboard";
+		return "index";
 	}
 }

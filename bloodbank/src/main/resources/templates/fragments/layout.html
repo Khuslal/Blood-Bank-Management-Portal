@@ -1,55 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <!-- Fragment: Head Layout Dependencies Component -->
+
 <head th:fragment="header-assets(title)">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title}">LifeLine Blood Bank</title>
-    <link href="https://jsdelivr.net" rel="stylesheet">
-    <link href="https://googleapis.com" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title th:text="${title}">LifeLine Blood Bank</title>
+
+	<!-- Local Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<!-- App styles -->
+	<link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 
 <body>
-    <!-- Fragment: Global Multi-Device Dynamic Responsive Navigation Menu Bar Wrapper -->
-    <nav th:fragment="navbar(activePage)" class="navbar navbar-expand-xl navbar-light bg-white navbar-custom sticky-top">
-        <div class="container-fluid px-2 px-sm-4 px-md-5">
-            <a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/}">
-                <svg width="28" height="28" viewBox="0 0 24 24" style="fill: var(--primary-red);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                <span class="fw-bold tracking-tight fs-4 text-dark">LifeLine</span>
-            </a>
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#appNavCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="appNavCollapse">
-                <ul class="navbar-nav mx-auto gap-1 my-3 my-xl-0">
-                    <li class="nav-item"><a th:href="@{/}" class="nav-link nav-link-custom" th:classappend="${activePage == 'home'} ? 'active'">Home</a></li>
-                    <li class="nav-item"><a th:href="@{/stock}" class="nav-link nav-link-custom" th:classappend="${activePage == 'stock'} ? 'active'">Stock Blood</a></li>
-                    <li class="nav-item"><a th:href="@{/about}" class="nav-link nav-link-custom" th:classappend="${activePage == 'about'} ? 'active'">About Us</a></li>
-                    <li class="nav-item"><a th:href="@{/request-blood}" class="nav-link nav-link-custom" th:classappend="${activePage == 'request'} ? 'active'">Request Blood</a></li>
-                    <li class="nav-item"><a th:href="@{/blood-centres}" class="nav-link nav-link-custom" th:classappend="${activePage == 'centres'} ? 'active'">Blood Centres</a></li>
-                    <li class="nav-item"><a th:href="@{/register}" class="nav-link nav-link-custom" th:classappend="${activePage == 'register'} ? 'active'">Become a Donor</a></li>
-                    <li class="nav-item"><a th:href="@{/contact}" class="nav-link nav-link-custom" th:classappend="${activePage == 'contact'} ? 'active'">Contact Us</a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-2">
-                    <a th:href="@{/login}" class="btn btn-outline-danger-custom px-4 py-2 w-100 w-xl-auto">Login</a>
-                    <a th:href="@{/register}" class="btn btn-danger-custom px-4 py-2 w-100 w-xl-auto">Register</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+	<!-- Fragment: Global Multi-Device Dynamic Responsive Navigation Menu Bar Wrapper -->
+	<nav th:fragment="navbar(activePage)"
+		class="navbar navbar-expand-xl navbar-light bg-white navbar-custom sticky-top">
+		<div class="container-fluid px-2 px-sm-4 px-md-5">
+			<a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/}">
+				<svg width="28" height="28" viewBox="0 0 24 24" style="fill: var(--primary-red);">
+					<path
+						d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+				</svg>
+				<span class="fw-bold tracking-tight fs-4 text-dark">LifeLine</span>
+			</a>
+			<button class="navbar-toggler border-0 shadow-none collapsed" type="button" data-bs-toggle="collapse"
+				data-bs-target="#appNavCollapse" aria-label="Toggle navigation">
+				<span class="bar"></span>
+				<span class="bar"></span>
+				<span class="bar"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="appNavCollapse">
+				<div class="nav-scroll-wrap">
+					<ul class="navbar-nav nav-scroll flex-row mx-auto gap-1 my-3 my-xl-0">
+						<li class="nav-item"><a th:href="@{/}" class="nav-link nav-link-custom"
+								th:classappend="${activePage == 'home'} ? 'active'">Home</a></li>
+						<li class="nav-item"><a th:href="@{/stock}" class="nav-link nav-link-custom"
+								th:classappend="${activePage == 'stock'} ? 'active'">Stock Blood</a></li>
+						<li class="nav-item"><a th:href="@{/about}" class="nav-link nav-link-custom"
+								th:classappend="${activePage == 'about'} ? 'active'">About Us</a></li>
+						<li class="nav-item"><a th:href="@{/request-blood}" class="nav-link nav-link-custom"
+								th:classappend="${activePage == 'request'} ? 'active'">Request Blood</a></li>
+						<li class="nav-item"><a th:href="@{/blood-centres}" class="nav-link nav-link-custom"
+								th:classappend="${activePage == 'centres'} ? 'active'">Blood Centres</a></li>
+						<li class="nav-item"><a th:href="@{/register}" class="nav-link nav-link-custom"
+								th:classappend="${activePage == 'register'} ? 'active'">Become a Donor</a></li>
+						<li class="nav-item"><a th:href="@{/contact}" class="nav-link nav-link-custom"
+								th:classappend="${activePage == 'contact'} ? 'active'">Contact Us</a></li>
+					</ul>
+				</div>
+				<div class="d-flex flex-column flex-xl-row align-items-stretch align-items-xl-center gap-2">
+					<a th:href="@{/login}" class="btn btn-outline-danger-custom px-4 py-2 w-100 w-xl-auto">Login</a>
+					<a th:href="@{/register}" class="btn btn-danger-custom px-4 py-2 w-100 w-xl-auto">Register</a>
+				</div>
+			</div>
+		</div>
+	</nav>
 
-    <!-- Fragment: Automated Database Low Stock Alert Component Banner Grid -->
-    <div th:fragment="low-stock-alert" th:if="${not #lists.isEmpty(lowStockAlerts)}" class="low-stock-banner py-2 shadow-sm">
-        <div class="container-fluid px-2 px-sm-5 d-flex align-items-center flex-wrap gap-2">
-            <span class="fs-6">⚠️</span><strong>LOW STOCK ALERT:</strong>
-            <div class="d-flex flex-wrap align-items-center gap-2">
-                <div th:each="alert, iterStat : ${lowStockAlerts}" class="d-inline-flex align-items-center gap-2">
-                    <span class="fw-bold text-danger" th:text="${alert.bloodGroup} + ' (' + ${alert.totalUnits} + ' units)'">O- (4 units)</span>
-                    <span th:if="${!iterStat.last}" class="text-muted small">•</span>
-                </div>
-            </div>
-        </div>
-    </div>
+	<!-- Fragment: Automated Database Low Stock Alert Component Banner Grid -->
+	<div th:fragment="low-stock-alert" th:if="${not #lists.isEmpty(lowStockAlerts)}"
+		class="low-stock-banner py-2 shadow-sm">
+		<div class="container-fluid px-2 px-sm-5 d-flex align-items-center gap-2">
+			<span class="alert-icon fs-6 flex-shrink-0">⚠️</span>
+			<strong class="flex-shrink-0 d-none d-sm-inline">LOW STOCK ALERT:</strong>
+			<strong class="flex-shrink-0 d-inline d-sm-none">LOW STOCK:</strong>
+			<div class="low-stock-scroll d-flex flex-nowrap align-items-center gap-2">
+				<div th:each="alert, iterStat : ${lowStockAlerts}" class="d-inline-flex align-items-center gap-2">
+					<span class="fw-bold text-danger"
+						th:text="${alert.bloodGroup} + ' (' + ${alert.totalUnits} + ' units)'">O- (4 units)</span>
+					<span th:if="${!iterStat.last}" class="text-muted small">•</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Local Bootstrap JS Bundle -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<!-- App JS: nav scroll fades, table scroll fades, sticky navbar shadow -->
+	<script th:src="@{/js/main.js}"></script>
 </body>
+
 </html>
