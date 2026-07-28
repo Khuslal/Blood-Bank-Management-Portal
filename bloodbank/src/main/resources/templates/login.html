@@ -1,80 +1,157 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: header-assets('Access Portal Login')}">
-	<!-- Local Bootstrap CSS (No internet needed) -->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Access Portal Login | LifeLine</title>
+
+	<!-- Local Bootstrap CSS -->
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<!-- App styles -->
+	<link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 
 <body>
-	<main class="container-fluid p-0 my-auto flex-grow-1 d-flex">
-		<div class="row g-0 w-100 flex-grow-1">
+	<main class="container-fluid vh-100">
+	    <div class="row h-100">
 
-			<!-- Branding Visual Split Component Column (Responsive visibility match) -->
-			<div
-				class="col-lg-6 split-hero-side d-none d-lg-flex flex-column justify-content-center align-items-center p-5 text-center position-relative overflow-hidden">
-				<div class="position-absolute top-0 start-0 translate-middle bg-white bg-opacity-10 rounded-circle"
-					style="width: 300px; height: 300px;"></div>
-				<div class="position-absolute bottom-0 end-0 translate-middle bg-white bg-opacity-10 rounded-circle"
-					style="width: 350px; height: 350px;"></div>
+	        <!-- Left Side -->
+	        <div class="col-lg-7 d-none d-lg-flex align-items-center justify-content-center bg-danger text-white">
 
-				<div class="position-relative z-1 max-w-md">
-					<span class="display-1 d-block mb-3">🩸</span>
-					<h1 class="fw-extrabold display-4 mb-3 tracking-tight">Welcome Back!</h1>
-					<p class="lead text-white-50 m-0">Your donation saves lives inside emergency hospitals. Log in to
-						track your performance points metrics.</p>
-				</div>
-			</div>
+	            <div class="text-center px-5">
 
-			<!-- Interactive Form Column Component Block -->
-			<div
-				class="col-12 col-lg-6 bg-white d-flex flex-column justify-content-center p-4 p-sm-5 position-relative">
-				<div class="position-absolute top-0 end-0 p-4">
-					<a th:href="@{/}" class="text-decoration-none text-muted fw-bold small hover-text-danger">← Back to
-						Base</a>
-				</div>
+	                <div class="display-1 mb-4">
+	                    🩸
+	                </div>
 
-				<div class="w-100 max-w-md mx-auto py-5">
-					<h2 class="fw-bold tracking-tight text-dark display-6 mb-2">Donor Login</h2>
-					<p class="text-secondary mb-5">Enter authorization configurations to open clinical metrics.</p>
+	                <h1 class="display-4 fw-bold mb-4">
+	                    LifeLine Blood Bank
+	                </h1>
 
-					<form th:action="@{/login/submit}" method="POST">
-						<div th:if="${param.error}"
-							class="alert alert-danger border border-danger-subtle p-3 rounded-3 mb-4 small">
-							Security Credentials Error: Access Denied. Check matching records.
-						</div>
+	                <p class="lead mb-5">
+	                    Every drop of blood can save a life.
+	                    Join thousands of donors helping hospitals
+	                    and patients across the country.
+	                </p>
 
-						<div class="mb-4">
-							<label class="form-label small fw-bold tracking-wide text-dark text-uppercase">Username
-								Account Identifier</label>
-							<input type="text" name="username"
-								class="form-control form-control-lg fs-6 px-3 py-2.5 border-light-subtle bg-light bg-opacity-50"
-								required placeholder="Enter username profile pointer...">
-						</div>
-						<div class="mb-5">
-							<label class="form-label small fw-bold tracking-wide text-dark text-uppercase">Password
-								Credential Token</label>
-							<input type="password" name="password"
-								class="form-control form-control-lg fs-6 px-3 py-2.5 border-light-subtle bg-light bg-opacity-50"
-								required placeholder="Enter entry string key...">
-						</div>
+	                <div class="row text-start mt-5">
 
-						<button type="submit"
-							class="btn btn-danger-custom btn-lg w-100 py-3 font-semibold shadow mb-4">Login to
-							Dashboard</button>
-					</form>
+	                    <div class="col-6 mb-4">
+	                        <h5>✔ Safe Donation</h5>
+	                        <small>Secure donor management system.</small>
+	                    </div>
 
-					<div class="text-center font-monospace small text-muted">
-						New volunteer contributor? <a th:href="@{/register}"
-							class="text-danger fw-bold text-decoration-none">Create an account profile</a>
-					</div>
-				</div>
-			</div>
+	                    <div class="col-6 mb-4">
+	                        <h5>✔ Emergency Requests</h5>
+	                        <small>Instant blood request tracking.</small>
+	                    </div>
 
-		</div>
+	                    <div class="col-6">
+	                        <h5>✔ Blood Inventory</h5>
+	                        <small>Real-time availability.</small>
+	                    </div>
+
+	                    <div class="col-6">
+	                        <h5>✔ Trusted Hospitals</h5>
+	                        <small>Connected medical centers.</small>
+	                    </div>
+
+	                </div>
+
+	            </div>
+
+	        </div>
+
+	        <!-- Right Side -->
+	        <div class="col-lg-5 col-12 d-flex align-items-center justify-content-center bg-light">
+
+	            <div class="card shadow-lg border-0 rounded-4 p-4 p-lg-5" style="max-width:480px;width:100%;">
+
+	                <div class="text-center mb-4">
+	                    <h2 class="fw-bold text-danger">
+	                        Donor Login
+	                    </h2>
+
+	                    <p class="text-muted">
+	                        Sign in to access your dashboard.
+	                    </p>
+	                </div>
+
+	                <form th:action="@{/login/submit}" method="post">
+
+	                    <div th:if="${param.error}"
+	                        class="alert alert-danger">
+	                        Invalid Username or Password.
+	                    </div>
+
+	                    <div class="mb-3">
+	                        <label class="form-label fw-semibold">
+	                            Username
+	                        </label>
+
+	                        <input
+	                            type="text"
+	                            class="form-control form-control-lg"
+	                            name="username"
+	                            required>
+	                    </div>
+
+	                    <div class="mb-4">
+	                        <label class="form-label fw-semibold">
+	                            Password
+	                        </label>
+
+	                        <input
+	                            type="password"
+	                            class="form-control form-control-lg"
+	                            name="password"
+	                            required>
+	                    </div>
+
+	                    <div class="d-flex justify-content-between mb-4">
+
+	                        <div class="form-check">
+	                            <input class="form-check-input"
+	                                   type="checkbox">
+
+	                            <label class="form-check-label">
+	                                Remember Me
+	                            </label>
+	                        </div>
+
+	                        <a href="#" class="text-danger text-decoration-none">
+	                            Forgot Password?
+	                        </a>
+
+	                    </div>
+
+	                    <button
+	                        class="btn btn-danger btn-lg w-100">
+	                        Login
+	                    </button>
+
+	                </form>
+
+	                <hr>
+
+	                <div class="text-center">
+
+	                    Don't have an account?
+
+	                    <a th:href="@{/register}"
+	                        class="text-danger fw-bold text-decoration-none">
+	                        Register Here
+	                    </a>
+
+	                </div>
+
+	            </div>
+
+	        </div>
+
+	    </div>
 	</main>
-	<!-- Local Bootstrap JS Bundle (No internet needed) -->
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
-
 </html>

@@ -1,38 +1,81 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: header-assets('Inventory Stock Status')}">
-	<!-- Local Bootstrap CSS (No internet needed) -->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Inventory Stock Status | LifeLine</title>
+
+	<!-- Local Bootstrap CSS -->
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<!-- App styles -->
+	<link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 
 <body>
-	<div th:replace="~{fragments/layout :: navbar('stock')}"></div>
+	<!-- Automated Database Low Stock Alert Component Banner Grid -->
+	<div th:if="${not #lists.isEmpty(lowStockAlerts)}" class="low-stock-banner py-2 shadow-sm">
+		<div class="container-fluid px-2 px-sm-5 d-flex align-items-center gap-2">
+			<span class="alert-icon fs-6 flex-shrink-0">⚠️</span>
+			<strong class="flex-shrink-0 d-none d-sm-inline">LOW STOCK ALERT:</strong>
+			<div class="low-stock-scroll d-flex flex-nowrap align-items-center gap-2">
+				<div th:each="alert, iterStat : ${lowStockAlerts}" class="d-inline-flex align-items-center gap-2">
+					<span class="fw-bold text-danger" th:text="${alert.bloodGroup} + ' (' + ${alert.totalUnits} + ' units)'">O- (4 units)</span>
+					<span th:if="${!iterStat.last}" class="text-muted small">•</span>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<!-- Upper Panel Stats Dashboard Component Block -->
+	<!-- Navigation Bar -->
+	<nav class="navbar navbar-expand-xl navbar-light bg-white navbar-custom sticky-top">
+		<div class="container-fluid px-2 px-sm-4 px-md-5">
+			<a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/}">
+				<svg width="28" height="28" viewBox="0 0 24 24" style="fill: var(--primary-red);"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>
+				<span class="fw-bold tracking-tight fs-4 text-dark">LifeLine</span>
+			</a>
+			<button class="navbar-toggler border-0 shadow-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#appNavCollapse">
+				<span class="bar"></span><span class="bar"></span><span class="bar"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="appNavCollapse">
+				<div class="nav-scroll-wrap">
+					<ul class="navbar-nav nav-scroll flex-row mx-auto gap-1 my-3 my-xl-0">
+						<li class="nav-item"><a th:href="@{/}" class="nav-link nav-link-custom">Home</a></li>
+						<li class="nav-item"><a th:href="@{/stock}" class="nav-link nav-link-custom active">Stock Blood</a></li>
+						<li class="nav-item"><a th:href="@{/about}" class="nav-link nav-link-custom">About Us</a></li>
+						<li class="nav-item"><a th:href="@{/request-blood}" class="nav-link nav-link-custom">Request Blood</a></li>
+						<li class="nav-item"><a th:href="@{/blood-centres}" class="nav-link nav-link-custom">Blood Centres</a></li>
+						<li class="nav-item"><a th:href="@{/register}" class="nav-link nav-link-custom">Become a Donor</a></li>
+						<li class="nav-item"><a th:href="@{/contact}" class="nav-link nav-link-custom">Contact Us</a></li>
+					</ul>
+				</div>
+				<div class="d-flex flex-column flex-xl-row align-items-stretch align-items-xl-center gap-2">
+					<a th:href="@{/login}" class="btn btn-outline-danger-custom px-4 py-2 w-100 w-xl-auto">Login</a>
+					<a th:href="@{/register}" class="btn btn-danger-custom px-4 py-2 w-100 w-xl-auto">Register</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
 	<div class="bg-dark text-white py-5 shadow-inner">
 		<div class="container">
 			<div class="row g-4 text-center">
 				<div class="col-12 col-md-6 border-end border-secondary border-opacity-25">
-					<span class="text-uppercase tracking-wider text-secondary small d-block mb-1">Total Stock
-						Units</span>
+					<span class="text-uppercase tracking-wider text-secondary small d-block mb-1">Total Stock Units</span>
 					<h2 class="display-4 fw-bold m-0" th:text="${totalStockUnits}">0</h2>
 				</div>
 				<div class="col-12 col-md-6">
-					<span class="text-uppercase tracking-wider text-secondary small d-block mb-1">Urgent
-						Shortages</span>
+					<span class="text-uppercase tracking-wider text-secondary small d-block mb-1">Urgent Shortages</span>
 					<h2 class="display-4 fw-bold text-danger m-0" th:text="${urgentShortagesCount}">0</h2>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Filtering Area Infrastructure -->
 	<main class="container py-5 my-auto">
 		<div class="d-flex flex-col flex-md-row justify-content-between align-items-center gap-3 mb-4 flex-wrap">
 			<form th:action="@{/stock}" method="GET" class="w-100 w-md-50 max-w-sm">
-				<input type="text" name="query" th:value="${param.query}" class="form-control form-control-lg fs-6"
-					placeholder="Search Blood Group (e.g. A+, O-)..." onkeyup="this.form.submit()">
+				<input type="text" name="query" th:value="${param.query}" class="form-control form-control-lg fs-6" placeholder="Search Blood Group (e.g. A+, O-)..." onkeyup="this.form.submit()">
 			</form>
 			<div class="d-flex gap-2 w-100 w-md-auto justify-content-md-end">
 				<a th:href="@{/stock}" class="btn btn-light border px-4 py-2.5 font-semibold">Refresh</a>
@@ -44,24 +87,16 @@
 			<div class="table-responsive">
 				<table class="table align-middle m-0 table-hover">
 					<thead class="table-light text-uppercase font-monospace small">
-						<tr>
-							<th>Blood Group Type</th>
-							<th>Units Remaining</th>
-							<th>Inventory Status</th>
-							<th>Compatibility Mappings</th>
-						</tr>
+						<tr><th>Blood Group Type</th><th>Units Remaining</th><th>Inventory Status</th><th>Compatibility Mappings</th></tr>
 					</thead>
 					<tbody>
 						<tr th:each="item : ${stockSummary}">
 							<td class="fw-bold fs-5 text-dark" th:text="${item.bloodGroup}">O-</td>
 							<td class="text-secondary fw-medium" th:text="${item.totalUnits} + ' Units'">0 Units</td>
 							<td>
-								<span th:if="${item.totalUnits > 15}"
-									class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">OPTIMAL</span>
-								<span th:if="${item.totalUnits <= 15 and item.totalUnits > 5}"
-									class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2">LOW</span>
-								<span th:if="${item.totalUnits <= 5}"
-									class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">CRITICAL</span>
+								<span th:if="${item.totalUnits > 15}" class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">OPTIMAL</span>
+								<span th:if="${item.totalUnits <= 15 and item.totalUnits > 5}" class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2">LOW</span>
+								<span th:if="${item.totalUnits <= 5}" class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">CRITICAL</span>
 							</td>
 							<td class="text-muted small" th:text="${item.compatibilityInfo}">Universal Donor</td>
 						</tr>
@@ -70,8 +105,8 @@
 			</div>
 		</div>
 	</main>
-	<!-- Local Bootstrap JS Bundle (No internet needed) -->
-	    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-</body>
 
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+</body>
 </html>

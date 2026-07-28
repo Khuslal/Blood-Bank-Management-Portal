@@ -1,469 +1,243 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>LifeLine Blood Bank Dashboard</title>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Local Core Bootstrap Bundle (No active internet connection needed) -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 
-    <title>LifeLine Blood Bank Dashboard</title>
+	<!-- Local Bootstrap Icons Mapping File Matrix -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap-icons.min.css}">
 
-    <!-- Bootstrap (local) -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-
-    <!-- Bootstrap Icons (local) -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap-icons.min.css}">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
-
+	<!-- Autonomous Custom Project Dashboard Layout Rules Sheet -->
+	<link rel="stylesheet" th:href="@{/css/dashboard.css}">
 </head>
 
 <body>
 
-<div class="wrapper">
-
-    <!-- ================= SIDEBAR ================= -->
-
-    <aside class="sidebar">
-
-        <div class="logo">
-
-            <i class="bi bi-droplet-half text-danger"></i>
-
-            <span>LifeLine</span>
-
-        </div>
-
-        <ul>
-
-            <li class="active">
-                <a href="#">
-                    <i class="bi bi-grid-fill"></i>
-                    Dashboard
-                </a>
-            </li>
-
-            <li>
-                <a th:href="@{/donation/history}">
-                    <i class="bi bi-heart-pulse-fill"></i>
-                    Donations
-                </a>
-            </li>
-
-            <li>
-                <a th:href="@{/request/list}">
-                    <i class="bi bi-droplet-fill"></i>
-                    Blood Requests
-                </a>
-            </li>
-
-            <li>
-                <a th:href="@{/appointments}">
-                    <i class="bi bi-calendar-check"></i>
-                    Appointments
-                </a>
-            </li>
-
-            <li>
-                <a th:href="@{/profile}">
-                    <i class="bi bi-person-circle"></i>
-                    My Profile
-                </a>
-            </li>
-
-            <li>
-                <a th:href="@{/settings}">
-                    <i class="bi bi-gear-fill"></i>
-                    Settings
-                </a>
-            </li>
-
-            <li>
-                <a th:href="@{/logout}">
-                    <i class="bi bi-box-arrow-right"></i>
-                    Logout
-                </a>
-            </li>
-
-        </ul>
-
-    </aside>
-
-    <!-- ================= MAIN ================= -->
-
-    <main class="main">
-
-        <!-- NAVBAR -->
-
-        <nav class="topbar">
-
-            <div>
-
-                <button id="menuBtn" class="menu-btn">
-
-                    <i class="bi bi-list"></i>
-
-                </button>
-
-                <h2>
-
-                    Welcome,
-                    <span th:text="${currentUserName}">Khuslal</span>
-
-                    👋
-
-                </h2>
-
-            </div>
-
-            <div class="top-right">
-
-                <div id="clock"></div>
-
-                <button class="btn btn-danger">
-
-                    <i class="bi bi-heart-fill"></i>
-
-                    Donate
-
-                </button>
-
-                <img th:src="@{/img/default-avatar.png}"
-                     alt="User avatar"
-                     class="profile">
-
-            </div>
-
-        </nav>
-
-        <!-- ELIGIBILITY -->
-
-        <div class="eligibility-card">
-
-            <div>
-
-                <h3>
-
-                    <i class="bi bi-check-circle-fill text-success"></i>
-
-                    Eligible to Donate
-
-                </h3>
-
-                <p>
-
-                    Thank you for saving lives.
-
-                    Your next donation is available.
-
-                </p>
-
-            </div>
-
-            <button class="btn btn-success">
-
-                Donate Now
-
-            </button>
-
-        </div>
-
-        <!-- STATISTICS -->
-
-        <div class="stats">
-
-            <div class="card-box">
-
-                <i class="bi bi-droplet-fill"></i>
-
-                <div>
-
-                    <h5>Blood Group</h5>
-
-                    <h2 th:text="${currentUserBloodGroup}">O+</h2>
-
-                </div>
-
-            </div>
-
-            <div class="card-box">
-
-                <i class="bi bi-heart-fill"></i>
-
-                <div>
-
-                    <h5>Lives Saved</h5>
-
-                    <h2>15</h2>
-					<!--<h2 th:text="${donationCount*3}">15</h2>-->
-
-                </div>
-
-            </div>
-
-            <div class="card-box">
-
-                <i class="bi bi-star-fill"></i>
-
-                <div>
-
-                    <h5>Reward Points</h5>
-
-                    <h2 th:text="${userPoints}">580</h2>
-
-                </div>
-
-            </div>
-
-            <div class="card-box">
-
-                <i class="bi bi-award-fill"></i>
-
-                <div>
-
-                    <h5>Badge</h5>
-
-                    <h4>Gold Donor</h4>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- CONTENT -->
-
-        <div class="content-grid">
-
-            <!-- LEFT -->
-
-            <div class="left-column">
-
-                <!-- RECENT DONATIONS -->
-
-                <div class="dashboard-card">
-
-                    <div class="card-header">
-
-                        <h4>
-
-                            Recent Donations
-
-                        </h4>
-
-                    </div>
-
-                    <table class="table">
-
-                        <thead>
-
-                        <tr>
-
-                            <th>ID</th>
-
-                            <th>Hospital</th>
-
-                            <th>Date</th>
-
-                            <th>Status</th>
-
-                        </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                        <tr>
-
-                            <td>#1001</td>
-
-                            <td>City Hospital</td>
-
-                            <td>15 Jul 2026</td>
-
-                            <td>
-
-<span class="badge bg-success">
-
-Completed
-
-</span>
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>#1002</td>
-
-                            <td>Red Cross</td>
-
-                            <td>12 May 2026</td>
-
-                            <td>
-
-<span class="badge bg-success">
-
-Completed
-
-</span>
-
-                            </td>
-
-                        </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-                <!-- CHART PLACEHOLDER -->
-
-                <div class="dashboard-card">
-
-                    <div class="card-header">
-
-                        <h4>
-
-                            Monthly Donations
-
-                        </h4>
-
-                    </div>
-
-                    <canvas id="donationChart"></canvas>
-
-                </div>
-
-            </div>
-
-            <!-- RIGHT -->
-
-            <div class="right-column">
-
-                <!-- EMERGENCY -->
-
-                <div class="dashboard-card">
-
-                    <h4>
-
-                        🚨 Emergency Requests
-
-                    </h4>
-
-                    <ul class="request-list">
-
-                        <li>
-
-                            <span>O- Blood</span>
-
-                            <span class="badge bg-danger">
-
-Critical
-
-</span>
-
-                        </li>
-
-                        <li>
-
-                            <span>A+</span>
-
-                            <span class="badge bg-warning">
-
-Urgent
-
-</span>
-
-                        </li>
-
-                        <li>
-
-                            <span>B+</span>
-
-                            <span class="badge bg-success">
-
-Open
-
-</span>
-
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <!-- NOTIFICATIONS -->
-
-                <div class="dashboard-card">
-
-                    <h4>
-
-                        Notifications
-
-                    </h4>
-
-                    <div class="notification">
-
-                        Blood donation camp tomorrow.
-
-                    </div>
-
-                    <div class="notification">
-
-                        You earned 50 points.
-
-                    </div>
-
-                    <div class="notification">
-
-                        Your profile is 95% complete.
-
-                    </div>
-
-                </div>
-
-                <!-- PROGRESS -->
-
-                <div class="dashboard-card">
-
-                    <h4>
-
-                        Next Badge Progress
-
-                    </h4>
-
-                    <div class="progress">
-
-                        <div class="progress-bar bg-danger"
-                             style="width:70%">
-
-                        </div>
-
-                    </div>
-
-                    <small>
-
-                        700 / 1000 Points
-
-                    </small>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-</div>
-
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/js/chart.min.js}"></script>
-<script th:src="@{/js/dashboard.js}"></script>
+	<div class="wrapper">
+
+		<!-- ================= SIDEBAR NAVIGATION MATRIX ================= -->
+		<aside class="sidebar" id="appSidebar">
+			<div class="logo">
+				<i class="bi bi-droplet-half text-danger"></i>
+				<span>LifeLine</span>
+			</div>
+			<ul>
+				<li class="active">
+					<a href="#">
+						<i class="bi bi-grid-fill"></i>
+						Dashboard
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/donation/history}">
+						<i class="bi bi-heart-pulse-fill"></i>
+						Donations
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/request/list}">
+						<i class="bi bi-droplet-fill"></i>
+						Blood Requests
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/appointments}">
+						<i class="bi bi-calendar-check"></i>
+						Appointments
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/profile}">
+						<i class="bi bi-person-circle"></i>
+						My Profile
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/settings}">
+						<i class="bi bi-gear-fill"></i>
+						Settings
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/logout}">
+						<i class="bi bi-box-arrow-right"></i>
+						Logout
+					</a>
+				</li>
+			</ul>
+		</aside>
+
+		<!-- ================= MAIN CORE ENGINE WORKSPACE ================= -->
+		<main class="main">
+
+			<!-- SYSTEM INTERACTION TOPBAR LAYOUT -->
+			<nav class="topbar">
+				<div>
+					<button id="menuBtn" class="menu-btn" aria-label="Toggle Menu Matrix">
+						<i class="bi bi-list"></i>
+					</button>
+					<h2>
+						Welcome,
+						<span th:text="${currentUserName}">Khuslal</span> 👋
+					</h2>
+				</div>
+				<div class="top-right">
+					<div id="clock"></div>
+					<button class="btn btn-danger">
+						<i class="bi bi-heart-fill"></i>
+						Donate
+					</button>
+
+				</div>
+			</nav>
+
+			<!-- ELIGIBILITY CRITERIA TIMELOG RIBBON -->
+			<div class="eligibility-card">
+				<div>
+					<h3>
+						<i class="bi bi-check-circle-fill text-success"></i>
+						Eligible to Donate
+					</h3>
+					<p>Thank you for saving lives. Your next donation is available.</p>
+				</div>
+				<button class="btn btn-success">Donate Now</button>
+			</div>
+
+			<!-- EVALUATION PERFORMANCE STATS STRIP -->
+			<div class="stats">
+				<div class="card-box">
+					<i class="bi bi-droplet-fill"></i>
+					<div>
+						<h5>Blood Group</h5>
+						<h2 th:text="${currentUserBloodGroup}">O+</h2>
+					</div>
+				</div>
+				<div class="card-box">
+					<i class="bi bi-heart-fill"></i>
+					<div>
+						<h5>Lives Saved</h5>
+						<h2>15</h2>
+					</div>
+				</div>
+				<div class="card-box">
+					<i class="bi bi-star-fill"></i>
+					<div>
+						<h5>Reward Points</h5>
+						<h2 th:text="${userPoints}">580</h2>
+					</div>
+				</div>
+				<div class="card-box">
+					<i class="bi bi-award-fill"></i>
+					<div>
+						<h5>Badge</h5>
+						<h4>Gold Donor</h4>
+					</div>
+				</div>
+			</div>
+
+			<!-- CONTENT POPULATION METRICS GRID LAYOUT -->
+			<div class="content-grid">
+
+				<!-- DATA VIEWS LEFT COLUMN BLOCK -->
+				<div class="left-column">
+
+					<!-- RECENT TRANSACTIONS ACTIVITY HISTORY TABLE -->
+					<div class="dashboard-card">
+						<div class="card-header">
+							<h4>Recent Donations</h4>
+						</div>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Hospital</th>
+									<th>Date</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>#1001</td>
+									<td>City Hospital</td>
+									<td>15 Jul 2026</td>
+									<td><span class="badge bg-success">Completed</span></td>
+								</tr>
+								<tr>
+									<td>#1002</td>
+									<td>Red Cross</td>
+									<td>12 May 2026</td>
+									<td><span class="badge bg-success">Completed</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- RENDERING PERFORMANCE CHART BLOCK -->
+					<div class="dashboard-card">
+						<div class="card-header">
+							<h4>Monthly Donations</h4>
+						</div>
+						<canvas id="donationChart"></canvas>
+					</div>
+				</div>
+
+				<!-- ANALYTICS PANEL RIGHT COLUMN BLOCK -->
+				<div class="right-column">
+
+					<!-- URGENT SYSTEM CONTEXT ALERTS DESK -->
+					<div class="dashboard-card">
+						<h4>🚨 Emergency Requests</h4>
+						<ul class="request-list">
+							<li>
+								<span>O- Blood</span>
+								<span class="badge bg-danger">Critical</span>
+							</li>
+							<li>
+								<span>A+</span>
+								<span class="badge bg-warning">Urgent</span>
+							</li>
+							<li>
+								<span>B+</span>
+								<span class="badge bg-success">Open</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- INTERNAL ACTION DESK CHANNELS -->
+					<div class="dashboard-card">
+						<h4>Notifications</h4>
+						<div class="notification">Blood donation camp tomorrow.</div>
+						<div class="notification">You earned 50 points.</div>
+						<div class="notification">Your profile is 95% complete.</div>
+					</div>
+
+					<!-- REWARD BADGE METRIC METER PANEL -->
+					<div class="dashboard-card">
+						<h4>Next Badge Progress</h4>
+						<div class="progress">
+							<div class="progress-bar bg-danger" role="progressbar" style="width:70%" aria-valuenow="70"
+								aria-valuemin="0" aria-valuemax="100"></div>
+						</div>
+						<small class="text-muted font-monospace d-block text-end">700 / 1000 Points</small>
+					</div>
+				</div>
+
+			</div>
+
+		</main>
+
+	</div>
+
+	<!-- System Engine Local Script Executables Execution Layer -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/chart.min.js}"></script>
+	<script th:src="@{/js/dashboard.js}"></script>
 
 </body>
+
 </html>

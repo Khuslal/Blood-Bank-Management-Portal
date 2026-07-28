@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 
-<head th:replace="~{fragments/layout :: header-assets('Blood Bank Management System')}">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Blood Bank Management System | LifeLine</title>
 
-	<!-- Local Bootstrap CSS (No internet needed) -->
+	<!-- Local Bootstrap CSS -->
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-
+	<!-- App styles -->
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	
 	<style>
 		:root {
 			--bb-red: #dc2626;
@@ -15,184 +20,71 @@
 			--bb-sky: #0ea5e9;
 			--bb-sky-dark: #0284c7;
 		}
-
-		/* ---------- Hero shell + depth blobs ---------- */
-		.hero-section {
-			position: relative;
-			overflow: hidden;
-			isolation: isolate;
-		}
-
-		.hero-blob {
-			position: absolute;
-			border-radius: 50%;
-			filter: blur(60px);
-			z-index: -1;
-			opacity: 0.35;
-			pointer-events: none;
-		}
-
-		.hero-blob-1 {
-			width: clamp(200px, 30vw, 420px);
-			height: clamp(200px, 30vw, 420px);
-			background: var(--bb-red);
-			top: -10%;
-			right: -8%;
-		}
-
-		.hero-blob-2 {
-			width: clamp(160px, 22vw, 320px);
-			height: clamp(160px, 22vw, 320px);
-			background: var(--bb-sky);
-			bottom: -12%;
-			left: -6%;
-		}
-
-		/* ---------- Fluid type ---------- */
-		.hero-title {
-			font-weight: 800;
-			letter-spacing: -0.02em;
-			line-height: 1.08;
-			font-size: clamp(2rem, 5vw + 0.5rem, 3.75rem);
-		}
-
-		.hero-subtitle {
-			font-size: clamp(1rem, 1.5vw + 0.6rem, 1.2rem);
-			color: var(--bb-slate);
-			line-height: 1.6;
-		}
-
-		.max-w-lg {
-			max-width: 34rem;
-		}
-
-		/* ---------- Buttons ---------- */
-		.btn-danger-custom,
-		.btn-outline-danger-custom {
-			border-radius: 0.75rem;
-			font-weight: 600;
-			transition: transform 0.15s ease, box-shadow 0.15s ease;
-			white-space: nowrap;
-		}
-
-		.btn-danger-custom {
-			background: var(--bb-red);
-			border: 1px solid var(--bb-red);
-			color: #fff;
-		}
-
-		.btn-danger-custom:hover,
-		.btn-danger-custom:focus-visible {
-			background: var(--bb-red-dark);
-			border-color: var(--bb-red-dark);
-			transform: translateY(-2px);
-			box-shadow: 0 10px 24px -8px rgba(220, 38, 38, 0.5);
-			color: #fff;
-		}
-
-		.btn-outline-danger-custom {
-			background: transparent;
-			border: 1.5px solid var(--bb-red);
-			color: var(--bb-red);
-		}
-
-		.btn-outline-danger-custom:hover,
-		.btn-outline-danger-custom:focus-visible {
-			background: rgba(220, 38, 38, 0.06);
-			transform: translateY(-2px);
-			color: var(--bb-red-dark);
-		}
-
-		.btn-danger-custom:focus-visible,
-		.btn-outline-danger-custom:focus-visible {
-			outline: 3px solid rgba(14, 165, 233, 0.45);
-			outline-offset: 2px;
-		}
-
-		/* ---------- Trust chips ---------- */
-		.trust-strip {
-			font-size: 0.85rem;
-			color: var(--bb-slate);
-		}
-
-		.trust-chip {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.4rem;
-			white-space: nowrap;
-		}
-
-		.trust-chip::before {
-			content: "";
-			width: 6px;
-			height: 6px;
-			border-radius: 50%;
-			background: var(--bb-red);
-			flex: 0 0 auto;
-		}
-
-		/* ---------- SVG hero visual ---------- */
-		.hero-visual {
-			max-height: 380px;
-			width: 100%;
-			height: auto;
-		}
-
-		.iv-drip {
-			stroke-dasharray: 4 6;
-			animation: bb-flow 1.6s linear infinite;
-		}
-
-		.iv-pulse {
-			transform-origin: 250px 44px;
-			animation: bb-pulse 2.4s ease-in-out infinite;
-		}
-
-		@keyframes bb-flow {
-			to {
-				stroke-dashoffset: -20;
-			}
-		}
-
-		@keyframes bb-pulse {
-
-			0%,
-			100% {
-				transform: scale(1);
-				opacity: 1;
-			}
-
-			50% {
-				transform: scale(1.12);
-				opacity: 0.85;
-			}
-		}
-
-		@media (prefers-reduced-motion: reduce) {
-
-			.iv-drip,
-			.iv-pulse {
-				animation: none;
-			}
-		}
-
-		/* ---------- Responsive spacing tightening on small phones ---------- */
-		@media (max-width: 400px) {
-			.hero-title {
-				font-size: 1.85rem;
-			}
-
-			.btn-danger-custom,
-			.btn-outline-danger-custom {
-				width: 100%;
-			}
-		}
+		.hero-section { position: relative; overflow: hidden; isolation: isolate; }
+		.hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); z-index: -1; opacity: 0.35; pointer-events: none; }
+		.hero-blob-1 { width: clamp(200px, 30vw, 420px); height: clamp(200px, 30vw, 420px); background: var(--bb-red); top: -10%; right: -8%; }
+		.hero-blob-2 { width: clamp(160px, 22vw, 320px); height: clamp(160px, 22vw, 320px); background: var(--bb-sky); bottom: -12%; left: -6%; }
+		.hero-title { font-weight: 800; letter-spacing: -0.02em; line-height: 1.08; font-size: clamp(2rem, 5vw + 0.5rem, 3.75rem); }
+		.hero-subtitle { font-size: clamp(1rem, 1.5vw + 0.6rem, 1.2rem); color: var(--bb-slate); line-height: 1.6; }
+		.max-w-lg { max-width: 34rem; }
+		.hero-visual { max-height: 380px; width: 100%; height: auto; }
+		.iv-drip { stroke-dasharray: 4 6; animation: bb-flow 1.6s linear infinite; }
+		.iv-pulse { transform-origin: 250px 44px; animation: bb-pulse 2.4s ease-in-out infinite; }
+		@keyframes bb-flow { to { stroke-dashoffset: -20; } }
+		@keyframes bb-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.12); opacity: 0.85; } }
+		@media (max-width: 400px) { .hero-title { font-size: 1.85rem; } }
 	</style>
 </head>
 
 <body>
-	<div th:replace="~{fragments/layout :: navbar('home')}"></div>
-	<div th:replace="~{fragments/layout :: low-stock-alert}"></div>
+	<!-- Automated Database Low Stock Alert Component Banner Grid -->
+	<div th:if="${not #lists.isEmpty(lowStockAlerts)}" class="low-stock-banner py-2 shadow-sm">
+		<div class="container-fluid px-2 px-sm-5 d-flex align-items-center gap-2">
+			<span class="alert-icon fs-6 flex-shrink-0">⚠️</span>
+			<strong class="flex-shrink-0 d-none d-sm-inline">LOW STOCK ALERT:</strong>
+			<strong class="flex-shrink-0 d-inline d-sm-none">LOW STOCK:</strong>
+			<div class="low-stock-scroll d-flex flex-nowrap align-items-center gap-2">
+				<div th:each="alert, iterStat : ${lowStockAlerts}" class="d-inline-flex align-items-center gap-2">
+					<span class="fw-bold text-danger" th:text="${alert.bloodGroup} + ' (' + ${alert.totalUnits} + ' units)'">O- (4 units)</span>
+					<span th:if="${!iterStat.last}" class="text-muted small">•</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Global Responsive Navigation Menu Bar Wrapper -->
+	<nav class="navbar navbar-expand-xl navbar-light bg-white navbar-custom sticky-top">
+		<div class="container-fluid px-2 px-sm-4 px-md-5">
+			<a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/}">
+				<svg width="28" height="28" viewBox="0 0 24 24" style="fill: var(--primary-red);">
+					<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+				</svg>
+				<span class="fw-bold tracking-tight fs-4 text-dark">LifeLine</span>
+			</a>
+			<button class="navbar-toggler border-0 shadow-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#appNavCollapse" aria-label="Toggle navigation">
+				<span class="bar"></span>
+				<span class="bar"></span>
+				<span class="bar"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="appNavCollapse">
+				<div class="nav-scroll-wrap">
+					<ul class="navbar-nav nav-scroll flex-row mx-auto gap-1 my-3 my-xl-0">
+						<li class="nav-item"><a th:href="@{/}" class="nav-link nav-link-custom active">Home</a></li>
+						<li class="nav-item"><a th:href="@{/stock}" class="nav-link nav-link-custom">Stock Blood</a></li>
+						<li class="nav-item"><a th:href="@{/about}" class="nav-link nav-link-custom">About Us</a></li>
+						<li class="nav-item"><a th:href="@{/request-blood}" class="nav-link nav-link-custom">Request Blood</a></li>
+						<li class="nav-item"><a th:href="@{/blood-centres}" class="nav-link nav-link-custom">Blood Centres</a></li>
+						<li class="nav-item"><a th:href="@{/register}" class="nav-link nav-link-custom">Become a Donor</a></li>
+						<li class="nav-item"><a th:href="@{/contact}" class="nav-link nav-link-custom">Contact Us</a></li>
+					</ul>
+				</div>
+				<div class="d-flex flex-column flex-xl-row align-items-stretch align-items-xl-center gap-2">
+					<a th:href="@{/login}" class="btn btn-outline-danger-custom px-4 py-2 w-100 w-xl-auto">Login</a>
+					<a th:href="@{/register}" class="btn btn-danger-custom px-4 py-2 w-100 w-xl-auto">Register</a>
+				</div>
+			</div>
+		</div>
+	</nav>
 
 	<main class="hero-section container my-auto py-5 px-4 px-md-5">
 		<div class="hero-blob hero-blob-1"></div>
@@ -201,9 +93,7 @@
 		<div class="row align-items-center g-5 py-3">
 			<div class="col-12 col-md-10 col-lg-6 mx-auto mx-lg-0 text-center text-lg-start">
 				<h1 class="hero-title text-dark mb-4">Donate Blood,<br><span class="text-danger">Save Lives</span></h1>
-				<p class="hero-subtitle mb-4 max-w-lg mx-auto mx-lg-0">A digital platform securely and rapidly
-					connecting volunteer donors, healthcare institutions, and urgent patient clinical requests across
-					Nepal efficiently.</p>
+				<p class="hero-subtitle mb-4 max-w-lg mx-auto mx-lg-0">A digital platform securely and rapidly connecting volunteer donors, healthcare institutions, and urgent patient clinical requests across Nepal efficiently.</p>
 
 				<div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3 mb-4">
 					<a th:href="@{/request-blood}" class="btn btn-danger-custom px-5 py-3 fs-6">Request Blood</a>
@@ -218,8 +108,7 @@
 			</div>
 
 			<div class="col-12 col-lg-6 d-flex justify-content-center">
-				<svg class="hero-visual" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img"
-					aria-label="Illustration of a blood donation IV connecting two donor nodes">
+				<svg class="hero-visual" viewBox="0 0 500 400" fill="none" xmlns="http://w3.org" role="img" aria-label="Illustration of a blood donation IV connecting two donor nodes">
 					<path d="M60 320 H440" stroke="#e2e8f0" stroke-width="4" stroke-linecap="round" />
 					<circle cx="130" cy="230" r="35" fill="#f1f5f9" />
 					<path class="iv-drip" d="M130 160 V320" stroke="#94a3b8" stroke-width="2" />
@@ -234,6 +123,9 @@
 		</div>
 	</main>
 
+	<!-- Local Bootstrap JS Bundle -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<!-- App Scripts Engine -->
+	<script th:src="@{/js/main.js}"></script>
 </body>
-
 </html>

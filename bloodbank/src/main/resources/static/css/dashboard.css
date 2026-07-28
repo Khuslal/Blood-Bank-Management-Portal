@@ -1,650 +1,445 @@
-/* ===========================
-   Google Font
-=========================== */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
-body{
-    background:#f4f7fb;
-    color:#333;
-}
-
-/* ===========================
-   Scrollbar
-=========================== */
-
-::-webkit-scrollbar{
-    width:8px;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#dc3545;
-    border-radius:20px;
-}
-
-::-webkit-scrollbar-track{
-    background:#ececec;
-}
-
-/* ===========================
-   Wrapper
-=========================== */
-
-.wrapper{
-    display:flex;
-    min-height:100vh;
-}
-
-/* ===========================
-   SIDEBAR
-=========================== */
-
-.sidebar{
-
-    width:260px;
-    background:linear-gradient(180deg,#c1121f,#dc3545);
-
-    color:white;
-
-    position:fixed;
-
-    left:0;
-    top:0;
-    bottom:0;
-
-    overflow-y:auto;
-
-    transition:.35s;
-
-    box-shadow:5px 0 25px rgba(0,0,0,.12);
-
-    z-index:999;
-}
-
-.logo{
-
-    padding:30px 20px;
-
-    font-size:28px;
-
-    font-weight:700;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    border-bottom:1px solid rgba(255,255,255,.2);
-}
-
-.logo i{
-
-    font-size:34px;
-
-    color:#fff;
-}
-
-.sidebar ul{
-
-    list-style:none;
-
-    margin-top:20px;
-}
-
-.sidebar ul li{
-
-    margin:8px 15px;
-}
-
-.sidebar ul li a{
-
-    color:white;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:14px;
-
-    text-decoration:none;
-
-    padding:14px 18px;
-
-    border-radius:14px;
-
-    transition:.30s;
-}
-
-.sidebar ul li a:hover{
-
-    background:rgba(255,255,255,.18);
-
-    transform:translateX(6px);
-}
 
-.sidebar ul li.active a{
-
-    background:white;
-
-    color:#dc3545;
-
-    font-weight:600;
-
-    box-shadow:0 10px 20px rgba(0,0,0,.15);
-}
-
-.sidebar i{
-
-    font-size:20px;
+/* ==========================================================================
+   Global Configuration Tokens & Workspace Base Design System Rules
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* ===========================
-   MAIN
-=========================== */
-
-.main{
-
-    margin-left:260px;
-
-    width:calc(100% - 260px);
-
-    padding:30px;
-
+body {
+    background: #f4f7fb;
+    color: #333;
+    -webkit-font-smoothing: antialiased;
 }
-
-/* ===========================
-   TOPBAR
-=========================== */
-
-.topbar{
 
-    background:white;
-
-    border-radius:18px;
-
-    padding:18px 25px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-    margin-bottom:30px;
+/* ==========================================================================
+   Custom Project Scrollbar Framework Tracker 
+   ========================================================================== */
+::-webkit-scrollbar {
+    width: 8px;
 }
 
-.topbar h2{
-
-    font-size:26px;
-
-    font-weight:700;
+::-webkit-scrollbar-thumb {
+    background: #dc3545;
+    border-radius: 20px;
 }
-
-.top-right{
-
-    display:flex;
 
-    align-items:center;
-
-    gap:18px;
+::-webkit-scrollbar-track {
+    background: #ececec;
 }
-
-.profile{
-
-    width:48px;
-
-    height:48px;
 
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:3px solid #dc3545;
-
-    cursor:pointer;
+/* ==========================================================================
+   Wrapper Layout Grid Setup
+   ========================================================================== */
+.wrapper {
+    display: flex;
+    min-height: 100vh;
 }
 
-#clock{
-
-    font-weight:600;
-
-    color:#666;
+/* ==========================================================================
+   SIDEBAR CONTROLLER SYSTEM CANVAS PANEL
+   ========================================================================== */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #c1121f, #dc3545);
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 5px 0 25px rgba(0, 0, 0, .12);
+    z-index: 999;
 }
-
-.menu-btn{
-
-    display:none;
 
-    background:none;
-
-    border:none;
-
-    font-size:28px;
-
-    margin-right:15px;
+.logo {
+    padding: 30px 20px;
+    font-size: 28px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
 }
-
-/* ===========================
-   ELIGIBILITY CARD
-=========================== */
-
-.eligibility-card{
-
-    background:linear-gradient(135deg,#198754,#20c997);
-
-    color:white;
-
-    padding:30px;
 
-    border-radius:20px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:30px;
-
-    box-shadow:0 15px 30px rgba(25,135,84,.25);
+.logo i {
+    font-size: 34px;
+    color: #fff;
 }
-
-.eligibility-card h3{
-
-    font-weight:700;
 
-    margin-bottom:8px;
+.sidebar ul {
+    list-style: none;
+    margin-top: 20px;
 }
 
-.eligibility-card p{
-
-    opacity:.95;
+.sidebar ul li {
+    margin: 8px 15px;
 }
-
-/* ===========================
-   STATISTICS
-=========================== */
-
-.stats{
-
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    gap:20px;
-
-    margin-bottom:30px;
+
+.sidebar ul li a {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    padding: 14px 18px;
+    border-radius: 14px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
-
-.card-box{
 
-    background:white;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:18px;
-
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
-
-    transition:.35s;
-
-    position:relative;
-
-    overflow:hidden;
+.sidebar ul li a:hover {
+    background: rgba(255, 255, 255, .18);
+    transform: translateX(6px);
 }
-
-.card-box::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    left:0;
 
-    width:6px;
-
-    height:100%;
-
-    background:#dc3545;
+.sidebar ul li.active a {
+    background: white;
+    color: #dc3545;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .15);
 }
-
-.card-box:hover{
 
-    transform:translateY(-8px);
-
-    box-shadow:0 20px 35px rgba(0,0,0,.12);
+.sidebar i {
+    font-size: 20px;
+}
+
+/* ==========================================================================
+   MAIN SYSTEM BASE CONTAINER GRID TERMINAL
+   ========================================================================== */
+.main {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    padding: 30px;
+    transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   TOPBAR NAVIGATION TRACKER SHELL
+   ========================================================================== */
+.topbar {
+    background: white;
+    border-radius: 18px;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    margin-bottom: 30px;
+}
+
+.topbar h2 {
+    font-size: 26px;
+    font-weight: 700;
 }
-
-.card-box i{
-
-    font-size:42px;
-
-    color:#dc3545;
+
+.top-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
 
-.card-box h5{
-
-    color:#777;
-
-    margin-bottom:5px;
-
-    font-size:15px;
+.profile {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #dc3545;
+    cursor: pointer;
 }
-
-.card-box h2{
 
-    font-weight:700;
+#clock {
+    font-weight: 600;
+    color: #666;
 }
 
-.card-box h4{
-
-    font-weight:700;
-
-    color:#dc3545;
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 28px;
+    margin-right: 15px;
+    cursor: pointer;
+    vertical-align: middle;
 }
-
-/* ===========================
-   GRID
-=========================== */
-
-.content-grid{
 
-    display:grid;
-
-    grid-template-columns:2fr 1fr;
-
-    gap:25px;
+/* ==========================================================================
+   ELIGIBILITY CALLOUT INTERACTIVE COMPONENT
+   ========================================================================== */
+.eligibility-card {
+    background: linear-gradient(135deg, #198754, #20c997);
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 30px rgba(25, 135, 84, .25);
 }
-
-/* ===========================
-   DASHBOARD CARD
-=========================== */
-
-.dashboard-card{
-
-    background:white;
-
-    border-radius:20px;
-
-    padding:25px;
 
-    margin-bottom:25px;
-
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
-
-    transition:.35s;
+.eligibility-card h3 {
+    font-weight: 700;
+    margin-bottom: 8px;
 }
-
-.dashboard-card:hover{
 
-    transform:translateY(-5px);
+.eligibility-card p {
+    opacity: .95;
 }
-
-.card-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
 
-    margin-bottom:20px;
+/* ==========================================================================
+   STATISTICS CARD COLUMNS MATRIX STRIP
+   ========================================================================== */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
 }
 
-.card-header h4{
-
-    font-weight:700;
+.card-box {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    position: relative;
+    overflow: hidden;
 }
-
-/* ===========================
-   TABLE
-=========================== */
-
-.table{
 
-    margin:0;
+.card-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: #dc3545;
 }
 
-.table thead{
-
-    background:#f8f9fa;
+.card-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, .12);
 }
-
-.table th{
 
-    border:none;
-
-    font-size:14px;
+.card-box i {
+    font-size: 42px;
+    color: #dc3545;
 }
-
-.table td{
 
-    vertical-align:middle;
+.card-box h5 {
+    color: #777;
+    margin-bottom: 5px;
+    font-size: 15px;
 }
 
-/* ===========================
-   REQUEST LIST
-=========================== */
-
-.request-list{
-
-    list-style:none;
-
-    padding:0;
+.card-box h2 {
+    font-weight: 700;
 }
-
-.request-list li{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:15px 0;
 
-    border-bottom:1px solid #eee;
+.card-box h4 {
+    font-weight: 700;
+    color: #dc3545;
 }
 
-.request-list li:last-child{
-
-    border:none;
+/* ==========================================================================
+   CONTENT LAYOUT DISPLAY GRID MAPPINGS
+   ========================================================================== */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
 }
-
-/* ===========================
-   NOTIFICATIONS
-=========================== */
-
-.notification{
-
-    background:#f8f9fa;
-
-    padding:15px;
-
-    border-left:5px solid #dc3545;
-
-    border-radius:10px;
 
-    margin-bottom:15px;
-
-    transition:.30s;
+/* ==========================================================================
+   DASHBOARD CARD PATTERN MODULE
+   ========================================================================== */
+.dashboard-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+    transition: transform 0.35s ease;
 }
-
-.notification:hover{
-
-    background:#fff2f2;
 
-    transform:translateX(5px);
+.dashboard-card:hover {
+    transform: translateY(-5px);
 }
-
-/* ===========================
-   PROGRESS
-=========================== */
-
-.progress{
-
-    height:12px;
-
-    border-radius:20px;
 
-    margin:18px 0;
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-/* ===========================
-   BUTTONS
-=========================== */
-
-.btn-danger{
-
-    border-radius:12px;
-
-    padding:10px 20px;
-
-    font-weight:600;
+.card-header h4 {
+    font-weight: 700;
 }
-
-.btn-success{
-
-    border-radius:12px;
-
-    padding:10px 20px;
 
-    font-weight:600;
+/* ==========================================================================
+   TABLE GRID UI MATRIX OVERRIDES
+   ========================================================================== */
+.table {
+    margin: 0;
 }
 
-/* ===========================
-   Responsive
-=========================== */
-
-@media(max-width:1200px){
-
-.stats{
-
-grid-template-columns:repeat(2,1fr);
-
+.table thead {
+    background: #f8f9fa;
 }
 
-.content-grid{
-
-grid-template-columns:1fr;
-
+.table th {
+    border: none;
+    font-size: 14px;
 }
 
+.table td {
+    vertical-align: middle;
 }
-
-/* =========================== */
-
-@media(max-width:992px){
 
-.sidebar{
-
-left:-260px;
-
+/* ==========================================================================
+   REQUEST INTERACTION ROWS
+   ========================================================================== */
+.request-list {
+    list-style: none;
+    padding: 0;
 }
-
-.sidebar.active{
 
-left:0;
-
+.request-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
 }
-
-.main{
-
-margin-left:0;
-
-width:100%;
 
-padding:20px;
-
+.request-list li:last-child {
+    border: none;
 }
-
-.menu-btn{
 
-display:inline-block;
-
+/* ==========================================================================
+   NOTIFICATION SYSTEM MODULE CHANNELS 
+   ========================================================================== */
+.notification {
+    background: #f8f9fa;
+    padding: 15px;
+    border-left: 5px solid #dc3545;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
+.notification:hover {
+    background: #fff2f2;
+    transform: translateX(5px);
 }
-
-/* =========================== */
 
-@media(max-width:768px){
-
-.stats{
-
-grid-template-columns:1fr;
-
+/* ==========================================================================
+   PROGRESS SLIDER STRIPS METER METRICS
+   ========================================================================== */
+.progress {
+    height: 12px;
+    border-radius: 20px;
+    margin: 18px 0;
 }
-
-.topbar{
 
-flex-direction:column;
-
-gap:15px;
-
+/* ==========================================================================
+   CORE PLATFORM ACTION BUTTON SCHEMES
+   ========================================================================== */
+.btn-danger {
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: 600;
 }
-
-.top-right{
 
-flex-wrap:wrap;
-
-justify-content:center;
-
+.btn-success {
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: 600;
 }
-
-.eligibility-card{
-
-flex-direction:column;
 
-text-align:center;
+/* ==========================================================================
+   RESPONSIVE METRIC MEDIA QUERY LAYOUT MATRIXES 
+   ========================================================================== */
+@media(max-width: 1200px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-gap:20px;
-
-}
-
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .right-column {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
 }
-
-/* =========================== */
 
-@media(max-width:500px){
+@media(max-width: 992px) {
+    .sidebar {
+        left: -260px;
+    }
 
-.topbar h2{
+    .sidebar.active {
+        left: 0;
+    }
 
-font-size:20px;
+    .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
 
+    .menu-btn {
+        display: inline-block;
+    }
 }
 
-.logo{
+@media(max-width: 768px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
 
-font-size:24px;
+    .topbar {
+        flex-direction: column;
+        gap: 15px;
+    }
 
-}
-
-.card-box{
+    .top-right {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-padding:20px;
-
+    .eligibility-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
 }
 
-.dashboard-card{
+@media(max-width: 500px) {
+    .topbar h2 {
+        font-size: 20px;
+    }
 
-padding:18px;
+    .logo {
+        font-size: 24px;
+    }
 
-}
+    .card-box {
+        padding: 20px;
+    }
 
+    .dashboard-card {
+        padding: 18px;
+    }
 }
