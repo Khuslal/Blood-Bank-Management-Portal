@@ -14,9 +14,12 @@ public class Donor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String name;
+	private String fullname;
+	private String email;
 	private String phone;
 	private String city;
-	private String blood_group;
-	private String donation_date;
+	private String bloodGroup;
+	private String username;
+	private String password;
+	private String donationDate;
 }
