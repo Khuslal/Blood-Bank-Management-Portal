@@ -1,37 +1,45 @@
 package com.management.bloodbank.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "donors")
 @Data
-@Table(name="donors")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Donor {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String fullname;
-	private String email;
-	private String phone;
-	private String city;
-	private String bloodGroup;
-	
-	@Column(unique = true)
-	private String username;
-	private String password;
-	private String donationDate;
-	
-	@OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
-	private List<DonationHistory> donationHistory;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BloodGroup bloodGroup;
+
+    private LocalDate dateOfBirth;
+
+    private Double weightKg;
+
+    private String gender;
+
+    private LocalDate lastDonationDate;
+
+    @Column(nullable = false)
+    private boolean eligible = true;
+
+    public boolean isEligibleToDonate() {
+        if (!eligible) return false;
+        if (lastDonationDate == null) return true;
+        return lastDonationDate.isBefore(LocalDate.now().minusDays(90));
+    }
 }

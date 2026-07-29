@@ -1,148 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blood Donation History</title>
-	<!-- Tailwind CSS for styling -->
-	<script src="https://tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title>Donation History - LifeDrop Blood Bank</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<body class="bg-gray-50 font-sans antialiased text-gray-900">
+<div class="container my-5">
+    <h1 class="mb-4">Donation History</h1>
 
-	<div class="max-w-5xl mx-auto px-4 py-8">
+    <div class="alert alert-info" th:if="${history.isEmpty()}">No donation records found.</div>
 
-		<!-- Header Section -->
-		<header
-			class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-gray-200 pb-6">
-			<div>
-				<h1 class="text-3xl font-bold text-red-600 flex items-center gap-2">
-					🩸 Blood Donation History
-				</h1>
-				<p class="text-gray-600 mt-1">
-					Track your life-saving contributions and upcoming eligibility.
-				</p>
-			</div>
-			<!-- Back to Dashboard / Action Button -->
-			<a th:href="@{/dashboard}" href="/dashboard"
-				class="bg-gray-800 hover:bg-gray-900 text-white font-medium py-2.5 px-5 rounded-lg transition shadow-sm text-sm">
-				&larr; Back to Dashboard
-			</a>
-		</header>
+    <div class="table-responsive" th:unless="${history.isEmpty()}">
+        <table class="table table-striped align-middle">
+            <thead>
+            <tr>
+                <th th:if="${isAdmin}">Donor</th>
+                <th>Blood Group</th>
+                <th>Centre</th>
+                <th>Units</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="h : ${history}">
+                <td th:if="${isAdmin}" th:text="${h.donor.user.fullName}"></td>
+                <td th:text="${h.bloodGroup.label}"></td>
+                <td th:text="${h.center.name}"></td>
+                <td th:text="${h.unitsDonated}"></td>
+                <td th:text="${#temporals.format(h.donationDate, 'dd MMM yyyy')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-		<!-- Donor Summary Cards -->
-		<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-			<!-- Card 1: Donor Info -->
-			<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-				<span class="text-sm font-semibold text-gray-400 uppercase tracking-wider block mb-1">Donor Name</span>
-				<div class="text-xl font-bold text-gray-800" th:text="${donor.name}">John Doe</div>
-				<div
-					class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-100">
-					Blood Type: <span th:text="${donor.bloodType}">O+</span>
-				</div>
-			</div>
-
-			<!-- Card 2: Total Donations -->
-			<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-				<span class="text-sm font-semibold text-gray-400 uppercase tracking-wider block mb-1">Total
-					Donations</span>
-				<div class="text-4xl font-extrabold text-red-600" th:text="${donationCount}">4</div>
-				<p class="text-xs text-gray-500 mt-1">Times you saved a life</p>
-			</div>
-
-			<!-- Card 3: Next Eligibility -->
-			<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-				<span class="text-sm font-semibold text-gray-400 uppercase tracking-wider block mb-1">Next Eligible
-					Date</span>
-				<div class="text-xl font-bold text-gray-800"
-					th:text="${#temporals.format(nextEligibleDate, 'yyyy-MM-dd')}">2026-10-15</div>
-				<p class="text-xs mt-1 text-green-600 font-medium" th:if="${isEligible}">✓ You are eligible to donate
-					today!</p>
-				<p class="text-xs mt-1 text-amber-600 font-medium" th:unless="${isEligible}">⏳ Rest period active</p>
-			</div>
-		</section>
-
-		<!-- Donation History Table Section -->
-		<main class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-			<div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
-				<h2 class="font-bold text-gray-800 text-lg">Past Donations</h2>
-				<a th:href="@{/donations/new}" href="/donations/new"
-					class="text-sm font-semibold text-red-600 hover:text-red-700 transition">
-					+ Log New Donation
-				</a>
-			</div>
-
-			<!-- Empty State (Shows only if donations list is empty) -->
-			<div th:if="${#lists.isEmpty(donations)}" class="p-12 text-center">
-				<div class="text-4xl mb-3">❤️</div>
-				<h3 class="text-lg font-semibold text-gray-700">No donations recorded yet</h3>
-				<p class="text-gray-500 text-sm max-w-sm mx-auto mt-1">When you make your first blood donation, your
-					history and details will appear right here.</p>
-			</div>
-
-			<!-- Table (Shows only if donations list has items) -->
-			<div th:unless="${#lists.isEmpty(donations)}" class="overflow-x-auto">
-				<table class="w-full text-left border-collapse">
-					<thead>
-						<tr
-							class="bg-gray-50 text-gray-500 text-xs font-semibold uppercase tracking-wider border-b border-gray-100">
-							<th class="py-4 px-6">Date</th>
-							<th class="py-4 px-6">Donation Center / Location</th>
-							<th class="py-4 px-6">Volume (mL)</th>
-							<th class="py-4 px-6">Status</th>
-							<th class="py-4 px-6 text-right">Actions</th>
-						</tr>
-					</thead>
-					<tbody class="divide-y divide-gray-100 text-sm text-gray-700">
-						<!-- Thymeleaf Loop for rows -->
-						<tr th:each="donation : ${donations}" class="hover:bg-gray-50 transition">
-							<!-- Formatted Date -->
-							<td class="py-4 px-6 font-medium text-gray-900"
-								th:text="${#temporals.format(donation.date, 'yyyy-MM-dd')}">
-								2026-03-12
-							</td>
-							<!-- Location -->
-							<td class="py-4 px-6" th:text="${donation.location}">
-								Central Red Cross Clinic
-							</td>
-							<!-- Volume -->
-							<td class="py-4 px-6" th:text="${donation.volume + ' mL'}">
-								450 mL
-							</td>
-							<!-- Status Badge -->
-							<td class="py-4 px-6">
-								<span th:if="${donation.status == 'Completed'}"
-									class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-									Completed
-								</span>
-								<span th:if="${donation.status == 'Pending'}"
-									class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
-									Pending
-								</span>
-								<span th:if="${donation.status == 'Deferred'}"
-									class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-									Deferred
-								</span>
-							</td>
-							<!-- Action Buttons -->
-							<td class="py-4 px-6 text-right whitespace-nowrap">
-								<a th:href="@{/donations/certificate/{id}(id=${donation.id})}" href="#"
-									class="text-blue-600 hover:text-blue-800 font-medium mr-4 transition text-xs">
-									Certificate
-								</a>
-								<a th:href="@{/donations/details/{id}(id=${donation.id})}" href="#"
-									class="text-gray-500 hover:text-gray-700 font-medium transition text-xs">
-									View Details
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</main>
-	</div>
-
+<footer class="text-center py-3 text-muted border-top mt-5">
+    &copy; 2026 LifeDrop Blood Bank Management System
+</footer>
 </body>
-
 </html>

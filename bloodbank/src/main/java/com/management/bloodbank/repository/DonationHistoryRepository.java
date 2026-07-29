@@ -1,11 +1,11 @@
 package com.management.bloodbank.repository;
 
-import java.util.List;
-
+import com.management.bloodbank.model.DonationHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.management.bloodbank.model.DonationHistory;
+import java.util.List;
 
-public interface DonationHistoryRepository extends JpaRepository<DonationHistory, Integer>{
-	
+public interface DonationHistoryRepository extends JpaRepository<DonationHistory, Long> {
+    List<DonationHistory> findByDonorIdOrderByDonationDateDesc(Long donorId);
+    List<DonationHistory> findAllByOrderByDonationDateDesc();
 }

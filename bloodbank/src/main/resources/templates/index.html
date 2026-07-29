@@ -1,131 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blood Bank Management System | LifeLine</title>
-
-	<!-- Local Bootstrap CSS -->
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<!-- App styles -->
-	<link rel="stylesheet" th:href="@{/css/main.css}">
-	
-	<style>
-		:root {
-			--bb-red: #dc2626;
-			--bb-red-dark: #991b1b;
-			--bb-ink: #111827;
-			--bb-slate: #64748b;
-			--bb-sky: #0ea5e9;
-			--bb-sky-dark: #0284c7;
-		}
-		.hero-section { position: relative; overflow: hidden; isolation: isolate; }
-		.hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); z-index: -1; opacity: 0.35; pointer-events: none; }
-		.hero-blob-1 { width: clamp(200px, 30vw, 420px); height: clamp(200px, 30vw, 420px); background: var(--bb-red); top: -10%; right: -8%; }
-		.hero-blob-2 { width: clamp(160px, 22vw, 320px); height: clamp(160px, 22vw, 320px); background: var(--bb-sky); bottom: -12%; left: -6%; }
-		.hero-title { font-weight: 800; letter-spacing: -0.02em; line-height: 1.08; font-size: clamp(2rem, 5vw + 0.5rem, 3.75rem); }
-		.hero-subtitle { font-size: clamp(1rem, 1.5vw + 0.6rem, 1.2rem); color: var(--bb-slate); line-height: 1.6; }
-		.max-w-lg { max-width: 34rem; }
-		.hero-visual { max-height: 380px; width: 100%; height: auto; }
-		.iv-drip { stroke-dasharray: 4 6; animation: bb-flow 1.6s linear infinite; }
-		.iv-pulse { transform-origin: 250px 44px; animation: bb-pulse 2.4s ease-in-out infinite; }
-		@keyframes bb-flow { to { stroke-dashoffset: -20; } }
-		@keyframes bb-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.12); opacity: 0.85; } }
-		@media (max-width: 400px) { .hero-title { font-size: 1.85rem; } }
-	</style>
+    <meta charset="UTF-8">
+    <title>LifeDrop Blood Bank</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
-	<!-- Automated Database Low Stock Alert Component Banner Grid -->
-	<div th:if="${not #lists.isEmpty(lowStockAlerts)}" class="low-stock-banner py-2 shadow-sm">
-		<div class="container-fluid px-2 px-sm-5 d-flex align-items-center gap-2">
-			<span class="alert-icon fs-6 flex-shrink-0">⚠️</span>
-			<strong class="flex-shrink-0 d-none d-sm-inline">LOW STOCK ALERT:</strong>
-			<strong class="flex-shrink-0 d-inline d-sm-none">LOW STOCK:</strong>
-			<div class="low-stock-scroll d-flex flex-nowrap align-items-center gap-2">
-				<div th:each="alert, iterStat : ${lowStockAlerts}" class="d-inline-flex align-items-center gap-2">
-					<span class="fw-bold text-danger" th:text="${alert.bloodGroup} + ' (' + ${alert.totalUnits} + ' units)'">O- (4 units)</span>
-					<span th:if="${!iterStat.last}" class="text-muted small">•</span>
-				</div>
-			</div>
-		</div>
-	</div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-	<!-- Global Responsive Navigation Menu Bar Wrapper -->
-	<nav class="navbar navbar-expand-xl navbar-light bg-white navbar-custom sticky-top">
-		<div class="container-fluid px-2 px-sm-4 px-md-5">
-			<a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/}">
-				<svg width="28" height="28" viewBox="0 0 24 24" style="fill: var(--primary-red);">
-					<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-				</svg>
-				<span class="fw-bold tracking-tight fs-4 text-dark">LifeLine</span>
-			</a>
-			<button class="navbar-toggler border-0 shadow-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#appNavCollapse" aria-label="Toggle navigation">
-				<span class="bar"></span>
-				<span class="bar"></span>
-				<span class="bar"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="appNavCollapse">
-				<div class="nav-scroll-wrap">
-					<ul class="navbar-nav nav-scroll flex-row mx-auto gap-1 my-3 my-xl-0">
-						<li class="nav-item"><a th:href="@{/}" class="nav-link nav-link-custom active">Home</a></li>
-						<li class="nav-item"><a th:href="@{/stock}" class="nav-link nav-link-custom">Stock Blood</a></li>
-						<li class="nav-item"><a th:href="@{/about}" class="nav-link nav-link-custom">About Us</a></li>
-						<li class="nav-item"><a th:href="@{/request-blood}" class="nav-link nav-link-custom">Request Blood</a></li>
-						<li class="nav-item"><a th:href="@{/blood-centres}" class="nav-link nav-link-custom">Blood Centres</a></li>
-						<li class="nav-item"><a th:href="@{/register}" class="nav-link nav-link-custom">Become a Donor</a></li>
-						<li class="nav-item"><a th:href="@{/contact}" class="nav-link nav-link-custom">Contact Us</a></li>
-					</ul>
-				</div>
-				<div class="d-flex flex-column flex-xl-row align-items-stretch align-items-xl-center gap-2">
-					<a th:href="@{/login}" class="btn btn-outline-danger-custom px-4 py-2 w-100 w-xl-auto">Login</a>
-					<a th:href="@{/register}" class="btn btn-danger-custom px-4 py-2 w-100 w-xl-auto">Register</a>
-				</div>
-			</div>
-		</div>
-	</nav>
+<header class="text-white text-center py-5" style="background:linear-gradient(135deg,#b91c2b,#7a0f1c);">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Every Drop Counts</h1>
+        <p class="lead">Donate blood, save lives. Join our network of donors and blood centres.</p>
+        <a th:href="@{/register}" class="btn btn-light btn-lg me-2">Become a Donor</a>
+        <a th:href="@{/request}" class="btn btn-outline-light btn-lg">Request Blood</a>
+    </div>
+</header>
 
-	<main class="hero-section container my-auto py-5 px-4 px-md-5">
-		<div class="hero-blob hero-blob-1"></div>
-		<div class="hero-blob hero-blob-2"></div>
+<section class="container my-5">
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3>🩸</h3>
+                    <h5 class="card-title">Register as Donor</h5>
+                    <p class="card-text">Sign up in minutes and become part of a life-saving community.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3>🏥</h3>
+                    <h5 class="card-title">Find a Centre</h5>
+                    <p class="card-text">Locate the nearest blood donation centre and its contact details.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3>📋</h3>
+                    <h5 class="card-title">Track Stock &amp; Requests</h5>
+                    <p class="card-text">Check real-time blood stock and submit requests when it's urgent.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-		<div class="row align-items-center g-5 py-3">
-			<div class="col-12 col-md-10 col-lg-6 mx-auto mx-lg-0 text-center text-lg-start">
-				<h1 class="hero-title text-dark mb-4">Donate Blood,<br><span class="text-danger">Save Lives</span></h1>
-				<p class="hero-subtitle mb-4 max-w-lg mx-auto mx-lg-0">A digital platform securely and rapidly connecting volunteer donors, healthcare institutions, and urgent patient clinical requests across Nepal efficiently.</p>
-
-				<div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3 mb-4">
-					<a th:href="@{/request-blood}" class="btn btn-danger-custom px-5 py-3 fs-6">Request Blood</a>
-					<a th:href="@{/register}" class="btn btn-outline-danger-custom px-5 py-3 fs-6">Become a Donor</a>
-				</div>
-
-				<div class="trust-strip d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
-					<span class="trust-chip">Verified donors</span>
-					<span class="trust-chip">Nationwide network</span>
-					<span class="trust-chip">Free to use</span>
-				</div>
-			</div>
-
-			<div class="col-12 col-lg-6 d-flex justify-content-center">
-				<svg class="hero-visual" viewBox="0 0 500 400" fill="none" xmlns="http://w3.org" role="img" aria-label="Illustration of a blood donation IV connecting two donor nodes">
-					<path d="M60 320 H440" stroke="#e2e8f0" stroke-width="4" stroke-linecap="round" />
-					<circle cx="130" cy="230" r="35" fill="#f1f5f9" />
-					<path class="iv-drip" d="M130 160 V320" stroke="#94a3b8" stroke-width="2" />
-					<rect x="235" y="140" width="30" height="150" rx="15" fill="#0ea5e9" opacity="0.8" />
-					<circle class="iv-pulse" cx="250" cy="105" r="20" fill="#0284c7" />
-					<circle cx="370" cy="230" r="35" fill="#f1f5f9" />
-					<path class="iv-drip" d="M370 160 V320" stroke="#94a3b8" stroke-width="2" />
-					<rect x="238" y="25" width="24" height="38" rx="6" fill="#dc3545" />
-					<circle cx="250" cy="44" r="5" fill="#ffffff" />
-				</svg>
-			</div>
-		</div>
-	</main>
-
-	<!-- Local Bootstrap JS Bundle -->
-	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-	<!-- App Scripts Engine -->
-	<script th:src="@{/js/main.js}"></script>
+<footer class="text-center py-3 text-muted border-top">
+    &copy; 2026 LifeDrop Blood Bank Management System
+</footer>
 </body>
 </html>
