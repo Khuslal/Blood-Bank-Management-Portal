@@ -42,9 +42,9 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/about", "/contact", "/centres", "/login", "/register",
-                        "/css/**", "/js/**", "/images/**", "/static/**").permitAll()
-                .requestMatchers("/stock", "/donation-history/**", "/request/**").authenticated()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+                        "/css/**", "/js/**", "/images/**", "/static/**","/request/**").permitAll()
+                .requestMatchers("/donation-history/**","/dashboard").authenticated()
+                .requestMatchers("/admin/**","/uploads/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

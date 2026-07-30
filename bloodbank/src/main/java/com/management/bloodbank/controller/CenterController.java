@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -34,5 +35,24 @@ public class CenterController {
 		}
 		centerService.save(newCentre);
 		return "redirect:/centres";
+	}
+	
+	@GetMapping("/admin/centres/{id}/edit")
+	public String editCentreForm(@PathVariable Long id, Model model) {
+	    model.addAttribute("centre", centerService.findById(id));
+	    return "centre-edit";
+	}
+
+	@PostMapping("/admin/centres/{id}")
+	public String updateCentre(@PathVariable Long id,
+	                            @Valid @ModelAttribute("centre") Center centre,
+	                            BindingResult bindingResult) {
+	    if (bindingResult.hasErrors()) {
+	        return "centre-edit";
+	    }
+	    // ensures hibernate updates instead of insert when id has value
+	    centre.setId(id);
+	    centerService.save(centre);
+	    return "redirect:/centres";
 	}
 }

@@ -15,7 +15,12 @@
         Your request has been submitted. Our team will review it shortly.
     </div>
 
-    <form th:action="@{/request}" th:object="${bloodRequest}" method="post">
+    <form th:action="@{/request}" th:object="${bloodRequest}" method="post" enctype="multipart/form-data">
+
+        <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+            <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        </div>
+
         <div class="mb-3">
             <label class="form-label">Patient Name</label>
             <input type="text" th:field="*{patientName}" class="form-control" required>
@@ -39,6 +44,7 @@
         <div class="mb-3">
             <label class="form-label">Contact Number</label>
             <input type="text" th:field="*{contactNumber}" class="form-control" required>
+            <div class="text-danger small" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></div>
         </div>
         <div class="mb-3">
             <label class="form-label">Preferred Centre</label>
@@ -47,6 +53,43 @@
                 <option th:each="c : ${centres}" th:value="${c.id}" th:text="${c.name}"></option>
             </select>
         </div>
+
+        <hr>
+        <h5>Supporting Documents</h5>
+
+        <div class="alert alert-secondary small">
+            <strong>Note:</strong> upload at least one of the following —
+            <ul class="mb-0 mt-2">
+                <li><strong>Valid Prescription</strong> — signed order from a registered medical practitioner</li>
+                <li><strong>Hospital Requisition</strong> — official request from a recognized clinic or hospital</li>
+                <li><strong>Patient Sample</strong> — pre-transfusion sample report for cross-matching</li>
+                <li><strong>Donor Exchange</strong> — proof of a replacement donor from the patient's family</li>
+            </ul>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Valid Prescription</label>
+            <input type="file" name="prescriptionFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Hospital Requisition</label>
+            <input type="file" name="hospitalRequisitionFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Patient Sample Report</label>
+            <input type="file" name="patientSampleFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Donor Exchange Proof</label>
+            <input type="file" name="donorExchangeFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Additional Details</label>
+            <textarea th:field="*{supportingDetails}" class="form-control" rows="3"
+                placeholder="e.g. prescribing doctor's name & registration no., hospital reference number, or replacement donor's name & contact"></textarea>
+        </div>
+
         <button type="submit" class="btn btn-danger w-100">Submit Request</button>
     </form>
 </div>

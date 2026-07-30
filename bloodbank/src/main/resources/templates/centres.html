@@ -57,6 +57,9 @@
                     <p class="card-text mb-1 text-muted" th:text="${centre.city}">City</p>
                     <p class="card-text mb-1" th:text="'📞 ' + ${centre.contactNumber}">Contact</p>
                     <p class="card-text" th:text="${centre.email}">Email</p>
+					<a th:href="@{/admin/centres/{id}/edit(id=${centre.id})}"
+					               class="btn btn-sm btn-outline-danger"
+					               sec:authorize="hasRole('ADMIN')">Edit</a>
                 </div>
             </div>
         </div>

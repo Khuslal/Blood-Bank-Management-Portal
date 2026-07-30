@@ -38,20 +38,13 @@
             <input type="text" th:field="*{address}" class="form-control">
         </div>
 
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" name="registerAsDonor" value="true" id="registerAsDonor"
-                   onclick="document.getElementById('donorBloodGroup').classList.toggle('d-none', !this.checked)">
-            <label class="form-check-label" for="registerAsDonor">
-                I also want to register as a blood donor
-            </label>
-        </div>
-
-        <div class="mb-3 d-none" id="donorBloodGroup">
-            <label class="form-label">Blood Group</label>
-            <select name="bloodGroup" class="form-select">
-                <option th:each="bg : ${bloodGroups}" th:value="${bg}" th:text="${bg.label}"></option>
-            </select>
-        </div>
+		<div class="mb-3">
+		    <label class="form-label">Blood Group</label>
+		    <select name="bloodGroup" class="form-select" required>
+		        <option value="">Select blood group</option>
+		        <option th:each="bg : ${bloodGroups}" th:value="${bg}" th:text="${bg.label}"></option>
+		    </select>
+		</div>
 
         <button type="submit" class="btn btn-danger w-100">Register</button>
     </form>
