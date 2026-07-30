@@ -2,7 +2,6 @@ package com.management.bloodbank.controller;
 
 import com.management.bloodbank.model.Center;
 import com.management.bloodbank.service.CenterService;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,35 +10,29 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController {
+public class CenterController {
 
 	private final CenterService centerService;
 
-	@GetMapping("/")
-	public String index() {
-		return "index";
+	@GetMapping("/centres")
+	public String listCentres(Model model) {
+		model.addAttribute("centres", centerService.findAll());
+		model.addAttribute("newCentre", new Center());
+		return "centres";
 	}
 
-	@GetMapping("/about")
-	public String about() {
-		return "about";
-	}
-
-	@GetMapping("/contact")
-	public String contact() {
-		return "contact";
-	}
-
-	@PostMapping("/contact")
-	public String submitContact(@RequestParam String name, @RequestParam String email, @RequestParam String message,
+	@PostMapping("/admin/centres")
+	public String addCentre(@Valid @ModelAttribute Center newCentre, BindingResult bindingResult,
 			Model model) {
-		// Hook this up to an email service or a ContactMessage entity if you want to
-		// persist it.
-		model.addAttribute("submitted", true);
-		return "contact";
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("centres", centerService.findAll());
+			model.addAttribute("centreError", "Please fill in all required fields.");
+			return "centres";
+		}
+		centerService.save(newCentre);
+		return "redirect:/centres";
 	}
 }
