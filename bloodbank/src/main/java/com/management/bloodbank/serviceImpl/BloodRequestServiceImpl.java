@@ -25,11 +25,6 @@ public class BloodRequestServiceImpl implements BloodRequestService {
     }
 
     @Override
-    public List<BloodRequest> findByRequesterId(Long requesterId) {
-        return bloodRequestRepository.findByRequesterIdOrderByRequestDateDesc(requesterId);
-    }
-
-    @Override
     public List<BloodRequest> findAll() {
         return bloodRequestRepository.findAllByOrderByRequestDateDesc();
     }

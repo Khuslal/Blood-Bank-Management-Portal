@@ -11,4 +11,5 @@ public interface BloodStockService {
     void addUnits(Center center, BloodGroup bloodGroup, int units);
     boolean deductUnits(BloodGroup bloodGroup, int units);
     int totalUnitsFor(BloodGroup bloodGroup);
+    List<BloodStock> lowStock(int threshold);
 }

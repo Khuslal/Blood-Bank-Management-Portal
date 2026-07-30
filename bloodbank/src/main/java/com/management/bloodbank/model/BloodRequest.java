@@ -20,10 +20,6 @@ public class BloodRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "requester_id", nullable = false)
-    private User requester;
-
     @NotBlank(message = "Patient name is required")
     private String patientName;
 
@@ -37,11 +33,21 @@ public class BloodRequest {
 
     private String hospitalName;
 
+    @NotBlank(message = "Contact number is required")
     private String contactNumber;
 
     @ManyToOne
     @JoinColumn(name = "center_id")
     private Center center;
+
+    // Stored filenames — null means that document wasn't uploaded
+    private String prescriptionFile;
+    private String hospitalRequisitionFile;
+    private String patientSampleFile;
+    private String donorExchangeFile;
+
+    @Column(length = 1000)
+    private String supportingDetails;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
