@@ -41,7 +41,16 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserRole role = UserRole.RECIPIENT;
+    private UserRole role = UserRole.DONOR;
+    /*
+     * If you need blood receiver's registration,
+     * Replace this line on above and also insert RECIEPENT in the 
+     * com.management.bloodbank.model.UserRole class
+     * 
+     * private UserRole role = UserRole.RECIEPENT;
+     * 
+     * and add input field with checkbox for Register as donor 
+     */
 
     @Column(nullable = false)
     private boolean enabled = true;
