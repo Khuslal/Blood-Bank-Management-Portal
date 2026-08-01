@@ -12,23 +12,22 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/request")
 public class RequestController {
 
     private final BloodRequestService bloodRequestService;
     private final CenterService centerService;
     private final FileStorageService fileStorageService;
 
-    @GetMapping
+    @GetMapping("/request")
     public String requestForm(Model model) {
-        model.addAttribute("bloodRequest", new BloodRequest());
+        model.addAttribute("bloodRequest", new Request());
         model.addAttribute("bloodGroups", BloodGroup.values());
         model.addAttribute("centres", centerService.findAll());
         return "request";
     }
 
-    @PostMapping
-    public String submitRequest(@Valid @ModelAttribute BloodRequest bloodRequest,
+    @PostMapping("/request")
+    public String postRequest(@Valid @ModelAttribute Request bloodRequest,
                                  BindingResult bindingResult,
                                  @RequestParam(required = false) Long centerId,
                                  @RequestParam(required = false) MultipartFile prescriptionFile,
@@ -63,7 +62,7 @@ public class RequestController {
         bloodRequestService.submitRequest(bloodRequest);
 
         model.addAttribute("submitted", true);
-        model.addAttribute("bloodRequest", new BloodRequest());
+        model.addAttribute("bloodRequest", new Request());
         model.addAttribute("bloodGroups", BloodGroup.values());
         model.addAttribute("centres", centerService.findAll());
         return "request";

@@ -1,6 +1,6 @@
 package com.management.bloodbank.serviceImpl;
 
-import com.management.bloodbank.model.BloodRequest;
+import com.management.bloodbank.model.Request;
 import com.management.bloodbank.model.RequestStatus;
 import com.management.bloodbank.repository.BloodRequestRepository;
 import com.management.bloodbank.service.BloodRequestService;
@@ -19,20 +19,20 @@ public class BloodRequestServiceImpl implements BloodRequestService {
     private final BloodStockService bloodStockService;
 
     @Override
-    public BloodRequest submitRequest(BloodRequest request) {
+    public Request submitRequest(Request request) {
         request.setStatus(RequestStatus.PENDING);
         return bloodRequestRepository.save(request);
     }
 
     @Override
-    public List<BloodRequest> findAll() {
+    public List<Request> findAll() {
         return bloodRequestRepository.findAllByOrderByRequestDateDesc();
     }
 
     @Override
     @Transactional
-    public BloodRequest updateStatus(Long requestId, RequestStatus status) {
-        BloodRequest request = bloodRequestRepository.findById(requestId)
+    public Request updateStatus(Long requestId, RequestStatus status) {
+        Request request = bloodRequestRepository.findById(requestId)
                 .orElseThrow(() -> new IllegalArgumentException("Request not found with id: " + requestId));
 
         if (status == RequestStatus.APPROVED) {
