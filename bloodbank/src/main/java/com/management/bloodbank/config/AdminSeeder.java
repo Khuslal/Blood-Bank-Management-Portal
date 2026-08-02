@@ -13,29 +13,29 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AdminSeeder implements CommandLineRunner {
 
-	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-	@Value("${app.admin.email:admin@lifedrop.com}")
-	private String adminEmail;
+    @Value("${app.admin.email:admin@lifedrop.com}")
+    private String adminEmail;
 
-	@Value("${app.admin.password:Admin@123}")
-	private String adminPassword;
+    @Value("${app.admin.password:Admin@123}")
+    private String adminPassword;
 
-	@Override
-	public void run(String... args) {
-		if (userRepository.existsByEmail(adminEmail)) {
-			return;
-		}
+    @Override
+    public void run(String... args) {
+        if (userRepository.existsByEmail(adminEmail)) {
+            return;
+        }
 
-		User admin = new User();
-		admin.setFullName("System Admin");
-		admin.setEmail(adminEmail);
-		admin.setPassword(passwordEncoder.encode(adminPassword));
-		admin.setRole(UserRole.ADMIN);
-		admin.setEnabled(true);
+        User admin = new User();
+        admin.setFullName("System Admin");
+        admin.setEmail(adminEmail);
+        admin.setPassword(passwordEncoder.encode(adminPassword));
+        admin.setRole(UserRole.ADMIN);
+        admin.setEnabled(true);
 
-		userRepository.save(admin);
-		System.out.println("Seeded default admin account: " + adminEmail);
-	}
+        userRepository.save(admin);
+        System.out.println("Seeded default admin account: " + adminEmail);
+    }
 }

@@ -44,7 +44,7 @@ public class User {
     private UserRole role = UserRole.DONOR;
     /*
      * If you need blood receiver's registration,
-     * Replace this line on above and also insert RECIEPENT in the 
+     * Replace the below code on above and also insert RECIEPENT in the 
      * com.management.bloodbank.model.UserRole class
      * 
      * private UserRole role = UserRole.RECIEPENT;
@@ -56,4 +56,7 @@ public class User {
     private boolean enabled = true;
 
     private LocalDateTime createdAt = LocalDateTime.now();
+    
+    @OneToOne(mappedBy = "user")
+    private Appointment appointment;
 }

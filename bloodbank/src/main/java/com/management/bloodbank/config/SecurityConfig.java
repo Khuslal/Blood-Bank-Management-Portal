@@ -1,20 +1,14 @@
 package com.management.bloodbank.config;
 
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -22,14 +16,15 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-	private final UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-
+    // 1. Password Encoding
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // 2. Authentication
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
@@ -37,14 +32,18 @@ public class SecurityConfig {
         return provider;
     }
 
+    // 3. Authorization
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/about", "/contact", "/centres", "/login", "/register",
-                        "/css/**", "/js/**", "/images/**", "/static/**","/request/**","/stock/**").permitAll()
-                .requestMatchers("/donation-history/**","/dashboard").authenticated()
-                .requestMatchers("/admin/**","/uploads/**").hasRole("ADMIN")
+                        "/request", "/request/**", "/stock", "/track", "/track/**",
+                        "/css/**", "/js/**", "/images/**", "/static/**").permitAll()
+                .requestMatchers("/uploads/**").hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/donor/**").hasRole("DONOR")
+                .requestMatchers("/donation-history/**", "/dashboard").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

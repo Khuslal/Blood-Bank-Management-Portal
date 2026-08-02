@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Schedule Blood Donation</title>
+
+	<!-- Offline Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
+<body class="bg-light">
+
+	<div class="container py-5">
+
+		<div class="row justify-content-center">
+
+			<div class="col-lg-6 col-md-8">
+
+				<div class="card shadow-lg border-0 rounded-4">
+
+					<!-- Header -->
+
+					<div class="card-header bg-danger text-white text-center py-4">
+
+						<h2 class="mb-1">
+							🩸 Schedule Blood Donation
+						</h2>
+
+						<p class="mb-0">
+							Choose your preferred donation date and time.
+						</p>
+
+					</div>
+
+					<!-- Body -->
+
+					<div class="card-body p-4">
+
+						<form id="donationForm" th:action="@{/donor/appointment}" method="post">
+
+							<!-- Date -->
+
+							<div class="mb-4">
+
+								<label class="form-label fw-bold">
+									Donation Date
+								</label>
+
+								<input type="date" id="donationDate" name="donationDate" class="form-control" required>
+
+								<div class="form-text">
+									Donation appointments are available Monday–Friday.
+								</div>
+
+							</div>
+
+							<!-- Time -->
+
+							<div class="mb-4">
+
+								<label class="form-label fw-bold">
+									Select Time Slot
+								</label>
+
+								<div class="row">
+
+									<div class="col-6">
+
+										<div class="form-check border rounded p-3">
+
+											<input class="form-check-input" type="radio" name="timeSlot" id="morning"
+												value="09:00 AM - 12:00 PM" required>
+
+											<label class="form-check-label fw-bold" for="morning">
+
+												Morning
+
+												<br>
+
+												<small class="text-muted">
+													09:00 AM - 12:00 PM
+												</small>
+
+											</label>
+
+										</div>
+
+									</div>
+
+									<div class="col-6">
+
+										<div class="form-check border rounded p-3">
+
+											<input class="form-check-input" type="radio" name="timeSlot" id="afternoon"
+												value="01:00 PM - 04:00 PM" required>
+
+											<label class="form-check-label fw-bold" for="afternoon">
+
+												Afternoon
+
+												<br>
+
+												<small class="text-muted">
+													01:00 PM - 04:00 PM
+												</small>
+
+											</label>
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+							<!-- Submit -->
+
+							<div class="d-grid">
+
+								<button class="btn btn-danger btn-lg" type="submit">
+
+									Confirm Appointment
+
+								</button>
+
+							</div>
+
+						</form>
+
+					</div>
+
+				</div>
+
+				<!-- Success Alert -->
+
+				<div id="successBanner" class="alert alert-success mt-4 d-none shadow">
+
+					<h4 class="alert-heading">
+
+						Appointment Confirmed!
+
+					</h4>
+
+					<p id="successBannerText"></p>
+
+					<hr>
+
+					<button class="btn btn-success" onclick="location.reload()">
+
+						Book Another Appointment
+
+					</button>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- Offline Bootstrap JS -->
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+
+</html>

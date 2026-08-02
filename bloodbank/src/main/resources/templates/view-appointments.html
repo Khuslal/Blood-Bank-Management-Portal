@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Appointments</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-icons/font/bootstrap-icons.css}">
+</head>
+
+<body class="bg-light">
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold text-danger">
+                <i class="bi bi-calendar-check-fill"></i>
+                Donation Appointments
+            </h2>
+
+            <p class="text-muted">
+                Manage all donor appointments
+            </p>
+        </div>
+
+        <a th:href="@{/dashboard}" class="btn btn-outline-danger">
+            <i class="bi bi-arrow-left"></i>
+            Dashboard
+        </a>
+
+    </div>
+
+    <!-- Success Message -->
+
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+
+        <span th:text="${success}"></span>
+
+        <button class="btn-close" data-bs-dismiss="alert"></button>
+
+    </div>
+
+    <!-- Error Message -->
+
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+
+        <span th:text="${error}"></span>
+
+        <button class="btn-close" data-bs-dismiss="alert"></button>
+
+    </div>
+
+    <div class="card shadow">
+
+        <div class="card-header bg-danger text-white">
+
+            <h5 class="mb-0">
+                Appointment List
+            </h5>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover table-bordered align-middle mb-0">
+
+                <thead class="table-light">
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Donor Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Donation Date</th>
+                    <th>Time Slot</th>
+                    <th>Status</th>
+                    <th width="220">Action</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:if="${#lists.isEmpty(appointments)}">
+
+                    <td colspan="8" class="text-center py-4">
+
+                        No appointments available.
+
+                    </td>
+
+                </tr>
+
+                <tr th:each="appointment : ${appointments}">
+
+                    <td th:text="${appointment.id}"></td>
+
+                    <td th:text="${appointment.user.fullName}"></td>
+
+                    <td th:text="${appointment.user.email}"></td>
+
+                    <td th:text="${appointment.user.phoneNumber}"></td>
+
+                    <td th:text="${appointment.donationDate}"></td>
+
+                    <td th:text="${appointment.timeSlot}"></td>
+
+                    <td>
+
+                        <span class="badge bg-warning"
+                             th:if="${appointment.status != null and appointment.status.name() == 'PENDING'}">
+
+                            Pending
+
+                        </span>
+
+                        <span class="badge bg-success"
+                              th:if="${appointment.status.name()=='ACCEPTED'}">
+
+                            Accepted
+
+                        </span>
+
+                        <span class="badge bg-danger"
+                              th:if="${appointment.status.name()=='REJECTED'}">
+
+                            Rejected
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <div class="btn-group">
+
+                            <a th:if="${appointment.status.name()=='PENDING'}"
+                               th:href="@{/appointment/accept/{id}(id=${appointment.id})}"
+                               class="btn btn-success btn-sm">
+
+                                <i class="bi bi-check-circle"></i>
+
+                                Accept
+
+                            </a>
+
+                            <a th:if="${appointment.status.name()=='PENDING'}"
+                               th:href="@{/appointment/reject/{id}(id=${appointment.id})}"
+                               class="btn btn-danger btn-sm">
+
+                                <i class="bi bi-x-circle"></i>
+
+                                Reject
+
+                            </a>
+
+                            <button th:if="${appointment.status.name()!='PENDING'}"
+                                    class="btn btn-secondary btn-sm" disabled>
+
+                                Completed
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+
+</html>

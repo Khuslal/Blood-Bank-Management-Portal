@@ -10,6 +10,12 @@
         <div class="collapse navbar-collapse" id="navMenu">
             <ul class="navbar-nav ms-auto align-items-lg-center">
                 <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+				<li class="nav-item" sec:authorize="hasRole('DONOR')">
+					<a class="nav-link" th:href="@{/donor/appointment}">Appointment</a>
+				</li>
+				<li class="nav-item" sec:authorize="hasRole('ADMIN')">
+				    <a class="nav-link" th:href="@{/admin/appointments}">Appointments</a>
+				</li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/about}">About</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/centres}">Centres</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/stock}">Blood Stock</a></li>
