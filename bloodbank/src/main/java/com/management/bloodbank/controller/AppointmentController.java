@@ -2,7 +2,6 @@ package com.management.bloodbank.controller;
 
 import com.management.bloodbank.model.Appointment;
 import com.management.bloodbank.model.User;
-import com.management.bloodbank.repository.AppointmentRepository;
 import com.management.bloodbank.service.AppointmentService;
 import com.management.bloodbank.service.UserService;
 
@@ -20,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class AppointmentController {
 
-    private final AppointmentRepository appointmentRepo;
     private final AppointmentService appointmentService;
     private final UserService userService;
 
@@ -37,10 +35,20 @@ public class AppointmentController {
         User loggedInUser = userService.findByEmail(principal.getUsername())
                 .orElseThrow(() -> new IllegalStateException("Logged in user not found"));
 
-        appointment.setUser(loggedInUser);
-        appointmentRepo.save(appointment);
 
         redirectAt.addFlashAttribute("success-message", "Appointment booked successfully!");
+        if (appointmentService.existsByUser(loggedInUser)) {
+
+            redirectAt.addFlashAttribute("error-message",
+                    "Booking can't be duplicated.");
+
+            return "redirect:/donor/appointment";
+        }
+        
+        appointment.setUser(loggedInUser);
+        appointmentService.save(appointment);
+        redirectAt.addFlashAttribute("success-message",
+                "Appointment booked successfully!");
         
         return "redirect:/dashboard";
     }
