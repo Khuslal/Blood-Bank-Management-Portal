@@ -43,12 +43,29 @@
 							<!-- Date -->
 
 							<div class="mb-4">
+								<p class="text-danger font-weight-bold" id="errorDetails" th:if="${errorMessage}">
+									[[${errorMessage}]]</p>
+								<p class="text-success font-weight-bold" id="successDetails" th:if="${successMessage}">
+									[[${successMessage}]]</p>
 
-								<label class="form-label fw-bold">
+								<label for="donationCenter">Select Donation Center</label>
+								<select th:field="*{donationCenter}" name="donationCenter" class="form-control" required>
+									<!-- Default placeholder option -->
+									<option value="" disabled selected>Choose a Center</option>
+
+									<!-- Dynamically loops over the centers from the database -->
+									<option th:each="center : ${allCenters}" th:value="${center.id}"
+										th:text="${center.name}">
+										Center Name Placeholder
+									</option>
+								</select>
+
+
+								<label class="form-label font-weight-bold">
 									Donation Date
 								</label>
 
-								<input type="date" id="donationDate" name="donationDate" class="form-control" required>
+								<input type="date" th:field="*{donationDate}" name="donationDate" class="form-control" required>
 
 								<div class="form-text">
 									Donation appointments are available Monday–Friday.
@@ -60,7 +77,7 @@
 
 							<div class="mb-4">
 
-								<label class="form-label fw-bold">
+								<label class="form-label font-weight-bold">
 									Select Time Slot
 								</label>
 
@@ -70,7 +87,7 @@
 
 										<div class="form-check border rounded p-3">
 
-											<input class="form-check-input" type="radio" name="timeSlot" id="morning"
+											<input class="form-check-input" type="radio" th:field="*{timeSlot}" name="timeSlot" id="morning"
 												value="09:00 AM - 12:00 PM" required>
 
 											<label class="form-check-label fw-bold" for="morning">
@@ -93,7 +110,7 @@
 
 										<div class="form-check border rounded p-3">
 
-											<input class="form-check-input" type="radio" name="timeSlot" id="afternoon"
+											<input class="form-check-input" type="radio" th:field="*{timeSlot}" name="timeSlot" id="afternoon"
 												value="01:00 PM - 04:00 PM" required>
 
 											<label class="form-check-label fw-bold" for="afternoon">
@@ -120,12 +137,12 @@
 
 							<div class="d-grid">
 
+								<a href="/dashboard" class="btn btn-primary btn-lg">Back to Dashboard</a>
 								<button class="btn btn-danger btn-lg" type="submit">
 
 									Confirm Appointment
 
 								</button>
-
 							</div>
 
 						</form>
@@ -134,27 +151,6 @@
 
 				</div>
 
-				<!-- Success Alert -->
-
-				<div id="successBanner" class="alert alert-success mt-4 d-none shadow">
-
-					<h4 class="alert-heading">
-
-						Appointment Confirmed!
-
-					</h4>
-
-					<p id="successBannerText"></p>
-
-					<hr>
-
-					<button class="btn btn-success" onclick="location.reload()">
-
-						Book Another Appointment
-
-					</button>
-
-				</div>
 
 			</div>
 

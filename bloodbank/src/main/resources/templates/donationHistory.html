@@ -7,7 +7,7 @@
 </head>
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-
+<a href="/dashboard" class="btn btn-primary btn-lg" style="margin-top:1rem; margin-left:8rem;">Back to Dashboard</a>
 <div class="container my-5">
     <h1 class="mb-4">Donation History</h1>
 
@@ -19,14 +19,14 @@
             <tr>
                 <th th:if="${isAdmin}">Donor</th>
                 <th>Blood Group</th>
-                <th>Centre</th>
+                <th>Center</th>
                 <th>Units</th>
                 <th>Date</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="h : ${history}">
-                <td th:if="${isAdmin}" th:text="${h.donor.user.fullName}"></td>
+                <td th:if="${isAdmin}" th:text="${h.donor.firstName + ' ' + h.donor.lastName}"></td>
                 <td th:text="${h.bloodGroup.label}"></td>
                 <td th:text="${h.center.name}"></td>
                 <td th:text="${h.unitsDonated}"></td>

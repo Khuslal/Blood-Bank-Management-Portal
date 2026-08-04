@@ -2,24 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Donation Centres - LifeDrop Blood Bank</title>
+    <title>Donation Centers - LifeDrop Blood Bank</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="container my-5">
-    <h1 class="mb-4">Blood Donation Centres</h1>
+    <h1 class="mb-4">Blood Donation Centers</h1>
 
-    <!-- Admin-only: add a new centre -->
+    <!-- Admin-only: add a new center -->
     <div class="card mb-5" sec:authorize="hasRole('ADMIN')">
         <div class="card-body">
-            <h5 class="card-title">Add a New Centre</h5>
-            <div class="alert alert-danger" th:if="${centreError}" th:text="${centreError}"></div>
-            <form th:action="@{/admin/centres}" th:object="${newCentre}" method="post">
+            <h5 class="card-title">Add a New Center</h5>
+            <div class="alert alert-danger" th:if="${centerError}" th:text="${centerError}"></div>
+            <form th:action="@{/admin/centers}" th:object="${newCenter}" method="post">
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label class="form-label">Centre Name</label>
+                        <label class="form-label">Center Name</label>
                         <input type="text" th:field="*{name}" class="form-control" required>
                     </div>
                     <div class="col-md-6">
@@ -32,32 +32,32 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Contact Number</label>
-                        <input type="text" th:field="*{contactNumber}" class="form-control">
+                        <input type="text" th:field="*{phone}" class="form-control">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Email</label>
                         <input type="email" th:field="*{email}" class="form-control">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-danger mt-3">Add Centre</button>
+                <button type="submit" class="btn btn-danger mt-3">Add Center</button>
             </form>
         </div>
     </div>
 
-    <div class="alert alert-info" th:if="${centres == null or centres.isEmpty()}">
-        No centres have been added yet.
+    <div class="alert alert-info" th:if="${centers == null or centers.isEmpty()}">
+        No centers have been added yet.
     </div>
 
     <div class="row g-4">
-        <div class="col-md-4" th:each="centre : ${centres}">
+        <div class="col-md-4" th:each="center : ${centers}">
             <div class="card h-100 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${centre.name}">Centre Name</h5>
-                    <p class="card-text mb-1" th:text="${centre.address}">Address</p>
-                    <p class="card-text mb-1 text-muted" th:text="${centre.city}">City</p>
-                    <p class="card-text mb-1" th:text="'📞 ' + ${centre.contactNumber}">Contact</p>
-                    <p class="card-text" th:text="${centre.email}">Email</p>
-					<a th:href="@{/admin/centres/{id}/edit(id=${centre.id})}"
+                    <h5 class="card-title" th:text="${center.name}">Center Name</h5>
+                    <p class="card-text mb-1" th:text="${center.address}">Address</p>
+                    <p class="card-text mb-1 text-muted" th:text="${center.city}">City</p>
+                    <p class="card-text mb-1" th:text="'📞 ' + ${center.phone}">Contact </p>
+                    <p class="card-text" th:text="${center.email}">Email</p>
+					<a th:href="@{/admin/centers/{id}/edit(id=${center.id})}"
 					               class="btn btn-sm btn-outline-danger"
 					               sec:authorize="hasRole('ADMIN')">Edit</a>
                 </div>

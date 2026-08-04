@@ -1,11 +1,13 @@
 package com.management.bloodbank.service;
 
-import com.management.bloodbank.model.DonationHistory;
-
 import java.util.List;
 
+import com.management.bloodbank.model.DonationHistory;
+
 public interface DonationHistoryService {
-    DonationHistory recordDonation(DonationHistory donationHistory);
-    List<DonationHistory> findByDonorId(Long donorId);
-    List<DonationHistory> findAll();
+	DonationHistory recordDonation(DonationHistory history);
+
+	List<DonationHistory> findByUserId(Long userId);
+
+	List<DonationHistory> findAll();
 }

@@ -47,10 +47,10 @@
             <div class="text-danger small" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></div>
         </div>
         <div class="mb-3">
-            <label class="form-label">Preferred Centre</label>
+            <label class="form-label">Preferred Center</label>
             <select name="centerId" class="form-select">
                 <option value="">No preference</option>
-                <option th:each="c : ${centres}" th:value="${c.id}" th:text="${c.name}"></option>
+                <option th:each="c : ${centers}" th:value="${c.id}" th:text="${c.name}"></option>
             </select>
         </div>
 
@@ -68,26 +68,8 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Valid Prescription</label>
-            <input type="file" name="prescriptionFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Hospital Requisition</label>
-            <input type="file" name="hospitalRequisitionFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Patient Sample Report</label>
-            <input type="file" name="patientSampleFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Donor Exchange Proof</label>
-            <input type="file" name="donorExchangeFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Additional Details</label>
-            <textarea th:field="*{supportingDetails}" class="form-control" rows="3"
-                placeholder="e.g. prescribing doctor's name & registration no., hospital reference number, or replacement donor's name & contact"></textarea>
+            <label class="form-label">Valid Prescription/Document</label>
+            <input type="file" name="validDocs" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
         </div>
 
         <button type="submit" class="btn btn-danger w-100">Submit Request</button>

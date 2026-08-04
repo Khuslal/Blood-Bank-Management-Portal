@@ -1,6 +1,7 @@
 package com.management.bloodbank.model;
 
 public enum UserRole {
-    ADMIN,
-    DONOR
+	DONOR,
+	ADMIN,
+	CENTER_MANAGER
 }

@@ -1,12 +1,13 @@
 package com.management.bloodbank.service;
 
-import com.management.bloodbank.model.Request;
-import com.management.bloodbank.model.RequestStatus;
+import java.util.Optional;
 
-import java.util.List;
+import com.management.bloodbank.model.BloodGroup;
+import com.management.bloodbank.model.BloodRequest;
 
 public interface BloodRequestService {
-    Request submitRequest(Request request);
-    List<Request> findAll();
-    Request updateStatus(Long requestId, RequestStatus status);
+	Optional<BloodRequest> findByPatientName(String patientName);
+	Optional<BloodRequest> findByBloodGroup(BloodGroup bloodGroup);
+	Optional<BloodRequest> findByHospitalName(String hospitalName);
+	Optional<BloodRequest> findByContactNumber(String contactNumber);
 }

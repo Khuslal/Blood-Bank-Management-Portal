@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class StockController {
+public class IndexController {
 
-	@GetMapping("/stock")
-	public String getStock() {
-		return "stock";
+	@GetMapping("/")
+	public String getIndex() {
+		return "index";
 	}
 }

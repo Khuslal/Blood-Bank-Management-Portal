@@ -18,16 +18,9 @@ public class DonationHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "donor_id", nullable = false)
-    private Donor donor;
-
-    @ManyToOne
-    @JoinColumn(name = "center_id", nullable = false)
-    private Center center;
-
-    @Column(nullable = false)
-    private LocalDate donationDate = LocalDate.now();
+//    @OneToOne
+//    @JoinColumn(name = "appointment_id")
+//    private Appointment appointment;
 
     @Column(nullable = false)
     private Integer unitsDonated = 1;
@@ -35,4 +28,15 @@ public class DonationHistory {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BloodGroup bloodGroup;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "center_id", nullable = false)
+    private Centers center;
+
+    @Column(nullable = false)
+    private LocalDate donationDate = LocalDate.now();
 }
