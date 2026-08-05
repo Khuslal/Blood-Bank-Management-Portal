@@ -9,6 +9,7 @@ import com.management.bloodbank.model.Centers;
 import com.management.bloodbank.repository.CentersRepository;
 import com.management.bloodbank.service.CentersService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -63,6 +64,12 @@ public class CentersServiceImpl implements CentersService {
 	public Centers registerCenters(Centers centers) {
 		
 		return centersRepository.save(centers);
+	}
+
+	@Override
+	public Centers updateCenter(@Valid Centers center) {
+		
+		return centersRepository.save(center);
 	}
 
 }

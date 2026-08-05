@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import com.management.bloodbank.model.Centers;
 
+import jakarta.validation.Valid;
+
 public interface CentersService {
 	// For Public Use
 	List<Centers> findAll();
@@ -17,4 +19,5 @@ public interface CentersService {
 	Optional<Centers> findByEmail(String email);
 	boolean existsByEmail(String email);
 	Centers registerCenters(Centers centers);
+	Centers updateCenter(@Valid Centers center);
 }
