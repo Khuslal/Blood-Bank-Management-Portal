@@ -35,11 +35,11 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Units Required</label>
-            <input type="number" min="1" th:field="*{unitsRequired}" class="form-control" required>
+            <input type="number" min="1" max="2" th:field="*{unitsRequired}" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Hospital Name</label>
-            <input type="text" th:field="*{hospitalName}" class="form-control">
+            <label class="form-label">Admitted Hospital Name</label>
+            <input type="text" th:field="*{hospitalName}" class="form-control" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Contact Number</label>
@@ -47,8 +47,8 @@
             <div class="text-danger small" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></div>
         </div>
         <div class="mb-3">
-            <label class="form-label">Preferred Center</label>
-            <select name="centerId" class="form-select">
+            <label class="form-label">Preferred Blood Center</label>
+            <select name="centerId" class="form-select" required>
                 <option value="">No preference</option>
                 <option th:each="c : ${centers}" th:value="${c.id}" th:text="${c.name}"></option>
             </select>
@@ -69,7 +69,7 @@
 
         <div class="mb-3">
             <label class="form-label">Valid Prescription/Document</label>
-            <input type="file" name="validDocs" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+            <input type="file" name="validDocs" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
         </div>
 
         <button type="submit" class="btn btn-danger w-100">Submit Request</button>

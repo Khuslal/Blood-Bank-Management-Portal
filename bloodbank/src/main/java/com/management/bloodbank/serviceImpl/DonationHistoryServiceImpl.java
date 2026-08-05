@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service;
 import com.management.bloodbank.model.DonationHistory;
 import com.management.bloodbank.service.DonationHistoryService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class DonationHistoryServiceImpl implements DonationHistoryService {
 
 	private final DonationHistoryRepository donationHistoryRepository;
-
-	DonationHistoryServiceImpl(DonationHistoryRepository donationHistoryRepository) {
-		this.donationHistoryRepository = donationHistoryRepository;
-	}
 
 	@Override
 	public DonationHistory recordDonation(DonationHistory history) {

@@ -41,4 +41,10 @@ public class BloodRequestServiceImpl implements BloodRequestService {
 		return bloodRequestRepository.findByContactNumber(contactNumber);
 	}
 
+	@Override
+	public BloodRequest registerNewBloodRequest(BloodRequest bloodRequest) {
+		
+		return bloodRequestRepository.save(bloodRequest);
+	}
+
 }
