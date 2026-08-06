@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Manage Users - LifeDrop Blood Bank</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+	<div class="container my-5">
+		<h1 class="mb-4">Manage Users</h1>
+
+		<div class="alert alert-success" th:if="${successMessage}" th:text="${successMessage}"></div>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Role</th>
+					<th>Assigned Center</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="u : ${users}">
+					<td th:text="${u.firstName + ' ' + u.lastName}"></td>
+					<td th:text="${u.email}"></td>
+					<td th:text="${u.role}"></td>
+					<td th:text="${u.assignedCenter != null ? u.assignedCenter.name : '-'}"></td>
+					<td>
+						<form th:if="${u.role.name() == 'DONOR'}"
+							  th:action="@{'/admin/users/' + ${u.id} + '/assignCenterManager'}"
+							  method="post" class="d-flex gap-2">
+							<select name="centerId" class="form-select form-select-sm" required>
+								<option value="" disabled selected>Select center</option>
+								<option th:each="c : ${centers}" th:value="${c.id}" th:text="${c.name}"></option>
+							</select>
+							<button type="submit" class="btn btn-sm btn-danger">Make Manager</button>
+						</form>
+						<span th:if="${u.role.name() != 'DONOR'}" class="text-muted">—</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

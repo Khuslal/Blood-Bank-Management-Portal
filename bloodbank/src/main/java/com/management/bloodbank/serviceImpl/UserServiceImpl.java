@@ -8,8 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.management.bloodbank.model.BloodGroup;
+import com.management.bloodbank.model.Centers;
 import com.management.bloodbank.model.User;
 import com.management.bloodbank.model.UserRole;
+import com.management.bloodbank.repository.CentersRepository;
 import com.management.bloodbank.repository.UserRepository;
 import com.management.bloodbank.service.UserService;
 
@@ -20,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
+	private final CentersRepository centersRepository;
 	private final PasswordEncoder passwordEncoder;
 	
 	@Override
@@ -80,6 +83,22 @@ public class UserServiceImpl implements UserService {
 	public List<User> findByRoleAndBloodGroup(UserRole role, BloodGroup bloodGroup) {
 		
 		return userRepository.findByRoleAndBloodGroup(role, bloodGroup);
+	}
+
+	@Override
+	public List<User> findAll() {
+	    return userRepository.findAll();
+	}
+
+	@Override
+	public void assignCenterManager(Long userId, Long centerId) {
+	    User user = userRepository.findById(userId)
+	            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+	    Centers center = centersRepository.findById(centerId)
+	            .orElseThrow(() -> new IllegalArgumentException("Center not found"));
+	    user.setRole(UserRole.CENTER_MANAGER);
+	    user.setAssignedCenter(center);
+	    userRepository.save(user);
 	}
 
 }

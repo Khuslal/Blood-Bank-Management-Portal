@@ -29,6 +29,13 @@
 			</div>
 
 			<div class="mb-3">
+				<label class="form-label">Date Of Birth</label>
+				<input type="date" th:field="*{dob}" class="form-control" required>
+				<div class="text-danger small" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></div>
+			</div>
+
+
+			<div class="mb-3">
 				<label class="form-label">Email</label>
 				<input type="email" th:field="*{email}" class="form-control" required>
 				<div class="text-danger small" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
@@ -56,6 +63,30 @@
 					<option th:each="bg : ${bloodGroups}" th:value="${bg}" th:text="${bg.name().replace('_', ' ')}">
 					</option>
 				</select>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label d-block">Gender</label>
+
+				<div class="form-check form-check-inline">
+					<input type="radio" id="genderMale" value="male" th:field="*{gender}" class="form-check-input"
+						required>
+					<label class="form-check-label" for="genderMale">Male</label>
+				</div>
+
+				<div class="form-check form-check-inline">
+					<input type="radio" id="genderFemale" value="female" th:field="*{gender}" class="form-check-input"
+						required>
+					<label class="form-check-label" for="genderFemale">Female</label>
+				</div>
+
+				<div class="form-check form-check-inline">
+					<input type="radio" id="genderCustom" value="custom" th:field="*{gender}" class="form-check-input"
+						required>
+					<label class="form-check-label" for="genderCustom">Custom</label>
+				</div>
+
+				<div class="text-danger small mt-1" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
 			</div>
 
 			<button type="submit" class="btn btn-danger w-100">Register</button>

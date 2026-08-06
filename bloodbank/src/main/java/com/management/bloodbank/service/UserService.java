@@ -19,4 +19,6 @@ public interface UserService {
 	User registerNewUser(User user);
 	List<User> findByRole(UserRole role);
     List<User> findByRoleAndBloodGroup(UserRole role, BloodGroup bloodGroup);
+    List<User> findAll();
+    void assignCenterManager(Long userId, Long centerId);
 }

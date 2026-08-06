@@ -45,7 +45,7 @@ public class CenterEditController {
 	        center.setId(id); 
 	        centersService.updateCenter(center);
 	        redirectAt.addFlashAttribute("successMessage", "Center updated successfully!");
-	        return "redirect:/admin/centers";
+	        return "redirect:/centers";
 	        
 	    } catch (Exception e) {
 	        model.addAttribute("errorMessage", "Failed to update center: " + e.getMessage());
