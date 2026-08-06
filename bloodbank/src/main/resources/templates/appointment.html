@@ -38,7 +38,7 @@
 
 					<div class="card-body p-4">
 
-						<form id="donationForm" th:action="@{/donor/appointment}" method="post">
+						<form id="donationForm" th:action="@{/donor/appointment}" th:object="${appointmentForm}" method="post">
 
 							<!-- Date -->
 

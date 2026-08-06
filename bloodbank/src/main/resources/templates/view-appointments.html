@@ -101,11 +101,11 @@
 
 							<td th:text="${appointment.id}"></td>
 
-							<td th:text="${appointment.user.fullName}"></td>
+							<td th:text="${appointment.user.firstName + ' ' + appointment.user.lastName}"></td>
 
 							<td th:text="${appointment.user.email}"></td>
 
-							<td th:text="${appointment.user.phoneNumber}"></td>
+							<td th:text="${appointment.user.phone}"></td>
 
 							<td th:text="${appointment.donationDate}"></td>
 
@@ -139,25 +139,16 @@
 								<div class="btn-group">
 
 									<a th:if="${appointment.status.name()=='PENDING'}"
-										th:href="@{/appointment/accept/{id}(id=${appointment.id})}"
+										th:href="@{${actionPrefix} + '/accept/' + ${appointment.id}}"
 										class="btn btn-success btn-sm">
-
-										<i class="bi bi-check-circle"></i>
-
-										Accept
-
+										<i class="bi bi-check-circle"></i> Accept
 									</a>
 
 									<a th:if="${appointment.status.name()=='PENDING'}"
-										th:href="@{/appointment/reject/{id}(id=${appointment.id})}"
+										th:href="@{${actionPrefix} + '/reject/' + ${appointment.id}}"
 										class="btn btn-danger btn-sm">
-
-										<i class="bi bi-x-circle"></i>
-
-										Reject
-
+										<i class="bi bi-x-circle"></i> Reject
 									</a>
-
 									<button th:if="${appointment.status.name()!='PENDING'}"
 										class="btn btn-secondary btn-sm" disabled>
 

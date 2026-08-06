@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8">
@@ -31,6 +31,17 @@
 				</p>
 				<a th:href="@{/donation-history}" class="btn btn-sm btn-outline-danger mt-2">View Full Donation
 					History</a>
+			</div>
+		</div>
+
+		<div class="col-md-4" sec:authorize="hasRole('DONOR')">
+			<div class="card shadow-sm h-100">
+				<div class="card-body text-center">
+					<i class="bi bi-calendar-check-fill text-danger" style="font-size: 2rem;"></i>
+					<h5 class="card-title mt-3">My Appointments</h5>
+					<p class="card-text text-muted">View or book a blood donation appointment.</p>
+					<a th:href="@{/donor/my-appointments}" class="btn btn-danger btn-sm">View Appointments</a>
+				</div>
 			</div>
 		</div>
 
