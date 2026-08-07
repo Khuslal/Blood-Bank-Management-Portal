@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.management.bloodbank.dto.AppointmentForm;
 import com.management.bloodbank.model.User;
 import com.management.bloodbank.service.AppointmentService;
 import com.management.bloodbank.service.CentersService;
+import com.management.bloodbank.service.DonationHistoryService;
 import com.management.bloodbank.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class AppointmentController {
 	private final AppointmentService appointmentService;
 	private final CentersService centersService;
 	private final UserService userService;
+	private final DonationHistoryService donationHistoryService;
 
 	// Donor: book appointment @GetMapping
 
@@ -134,5 +137,44 @@ public class AppointmentController {
 		String email = authentication.getName();
 		return userService.findByEmail(email)
 				.orElseThrow(() -> new IllegalArgumentException("Logged-in user not found"));
+	}
+
+	// Admin & Center Manager: mark an accepted appointment as donated
+
+	@GetMapping("/admin/appointments/donate/{id}")
+	public String adminDonateForm(@PathVariable Long id, Model model) {
+		model.addAttribute("appointmentId", id);
+		model.addAttribute("actionUrl", "/admin/appointments/donate/" + id);
+		return "donate-confirm";
+	}
+
+	@PostMapping("/admin/appointments/donate/{id}")
+	public String adminDonate(@PathVariable Long id, @RequestParam Integer unitsDonated, Authentication authentication,
+			RedirectAttributes redirectAt) {
+		return handleDonate(id, unitsDonated, authentication, redirectAt, "/admin/appointments");
+	}
+
+	@GetMapping("/centerManager/appointments/donate/{id}")
+	public String managerDonateForm(@PathVariable Long id, Model model) {
+		model.addAttribute("appointmentId", id);
+		model.addAttribute("actionUrl", "/centerManager/appointments/donate/" + id);
+		return "donate-confirm";
+	}
+
+	@PostMapping("/centerManager/appointments/donate/{id}")
+	public String managerDonate(@PathVariable Long id, @RequestParam Integer unitsDonated,
+			Authentication authentication, RedirectAttributes redirectAt) {
+		return handleDonate(id, unitsDonated, authentication, redirectAt, "/centerManager/appointments");
+	}
+
+	private String handleDonate(Long id, Integer unitsDonated, Authentication authentication,
+			RedirectAttributes redirectAt, String redirectBase) {
+		try {
+			donationHistoryService.recordDonationFromAppointment(id, unitsDonated, currentUser(authentication));
+			redirectAt.addFlashAttribute("success", "Donation recorded successfully.");
+		} catch (IllegalArgumentException e) {
+			redirectAt.addFlashAttribute("error", e.getMessage());
+		}
+		return "redirect:" + redirectBase;
 	}
 }

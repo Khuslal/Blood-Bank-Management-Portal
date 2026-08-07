@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Record Donation - LifeDrop Blood Bank</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
+<body>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+	<div class="container my-5" style="max-width:480px;">
+		<h1 class="mb-4">Record Donation</h1>
+
+		<form th:action="@{${actionUrl}}" method="post">
+			<div class="mb-3">
+				<label class="form-label">Units Donated</label>
+				<input type="number" name="unitsDonated" class="form-control" value="1" min="1" required>
+			</div>
+			<button type="submit" class="btn btn-danger">Confirm Donation</button>
+			<a th:href="@{/dashboard}" class="btn btn-outline-secondary">Cancel</a>
+		</form>
+	</div>
+
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

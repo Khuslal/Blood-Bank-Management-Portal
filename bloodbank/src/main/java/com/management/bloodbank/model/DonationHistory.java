@@ -18,9 +18,9 @@ public class DonationHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @OneToOne
-//    @JoinColumn(name = "appointment_id")
-//    private Appointment appointment;
+    @OneToOne
+    @JoinColumn(name = "appointment_id")
+    private Appointment appointment;
 
     @Column(nullable = false)
     private Integer unitsDonated = 1;

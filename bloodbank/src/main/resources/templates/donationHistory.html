@@ -26,7 +26,7 @@
             </thead>
             <tbody>
             <tr th:each="h : ${history}">
-                <td th:if="${isAdmin}" th:text="${h.donor.firstName + ' ' + h.donor.lastName}"></td>
+                <td th:if="${isAdmin}" th:text="${h.user.firstName + ' ' + h.user.lastName}"></td>
                 <td th:text="${h.bloodGroup.label}"></td>
                 <td th:text="${h.center.name}"></td>
                 <td th:text="${h.unitsDonated}"></td>

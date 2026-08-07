@@ -65,6 +65,9 @@
 								<span class="badge bg-danger" th:if="${appointment.status.name()=='REJECTED'}">
 									Rejected
 								</span>
+								<span class="badge bg-primary" th:if="${appointment.status.name()=='DONATED'}">
+									Donated
+								</span>
 							</td>
 						</tr>
 					</tbody>

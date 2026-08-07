@@ -9,4 +9,6 @@ import com.management.bloodbank.model.DonationHistory;
 public interface DonationHistoryRepository extends JpaRepository<DonationHistory, Long> {
 
 	List<DonationHistory> findByUserId(Long userId);
+
+	List<DonationHistory> findByCenterId(Long centerId);
 }

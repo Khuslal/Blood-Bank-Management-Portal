@@ -132,12 +132,14 @@
 
 								</span>
 
+								<span class="badge bg-primary" th:if="${appointment.status.name()=='DONATED'}">
+									Donated
+								</span>
+
 							</td>
 
 							<td>
-
 								<div class="btn-group">
-
 									<a th:if="${appointment.status.name()=='PENDING'}"
 										th:href="@{${actionPrefix} + '/accept/' + ${appointment.id}}"
 										class="btn btn-success btn-sm">
@@ -149,15 +151,19 @@
 										class="btn btn-danger btn-sm">
 										<i class="bi bi-x-circle"></i> Reject
 									</a>
-									<button th:if="${appointment.status.name()!='PENDING'}"
-										class="btn btn-secondary btn-sm" disabled>
 
-										Completed
+									<a th:if="${appointment.status.name()=='ACCEPTED'}"
+										th:href="@{${actionPrefix} + '/donate/' + ${appointment.id}}"
+										class="btn btn-primary btn-sm">
+										<i class="bi bi-droplet-fill"></i> Mark as Donated
+									</a>
 
+									<button
+										th:if="${appointment.status.name()=='REJECTED' or appointment.status.name()=='DONATED'}"
+										class="btn btn-secondary btn-sm" disabled
+										th:text="${appointment.status.name()=='DONATED' ? 'Donated' : 'Rejected'}">
 									</button>
-
 								</div>
-
 							</td>
 
 						</tr>
