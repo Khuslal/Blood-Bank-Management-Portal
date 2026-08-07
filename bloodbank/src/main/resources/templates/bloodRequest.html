@@ -1,85 +1,92 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Request Blood - LifeDrop Blood Bank</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<meta charset="UTF-8">
+	<title>Request Blood - LifeDrop Blood Bank</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
+
 <body>
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="container my-5" style="max-width:600px;">
-    <h1 class="mb-4">Request Blood</h1>
+	<div class="container my-5" style="max-width:600px;">
+		<h1 class="mb-4">Request Blood</h1>
 
-    <div class="alert alert-success" th:if="${submitted}">
-        Your request has been submitted. Our team will review it shortly.
-    </div>
+		<div class="alert alert-success" th:if="${submitted}">
+			Your request has been submitted. Our team will review it shortly.
+		</div>
 
-    <form th:action="@{/request}" th:object="${bloodRequest}" method="post" enctype="multipart/form-data">
+		<form th:action="@{/request}" th:object="${bloodRequest}" method="post" enctype="multipart/form-data">
 
-        <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
-            <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
-        </div>
+			<div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+				<div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+			</div>
 
-        <div class="mb-3">
-            <label class="form-label">Patient Name</label>
-            <input type="text" th:field="*{patientName}" class="form-control" required>
-            <div class="text-danger small" th:if="${#fields.hasErrors('patientName')}" th:errors="*{patientName}"></div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Blood Group</label>
-            <select th:field="*{bloodGroup}" class="form-select" required>
-                <option value="">Select blood group</option>
-                <option th:each="bg : ${bloodGroups}" th:value="${bg}" th:text="${bg.label}"></option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Units Required</label>
-            <input type="number" min="1" max="2" th:field="*{unitsRequired}" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Admitted Hospital Name</label>
-            <input type="text" th:field="*{hospitalName}" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Contact Number</label>
-            <input type="text" th:field="*{contactNumber}" class="form-control" required>
-            <div class="text-danger small" th:if="${#fields.hasErrors('contactNumber')}" th:errors="*{contactNumber}"></div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Preferred Blood Center</label>
-            <select name="centerId" class="form-select" required>
-                <option value="">No preference</option>
-                <option th:each="c : ${centers}" th:value="${c.id}" th:text="${c.name}"></option>
-            </select>
-        </div>
+			<div class="mb-3">
+				<label class="form-label">Patient Name</label>
+				<input type="text" th:field="*{patientName}" class="form-control" required>
+				<div class="text-danger small" th:if="${#fields.hasErrors('patientName')}" th:errors="*{patientName}">
+				</div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Blood Group</label>
+				<select th:field="*{bloodGroup}" class="form-select" required>
+					<option value="">Select blood group</option>
+					<option th:each="bg : ${bloodGroups}" th:value="${bg}" th:text="${bg.label}"></option>
+				</select>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Units Required</label>
+				<input type="number" min="1" max="2" th:field="*{unitsRequired}" class="form-control" required>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Admitted Hospital Name</label>
+				<input type="text" th:field="*{hospitalName}" class="form-control" required>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Contact Number</label>
+				<input type="text" th:field="*{contactNumber}" class="form-control" required>
+				<div class="text-danger small" th:if="${#fields.hasErrors('contactNumber')}"
+					th:errors="*{contactNumber}"></div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Preferred Blood Center</label>
+				<select name="centerId" class="form-select" required>
+					<option value="">No preference</option>
+					<option th:each="c : ${centers}" th:value="${c.id}" th:text="${c.name}"></option>
+				</select>
+			</div>
 
-        <hr>
-        <h5>Supporting Documents</h5>
+			<hr>
+			<h5>Supporting Documents</h5>
 
-        <div class="alert alert-secondary small">
-            <strong>Note:</strong> upload at least one of the following —
-            <ul class="mb-0 mt-2">
-                <li><strong>Valid Prescription</strong> — signed order from a registered medical practitioner</li>
-                <li><strong>Hospital Requisition</strong> — official request from a recognized clinic or hospital</li>
-                <li><strong>Patient Sample</strong> — pre-transfusion sample report for cross-matching</li>
-                <li><strong>Donor Exchange</strong> — proof of a replacement donor from the patient's family</li>
-            </ul>
-        </div>
+			<div class="alert alert-secondary small">
+				<strong>Note:</strong> upload at least one of the following —
+				<ul class="mb-0 mt-2">
+					<li><strong>Valid Prescription</strong> — signed order from a registered medical practitioner</li>
+					<li><strong>Hospital Requisition</strong> — official request from a recognized clinic or hospital
+					</li>
+					<li><strong>Patient Sample</strong> — pre-transfusion sample report for cross-matching</li>
+					<li><strong>Donor Exchange</strong> — proof of a replacement donor from the patient's family</li>
+				</ul>
+			</div>
 
-        <div class="mb-3">
-            <label class="form-label">Valid Prescription/Document</label>
-            <input type="file" name="validDocs" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
-        </div>
+			<div class="mb-3">
+				<label class="form-label">Valid Prescription/Document</label>
+				<input type="file" name="validDocs" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
+			</div>
 
-        <button type="submit" class="btn btn-danger w-100">Submit Request</button>
-    </form>
-</div>
+			<button type="submit" class="btn btn-danger w-100">Submit Request</button>
+		</form>
+	</div>
 
-<footer class="text-center py-3 text-muted border-top mt-5">
-    &copy; 2026 LifeDrop Blood Bank Management System
-</footer>
+	<footer class="text-center py-3 text-muted border-top mt-5">
+		&copy; 2026 LifeDrop Blood Bank Management System
+	</footer>
 
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
+
 </html>

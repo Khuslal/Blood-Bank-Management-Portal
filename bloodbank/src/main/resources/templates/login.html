@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Login - LifeDrop Blood Bank</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<meta charset="UTF-8">
+	<title>Login - LifeDrop Blood Bank</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
+
 <body>
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="container my-5" style="max-width:420px;">
-    <h1 class="mb-4 text-center">Login</h1>
+	<div class="container my-5" style="max-width:420px;">
+		<h1 class="mb-4 text-center">Login</h1>
 
-    <div class="alert alert-success" th:if="${registered}">
-        Account created successfully. Please log in.
-    </div>
-    <div class="alert alert-danger" th:if="${param.error}">
-        Invalid email or password.
-    </div>
-    <div class="alert alert-info" th:if="${param.logout}">
-        You have been logged out.
-    </div>
+		<div class="alert alert-success" th:if="${registered}">
+			Account created successfully. Please log in.
+		</div>
+		<div class="alert alert-danger" th:if="${param.error}">
+			Invalid email or password.
+		</div>
+		<div class="alert alert-info" th:if="${param.logout}">
+			You have been logged out.
+		</div>
 
-    <form th:action="@{/login}" method="post">
-        <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" required autofocus>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-danger w-100">Login</button>
-    </form>
+		<form th:action="@{/login}" method="post">
+			<div class="mb-3">
+				<label class="form-label">Email</label>
+				<input type="email" name="email" class="form-control" required autofocus>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Password</label>
+				<input type="password" name="password" class="form-control" required>
+			</div>
+			<button type="submit" class="btn btn-danger w-100">Login</button>
+		</form>
 
-    <p class="text-center mt-3">
-        Don't have an account? <a th:href="@{/register}">Register here</a>
-    </p>
-</div>
+		<p class="text-center mt-3">
+			Don't have an account? <a th:href="@{/register}">Register here</a>
+		</p>
+	</div>
 
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
+
 </html>

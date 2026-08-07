@@ -7,27 +7,31 @@ import lombok.Data;
 @Data
 public class BloodRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String patientName;
+	private String patientName;
 
-    @Enumerated(EnumType.STRING)
-    private BloodGroup bloodGroup;
+	@Enumerated(EnumType.STRING)
+	private BloodGroup bloodGroup;
 
-    private Integer unitsRequired;
+	private Integer unitsRequired;
 
-    private String hospitalName;
+	private String hospitalName;
 
-    private String contactNumber;
+	private String contactNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "center_id")
-    private Centers centers;
+	@ManyToOne
+	@JoinColumn(name = "center_id")
+	private Centers centers;
 
-    // File stored on local filesystem; only metadata kept in DB
-    private String documentName;
-    private String documentPath;
-    private String documentType;
+	// File location: bloodbank/uploads; only metadata kept in DB
+	private String documentName;
+	private String documentPath;
+	private String documentType;
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, columnDefinition = "VARCHAR(20)")
+	private BloodRequestStatus status = BloodRequestStatus.PENDING;
 }

@@ -1,46 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Donation History - LifeDrop Blood Bank</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<meta charset="UTF-8">
+	<title>Donation History - LifeDrop Blood Bank</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
+
 <body>
-<div th:replace="~{fragments/navbar :: navbar}"></div>
-<a href="/dashboard" class="btn btn-primary btn-lg" style="margin-top:1rem; margin-left:8rem;">Back to Dashboard</a>
-<div class="container my-5">
-    <h1 class="mb-4">Donation History</h1>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
+	<a href="/dashboard" class="btn btn-primary btn-lg" style="margin-top:1rem; margin-left:8rem;">Back to Dashboard</a>
+	<div class="container my-5">
+		<h1 class="mb-4">Donation History</h1>
 
-    <div class="alert alert-info" th:if="${history.isEmpty()}">No donation records found.</div>
+		<div class="alert alert-info" th:if="${history.isEmpty()}">No donation records found.</div>
 
-    <div class="table-responsive" th:unless="${history.isEmpty()}">
-        <table class="table table-striped align-middle">
-            <thead>
-            <tr>
-                <th th:if="${isAdmin}">Donor</th>
-                <th>Blood Group</th>
-                <th>Center</th>
-                <th>Units</th>
-                <th>Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="h : ${history}">
-                <td th:if="${isAdmin}" th:text="${h.user.firstName + ' ' + h.user.lastName}"></td>
-                <td th:text="${h.bloodGroup.label}"></td>
-                <td th:text="${h.center.name}"></td>
-                <td th:text="${h.unitsDonated}"></td>
-                <td th:text="${#temporals.format(h.donationDate, 'dd MMM yyyy')}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+		<div class="table-responsive" th:unless="${history.isEmpty()}">
+			<table class="table table-striped align-middle">
+				<thead>
+					<tr>
+						<th th:if="${isAdmin}">Donor</th>
+						<th>Blood Group</th>
+						<th>Center</th>
+						<th>Units</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="h : ${history}">
+						<td th:if="${isAdmin}" th:text="${h.user.firstName + ' ' + h.user.lastName}"></td>
+						<td th:text="${h.bloodGroup.label}"></td>
+						<td th:text="${h.center.name}"></td>
+						<td th:text="${h.unitsDonated}"></td>
+						<td th:text="${#temporals.format(h.donationDate, 'dd MMM yyyy')}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-<footer class="text-center py-3 text-muted border-top mt-5">
-    &copy; 2026 LifeDrop Blood Bank Management System
-</footer>
+	<footer class="text-center py-3 text-muted border-top mt-5">
+		&copy; 2026 LifeDrop Blood Bank Management System
+	</footer>
 
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
+
 </html>

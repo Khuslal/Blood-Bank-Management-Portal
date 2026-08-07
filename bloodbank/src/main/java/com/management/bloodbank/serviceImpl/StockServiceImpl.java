@@ -36,4 +36,17 @@ public class StockServiceImpl implements StockService {
 		stock.setQuantity(stock.getQuantity() + units);
 		stockRepository.save(stock);
 	}
+	
+	@Override
+	public void removeUnits(Centers centers, BloodGroup bloodGroup, int units) {
+		Stock stock = stockRepository.findByCentersAndBloodGroup(centers, bloodGroup)
+				.orElseThrow(() -> new IllegalArgumentException("No stock record found for this center and blood group"));
+
+		if (stock.getQuantity() < units) {
+			throw new IllegalArgumentException("Not enough stock available (" + stock.getQuantity() + " units left)");
+		}
+
+		stock.setQuantity(stock.getQuantity() - units);
+		stockRepository.save(stock);
+	}
 }

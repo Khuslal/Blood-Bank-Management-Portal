@@ -38,7 +38,8 @@
 
 					<div class="card-body p-4">
 
-						<form id="donationForm" th:action="@{/donor/appointment}" th:object="${appointmentForm}" method="post">
+						<form id="donationForm" th:action="@{/donor/appointment}" th:object="${appointmentForm}"
+							method="post">
 
 							<!-- Date -->
 
@@ -161,6 +162,7 @@
 	</div>
 
 	<!-- Offline Bootstrap JS -->
+	<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 
 </body>

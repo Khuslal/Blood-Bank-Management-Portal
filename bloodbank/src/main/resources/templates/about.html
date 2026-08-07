@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>About Us - LifeDrop Blood Bank</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<meta charset="UTF-8">
+	<title>About Us - LifeDrop Blood Bank</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
+
 <body>
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="container my-5">
-    <h1 class="mb-4">About LifeDrop</h1>
-    <p class="lead">LifeDrop Blood Bank Management System connects voluntary blood donors, hospitals, and blood
-        donation centers on a single platform to make blood donation and requests fast and transparent.</p>
+	<div class="container my-5">
+		<h1 class="mb-4">About LifeDrop</h1>
+		<p class="lead">LifeDrop Blood Bank Management System connects voluntary blood donors, hospitals, and blood
+			donation centers on a single platform to make blood donation and requests fast and transparent.</p>
 
-    <div class="row mt-5 g-4">
-        <div class="col-md-4">
-            <h4>Our Mission</h4>
-            <p>To ensure that no patient ever has to wait for safe blood due to lack of information or access.</p>
-        </div>
-        <div class="col-md-4">
-            <h4>How It Works</h4>
-            <p>Donors register their blood group, donate at partner centers, and their donation is logged. Recipients
-                can check live stock and submit requests, which are reviewed and fulfilled by center staff.</p>
-        </div>
-        <div class="col-md-4">
-            <h4>Safety First</h4>
-            <p>All donations follow standard eligibility checks including a minimum gap of 90 days between
-                donations.</p>
-        </div>
-    </div>
-</div>
+		<div class="row mt-5 g-4">
+			<div class="col-md-4">
+				<h4>Our Mission</h4>
+				<p>To ensure that no patient ever has to wait for safe blood due to lack of information or access.</p>
+			</div>
+			<div class="col-md-4">
+				<h4>How It Works</h4>
+				<p>Donors register their blood group, donate at partner centers, and their donation is logged.
+					Recipients
+					can check live stock and submit requests, which are reviewed and fulfilled by center staff.</p>
+			</div>
+			<div class="col-md-4">
+				<h4>Safety First</h4>
+				<p>All donations follow standard eligibility checks including a minimum gap of 90 days between
+					donations.</p>
+			</div>
+		</div>
+	</div>
 
-<footer class="text-center py-3 text-muted border-top mt-5">
-    &copy; 2026 LifeDrop Blood Bank Management System
-</footer>
+	<footer class="text-center py-3 text-muted border-top mt-5">
+		&copy; 2026 LifeDrop Blood Bank Management System
+	</footer>
 
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
+
 </html>

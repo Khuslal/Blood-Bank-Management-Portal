@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Manage Blood Requests</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/bootstrap-icons/font/bootstrap-icons.css}">
+</head>
+
+<body class="bg-light">
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
+	<div class="container py-4">
+
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<div>
+				<h2 class="fw-bold text-danger">
+					<i class="bi bi-droplet-half"></i>
+					Blood Requests
+				</h2>
+				<p class="text-muted">Review and manage patient blood requests</p>
+			</div>
+			<a th:href="@{/dashboard}" class="btn btn-outline-danger">
+				<i class="bi bi-arrow-left"></i> Dashboard
+			</a>
+		</div>
+
+		<div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+			<span th:text="${success}"></span>
+			<button class="btn-close" data-bs-dismiss="alert"></button>
+		</div>
+		<div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+			<span th:text="${error}"></span>
+			<button class="btn-close" data-bs-dismiss="alert"></button>
+		</div>
+
+		<div class="card shadow">
+			<div class="card-header bg-danger text-white">
+				<h5 class="mb-0">Request List</h5>
+			</div>
+
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered align-middle mb-0">
+					<thead class="table-light">
+						<tr>
+							<th>ID</th>
+							<th>Patient</th>
+							<th>Blood Group</th>
+							<th>Units</th>
+							<th>Hospital</th>
+							<th>Contact</th>
+							<th>Center</th>
+							<th>Status</th>
+							<th width="260">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${#lists.isEmpty(requests)}">
+							<td colspan="9" class="text-center py-4">No requests available.</td>
+						</tr>
+
+						<tr th:each="req : ${requests}">
+							<td th:text="${req.id}"></td>
+							<td th:text="${req.patientName}"></td>
+							<td th:text="${req.bloodGroup.label}"></td>
+							<td th:text="${req.unitsRequired}"></td>
+							<td th:text="${req.hospitalName}"></td>
+							<td th:text="${req.contactNumber}"></td>
+							<td th:text="${req.centers != null ? req.centers.name : '-'}"></td>
+							<td>
+								<span class="badge bg-warning" th:if="${req.status.name()=='PENDING'}">Pending</span>
+								<span class="badge bg-success" th:if="${req.status.name()=='APPROVED'}">Approved</span>
+								<span class="badge bg-danger" th:if="${req.status.name()=='REJECTED'}">Rejected</span>
+								<span class="badge bg-primary"
+									th:if="${req.status.name()=='FULFILLED'}">Fulfilled</span>
+							</td>
+							<td>
+								<div class="btn-group">
+									<a th:if="${req.status.name()=='PENDING'}"
+										th:href="@{${actionPrefix} + '/approve/' + ${req.id}}"
+										class="btn btn-success btn-sm">
+										<i class="bi bi-check-circle"></i> Approve
+									</a>
+									<a th:if="${req.status.name()=='PENDING'}"
+										th:href="@{${actionPrefix} + '/reject/' + ${req.id}}"
+										class="btn btn-danger btn-sm">
+										<i class="bi bi-x-circle"></i> Reject
+									</a>
+									<a th:if="${req.status.name()=='APPROVED'}"
+										th:href="@{${actionPrefix} + '/fulfill/' + ${req.id}}"
+										class="btn btn-primary btn-sm">
+										<i class="bi bi-droplet-fill"></i> Fulfill
+									</a>
+									<button th:if="${req.status.name()=='REJECTED' or req.status.name()=='FULFILLED'}"
+										class="btn btn-secondary btn-sm" disabled
+										th:text="${req.status.name()=='FULFILLED' ? 'Fulfilled' : 'Rejected'}">
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

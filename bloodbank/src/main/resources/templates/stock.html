@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Blood Stock - LifeDrop Blood Bank</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<meta charset="UTF-8">
+	<title>Blood Stock - LifeDrop Blood Bank</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
+
 <body>
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="container my-5">
-    <h1 class="mb-4">Current Blood Stock</h1>
+	<div class="container my-5">
+		<h1 class="mb-4">Current Blood Stock</h1>
 
-    <div class="alert alert-info" th:if="${stockList == null or stockList.isEmpty()}">
-        No stock records available yet.
-    </div>
+		<div class="alert alert-info" th:if="${stockList == null or stockList.isEmpty()}">
+			No stock records available yet.
+		</div>
 
-    <div class="row g-3" th:unless="${stockList == null or stockList.isEmpty()}">
-        <div class="col-md-3 col-sm-6" th:each="s : ${stockList}">
-            <div class="card text-center h-100 shadow-sm">
-                <div class="card-body">
-                    <h4 class="fw-bold text-danger" th:text="${s.bloodGroup.label}">A+</h4>
-                    <p class="mb-1 text-muted" th:text="${s.centers.name}">Center</p>
-                    <h2 th:text="${s.quantity}">0</h2>
-                    <p class="text-muted mb-0">units available</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+		<div class="row g-3" th:unless="${stockList == null or stockList.isEmpty()}">
+			<div class="col-md-3 col-sm-6" th:each="s : ${stockList}">
+				<div class="card text-center h-100 shadow-sm">
+					<div class="card-body">
+						<h4 class="fw-bold text-danger" th:text="${s.bloodGroup.label}">A+</h4>
+						<p class="mb-1 text-muted" th:text="${s.centers.name}">Center</p>
+						<h2 th:text="${s.quantity}">0</h2>
+						<p class="text-muted mb-0">units available</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<footer class="text-center py-3 text-muted border-top mt-5">
-    &copy; 2026 LifeDrop Blood Bank Management System
-</footer>
+	<footer class="text-center py-3 text-muted border-top mt-5">
+		&copy; 2026 LifeDrop Blood Bank Management System
+	</footer>
 
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
+
 </html>

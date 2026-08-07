@@ -1,58 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <meta charset="UTF-8">
-    <title>LifeDrop Blood Bank</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<meta charset="UTF-8">
+	<title>LifeDrop Blood Bank</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
+
 <body>
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<header class="text-white text-center py-5" style="background:linear-gradient(135deg,#b91c2b,#7a0f1c);">
-    <div class="container">
-        <h1 class="display-5 fw-bold">Every Drop Counts</h1>
-        <p class="lead">Donate blood, save lives. Join our network of donors and blood centers.</p>
-        <a th:href="@{/register}" class="btn btn-light btn-lg me-2" sec:authorize="isAnonymous()">Become a Donor</a>
-        <a th:href="@{/request}" class="btn btn-outline-light btn-lg">Request Blood</a>
-    </div>
-</header>
+	<header class="text-white text-center py-5" style="background:linear-gradient(135deg,#b91c2b,#7a0f1c);">
+		<div class="container">
+			<h1 class="display-5 fw-bold">Every Drop Counts</h1>
+			<p class="lead">Donate blood, save lives. Join our network of donors and blood centers.</p>
+			<a th:href="@{/register}" class="btn btn-light btn-lg me-2" sec:authorize="isAnonymous()">Become a Donor</a>
+			<a th:href="@{/request}" class="btn btn-outline-light btn-lg">Request Blood</a>
+		</div>
+	</header>
 
-<section class="container my-5">
-    <div class="row text-center g-4">
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3>🩸</h3>
-                    <h5 class="card-title">Register as Donor</h5>
-                    <p class="card-text">Sign up in minutes and become part of a life-saving community.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3>🏥</h3>
-                    <h5 class="card-title">Find a Center</h5>
-                    <p class="card-text">Locate the nearest blood donation center and its contact details.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3>📋</h3>
-                    <h5 class="card-title">Track Stock &amp; Requests</h5>
-                    <p class="card-text">Check real-time blood stock and submit requests when it's urgent.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+	<section class="container my-5">
+		<div class="row text-center g-4">
+			<div class="col-md-4">
+				<div class="card h-100 shadow-sm">
+					<div class="card-body">
+						<h3>🩸</h3>
+						<h5 class="card-title">Register as Donor</h5>
+						<p class="card-text">Sign up in minutes and become part of a life-saving community.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card h-100 shadow-sm">
+					<div class="card-body">
+						<h3>🏥</h3>
+						<h5 class="card-title">Find a Center</h5>
+						<p class="card-text">Locate the nearest blood donation center and its contact details.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card h-100 shadow-sm">
+					<div class="card-body">
+						<h3>📋</h3>
+						<h5 class="card-title">Track Stock &amp; Requests</h5>
+						<p class="card-text">Check real-time blood stock and submit requests when it's urgent.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-<footer class="text-center py-3 text-muted border-top">
-    &copy; 2026 LifeDrop Blood Bank Management System
-</footer>
+	<footer class="text-center py-3 text-muted border-top">
+		&copy; 2026 LifeDrop Blood Bank Management System
+	</footer>
 
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
+
 </html>
