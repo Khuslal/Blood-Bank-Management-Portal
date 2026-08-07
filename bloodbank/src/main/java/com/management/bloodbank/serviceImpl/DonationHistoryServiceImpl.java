@@ -1,23 +1,29 @@
 package com.management.bloodbank.serviceImpl;
 
-import com.management.bloodbank.repository.AppointmentRepository;
-import com.management.bloodbank.repository.DonationHistoryRepository;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.management.bloodbank.model.Appointment;
 import com.management.bloodbank.model.AppointmentStatus;
 import com.management.bloodbank.model.DonationHistory;
 import com.management.bloodbank.model.User;
 import com.management.bloodbank.model.UserRole;
+import com.management.bloodbank.repository.AppointmentRepository;
+import com.management.bloodbank.repository.DonationHistoryRepository;
 import com.management.bloodbank.service.DonationHistoryService;
+import com.management.bloodbank.service.StockService;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class DonationHistoryServiceImpl implements DonationHistoryService {
+
 	private final DonationHistoryRepository donationHistoryRepository;
 	private final AppointmentRepository appointmentRepository;
+	private final StockService stockService;
 
 	@Override
 	public DonationHistory recordDonation(DonationHistory history) {
@@ -35,25 +41,30 @@ public class DonationHistoryServiceImpl implements DonationHistoryService {
 		}
 
 		boolean authorized = actor.getRole() == UserRole.ADMIN
-				|| (actor.getRole() == UserRole.CENTER_MANAGER && actor.getAssignedCenter() != null
-						&& actor.getAssignedCenter().getId().equals(appointment.getCenter().getId()));
+				|| (actor.getRole() == UserRole.CENTER_MANAGER
+					&& actor.getAssignedCenter() != null
+					&& actor.getAssignedCenter().getId().equals(appointment.getCenter().getId()));
 
 		if (!authorized) {
 			throw new IllegalArgumentException("Not authorized to record this donation");
 		}
+
+		int units = unitsDonated != null ? unitsDonated : 1;
 
 		DonationHistory history = new DonationHistory();
 		history.setAppointment(appointment);
 		history.setUser(appointment.getUser());
 		history.setCenter(appointment.getCenter());
 		history.setBloodGroup(appointment.getUser().getBloodGroup());
-		history.setUnitsDonated(unitsDonated != null ? unitsDonated : 1);
+		history.setUnitsDonated(units);
 		history.setDonationDate(appointment.getDonationDate());
 
 		DonationHistory saved = donationHistoryRepository.save(history);
 
 		appointment.setStatus(AppointmentStatus.DONATED);
 		appointmentRepository.save(appointment);
+
+		stockService.addUnits(appointment.getCenter(), appointment.getUser().getBloodGroup(), units);
 
 		return saved;
 	}
